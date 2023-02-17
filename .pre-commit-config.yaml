@@ -18,7 +18,7 @@ repos:
       - id: black
         exclude: ^src/kg_api/models/alembic/versions
         args: ["-l", "100", "--target-version=py38"]
-  - repo: https://github.com/pycqa/flake8
+  - repo: https://github.com/PyCQA/flake8
     rev: "3.9.2"
     hooks:
       - id: flake8  # C90,E,F,W
