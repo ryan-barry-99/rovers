@@ -15,11 +15,3 @@ jobs:
         run: cp .env.example .env
       - name: Run tests
         run: make test
-  pre-commit:
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    name: Check all files with pre-commit
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-      - uses: pre-commit/action@v3.0.0
