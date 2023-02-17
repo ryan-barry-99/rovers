@@ -18,4 +18,3 @@ jobs:
         uses: relekang/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # change this if you want full releases (with commit to repo)
-
