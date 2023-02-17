@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "template-python"
-version = "0.1.2"
+name = "rovers"
+version = "0.0.0"
 description = ""
 authors = ["Joshua Yoder <me@jpfyoder.com>"]
 readme = "README.md"
-packages = [{include = "template_python"}]
+packages = [{include = "rovers"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
