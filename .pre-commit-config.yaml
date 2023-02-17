@@ -63,3 +63,15 @@ repos:
           - '@commitlint/config-conventional'
           - '@commitlint/ensure'
           - 'commitlint-plugin-function-rules'
+
+ci:
+    autofix_commit_msg: |
+        ci: auto fixes from pre-commit.com hooks [pre-commit.ci]
+
+        for more information, see https://pre-commit.ci
+    autofix_prs: true
+    autoupdate_branch: ''
+    autoupdate_commit_msg: 'ci: pre-commit autoupdate [pre-commit.ci]'
+    autoupdate_schedule: quarterly
+    skip: []
+    submodules: false
