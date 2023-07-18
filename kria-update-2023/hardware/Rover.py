@@ -1,3 +1,16 @@
+'''
+File: Rover.py
+
+Description:This file defines the "Rover" class, which represents 
+the main hardware and functionalities of the rover. It acts as an 
+interface between the rover's missions and its various subsystems. 
+The class handles the initialization of the rover's status, peripherals, 
+and subsystems, as well as updating the LEDs based on the rover's status.
+
+Author: Ryan Barry
+Date Created: July 16, 2023
+'''
+
 import rclpy
 from RoverConstants import *
 from hardware.RoverStatus import RoverStatus

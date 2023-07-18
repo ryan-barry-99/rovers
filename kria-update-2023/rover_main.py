@@ -1,3 +1,17 @@
+'''
+File: rover_main.py
+
+Description: This script serves as the main control module for a rover system. 
+It utilizes the Robot Operating System (ROS) client library (rclpy) to interface 
+with the rover's hardware components. The program defines a MissionControl class 
+responsible for managing various missions that the rover can execute. Each mission 
+is represented by a separate class: AutonomousNavigationMission, 
+EquipmentServicingMission, ExtremeRetrievalDeliveryMission, and ScienceMission.
+
+Author: Ryan Barry
+Date Created: July 16, 2023
+'''
+
 import rclpy
 from hardware.Rover import Rover
 from hardware.RoverConstants import *
