@@ -15,6 +15,7 @@ import rclpy
 from RoverConstants import *
 from hardware.RoverStatus import RoverStatus
 from subsystems.arm.ArmRobot import ArmRobot
+from subsystems.science_plate.SciencePlate import SciencePlate
 from sensors.Camera import Camera
 from peripherals.LED import LED
 
@@ -27,6 +28,7 @@ class Rover:
 
         # Initialize Peripherals
         self.arm = ArmRobot()
+        self.science_plate = SciencePlate()
         self.operating_mode_LED = LED(color=BLUE)
         self.comm_link_LED = LED()
         self.waypoint_LED = LED()
