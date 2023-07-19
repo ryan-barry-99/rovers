@@ -14,9 +14,10 @@ Date Created: July 16, 2023
 import rclpy
 from RoverConstants import *
 from hardware.RoverStatus import RoverStatus
-from rover_subsystems.ArmRobot import ArmRobot
-from rover_subsystems.Camera import Camera
-from rover_subsystems.LED import LED
+from subsystems.arm.ArmRobot import ArmRobot
+from sensors.Camera import Camera
+from peripherals.LED import LED
+
 
 class Rover:
     def __init__(self):

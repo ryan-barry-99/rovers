@@ -19,6 +19,7 @@ from missions.AutonomousNavigation import AutonomousNavigationMission
 from missions.EquipmentServicing import EquipmentServicingMission
 from missions.ExtremeRetrievalDelivery import ExtremeRetrievalDeliveryMission
 from missions.ScienceMission import ScienceMission
+from communications.XBox_Controller import XboxController
 
 class MissionControl:
     def __init__(self):
@@ -27,8 +28,12 @@ class MissionControl:
         self.equipment_servicing = EquipmentServicingMission(self.rover)
         self.extreme_retrieval_delivery = ExtremeRetrievalDeliveryMission(self.rover)
         self.science_mission = ScienceMission(self.rover)
+        self.controller = XboxController()
+        rclpy.spin(self.controller)
 
     def exec(self):
+        self.controller.publish_controller_state()
+        
         mission = self.rover.active_mission
 
         if mission == AUTONOMOUS:
