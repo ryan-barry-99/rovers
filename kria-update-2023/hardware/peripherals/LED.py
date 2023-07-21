@@ -15,7 +15,7 @@ from RoverConstants import OFF, ON
 class LED:
     def __init__(self, status=OFF, rgb=False, color=None):
         self.status = status
-        self.rgb = rgb
+        self.__rgb = rgb
         if color is not None:
             self.rgb = True
             self.set_color(color)
@@ -48,5 +48,5 @@ class LED:
         return self.__switcher[color]
         
     def set_color(self, color):
-        if self.rgb:
+        if self.__rgb:
             self.status = color
