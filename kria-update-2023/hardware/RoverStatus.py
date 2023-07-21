@@ -21,7 +21,7 @@ from hardware.RoverConstants import *
 
 class RoverStatus(Node):
     def __init__(self):
-        super().__init__('rover_status_subscriber')
+        super().__init__('rover_status')
 
         self.operating_mode = DRIVER_CONTROL_MODE
         self.comm_link_status = NOT_CONNECTED
