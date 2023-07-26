@@ -45,7 +45,7 @@ class Rover(Node):
     def get_mission(self):
         return self.__active_mission
         
-    def set_mission(self, mission)
+    def set_mission(self, mission):
         self.__active_mission = mission
         
     def update_LEDs(self):
