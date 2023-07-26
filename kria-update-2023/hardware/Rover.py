@@ -12,16 +12,22 @@ Date Created: July 16, 2023
 '''
 
 import rclpy
+from rclpy.node import Node
 from RoverConstants import *
-from hardware.RoverStatus import RoverStatus
+from hardware.status.RoverStatus import RoverStatus
 from subsystems.arm.ArmRobot import ArmRobot
 from subsystems.science_plate.SciencePlate import SciencePlate
 from sensors.Camera import Camera
 from peripherals.LED import LED
+from sensors.LiDAR import LiDAR
+from communications.Communications import Communications
+from subsystems.drive_base.DriveBase import DriveBase
 
 
-class Rover:
+class Rover(Node):
     def __init__(self):
+        super().__init__("rover")
+        
         # Initialize Status
         self.status = RoverStatus()
         self.active_mission = EXTREME_RETRIEVAL_DELIVERY
@@ -32,6 +38,9 @@ class Rover:
         self.operating_mode_LED = LED(color=BLUE)
         self.comm_link_LED = LED()
         self.waypoint_LED = LED()
+        self.lidar = LiDAR()
+        self.drive_base = DriveBase()
+        self.comms = Communications()
 
     def update_LEDs(self):
         if self.status.operating_mode == DRIVER_CONTROL_MODE:
