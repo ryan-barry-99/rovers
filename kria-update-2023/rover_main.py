@@ -29,7 +29,6 @@ class MissionControl:
         self.extreme_retrieval_delivery = ExtremeRetrievalDeliveryMission(self.rover)
         self.science_mission = ScienceMission(self.rover)
         self.controller = XboxController()
-        rclpy.spin(self.controller)
 
     def exec(self):
         self.controller.publish_controller_state()
@@ -46,6 +45,16 @@ class MissionControl:
             self.science_mission.run()
 
 
-if __name__ == '__main__':
+def main(args=None):
+    rclpy.init(args=args)
     mission_control = MissionControl()
-    mission_control.exec()
+
+    while rclpy.ok():
+        mission_control.exec()
+        rclpy.spin_once(mission_control.controller)
+
+    mission_control.controller.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
