@@ -33,7 +33,7 @@ class MissionControl:
     def exec(self):
         self.controller.publish_controller_state()
         
-        mission = self.rover.active_mission
+        mission = self.rover.get_mission()
 
         if mission == AUTONOMOUS:
             self.autonomous_navigation.run()

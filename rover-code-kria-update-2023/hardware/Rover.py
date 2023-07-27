@@ -30,7 +30,7 @@ class Rover(Node):
         
         # Initialize Status
         self.status = RoverStatus()
-        self.active_mission = EXTREME_RETRIEVAL_DELIVERY
+        self.__active_mission = EXTREME_RETRIEVAL_DELIVERY
 
         # Initialize Peripherals
         self.arm = ArmRobot()
@@ -42,6 +42,12 @@ class Rover(Node):
         self.drive_base = DriveBase()
         self.comms = Communications()
 
+    def get_mission(self):
+        return self.__active_mission
+        
+    def set_mission(self, mission):
+        self.__active_mission = mission
+        
     def update_LEDs(self):
         if self.status.operating_mode == DRIVER_CONTROL_MODE:
             self.operating_mode_LED.set_color(BLUE)
