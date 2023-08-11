@@ -1,4 +1,4 @@
-'''
+"""
 File: LED.py
 
 This module contains a class enabling the 
@@ -6,11 +6,13 @@ status or color of an LED peripheral to be changed
 
 Author: Ryan Barry
 Date Created: July 16, 2023
-'''
+"""
 
 import sys
-sys.path.append('../')
+
+sys.path.append("../")
 from RoverConstants import OFF, ON
+
 
 class LED:
     def __init__(self, status=OFF, rgb=False, color=None):
@@ -35,7 +37,7 @@ class LED:
             "lavender": (230, 230, 250),
             "turquoise": (64, 224, 208),
             "gold": (255, 215, 0),
-            "silver": (192, 192, 192)
+            "silver": (192, 192, 192),
         }
 
     def on(self):
@@ -46,7 +48,7 @@ class LED:
 
     def get_color(self, color):
         return self.__switcher[color]
-        
+
     def set_color(self, color):
         if self.__rgb:
             self.status = color

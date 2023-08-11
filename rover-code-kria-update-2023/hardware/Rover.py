@@ -1,4 +1,4 @@
-'''
+"""
 File: Rover.py
 
 Description:This file defines the "Rover" class, which represents 
@@ -9,25 +9,25 @@ and subsystems, as well as updating the LEDs based on the rover's status.
 
 Author: Ryan Barry
 Date Created: July 16, 2023
-'''
+"""
 
 import rclpy
+from communications.Communications import Communications
+from hardware.status.RoverStatus import RoverStatus
+from peripherals.LED import LED
 from rclpy.node import Node
 from RoverConstants import *
-from hardware.status.RoverStatus import RoverStatus
-from subsystems.arm.ArmRobot import ArmRobot
-from subsystems.science_plate.SciencePlate import SciencePlate
 from sensors.Camera import Camera
-from peripherals.LED import LED
 from sensors.LiDAR import LiDAR
-from communications.Communications import Communications
+from subsystems.arm.ArmRobot import ArmRobot
 from subsystems.drive_base.DriveBase import DriveBase
+from subsystems.science_plate.SciencePlate import SciencePlate
 
 
 class Rover(Node):
     def __init__(self):
         super().__init__("rover")
-        
+
         # Initialize Status
         self.status = RoverStatus()
         self.__active_mission = EXTREME_RETRIEVAL_DELIVERY
@@ -39,16 +39,16 @@ class Rover(Node):
         self.comm_link_LED = LED()
         self.waypoint_LED = LED()
         self.lidar = LiDAR()
-        self.front_cam = Camera(name='front_camera', camera_index=0)
+        self.front_cam = Camera(name="front_camera", camera_index=0)
         self.drive_base = DriveBase()
         self.comms = Communications()
 
     def get_mission(self):
         return self.__active_mission
-        
+
     def set_mission(self, mission):
         self.__active_mission = mission
-        
+
     def update_LEDs(self):
         if self.status.operating_mode == DRIVER_CONTROL_MODE:
             self.operating_mode_LED.set_color(BLUE)

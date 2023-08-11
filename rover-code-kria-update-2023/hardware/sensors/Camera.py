@@ -1,4 +1,4 @@
-'''
+"""
 File: Camera.py
 
 Description: This file contains the definition of the Camera class, 
@@ -17,20 +17,21 @@ Dependencies:
     sensor_msgs.msg.Image: ROS2 message type for representing images
     cv_bridge: Bridge library for converting between OpenCV and ROS2 image formats
 
-'''
+"""
 
 import cv2
 import rclpy
+from cv_bridge import CvBridge
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
+
 
 class Camera(Node):
     def __init__(self, name, camera_index):
         self.name = name
         self.camera_index = camera_index
-        super().__init__(f'camera_{self.name}_node')  # Modify the node name
-        self.publisher = self.create_publisher(Image, f'camera_{self.name}_topic', 10)
+        super().__init__(f"camera_{self.name}_node")  # Modify the node name
+        self.publisher = self.create_publisher(Image, f"camera_{self.name}_topic", 10)
         self.timer = self.create_timer(1.0 / 30, self.capture)  # Adjust the capture rate as needed
         self.cv_bridge = CvBridge()
 
@@ -42,6 +43,6 @@ class Camera(Node):
 
         # Convert the OpenCV frame to a ROS2 Image message
         if ret:
-            image_msg = self.cv_bridge.cv2_to_imgmsg(frame, 'bgr8')
+            image_msg = self.cv_bridge.cv2_to_imgmsg(frame, "bgr8")
             # Publish the image message to the topic
             self.publisher.publish(image_msg)
