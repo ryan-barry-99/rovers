@@ -1,9 +1,12 @@
+import sys
+
 import rclpy
 from rclpy.node import Node
-import sys
-sys.path.append('../hardware/')
+
+sys.path.append("../hardware/")
 from hardware.RoverConstants import *
 from std_msgs.msg import Int32
+
 
 class Communications(Node):
     def __init__(self):
@@ -18,14 +21,21 @@ class Communications(Node):
         self.battery_current = 0
 
         # Create publishers
-        self.operating_mode_pub = self.create_publisher(Int32, 'operating_mode_topic', 10)
+        self.operating_mode_pub = self.create_publisher(Int32, "operating_mode_topic", 10)
 
         # Create subscribers
-        self.waypoint_status_subscriber = self.create_subscription(Int32, "waypoint_status", self.waypoint_status_callback, 10)
-        self.temperature_subscriber = self.create_subscription(Int32, "temperature", self.temperature_callback, 10)
-        self.battery_voltage_subscriber = self.create_subscription(Int32, "battery_voltage", self.battery_voltage_callback, 10)
-        self.battery_current_subscriber = self.create_subscription(Int32, "battery_current", self.battery_current_callback, 10)
-
+        self.waypoint_status_subscriber = self.create_subscription(
+            Int32, "waypoint_status", self.waypoint_status_callback, 10
+        )
+        self.temperature_subscriber = self.create_subscription(
+            Int32, "temperature", self.temperature_callback, 10
+        )
+        self.battery_voltage_subscriber = self.create_subscription(
+            Int32, "battery_voltage", self.battery_voltage_callback, 10
+        )
+        self.battery_current_subscriber = self.create_subscription(
+            Int32, "battery_current", self.battery_current_callback, 10
+        )
 
     def waypoint_status_callback(self, msg):
         self.waypoint_status = msg

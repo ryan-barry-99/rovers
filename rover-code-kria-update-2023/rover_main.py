@@ -1,4 +1,4 @@
-'''
+"""
 File: rover_main.py
 
 Description: This script serves as the main control module for a rover system. 
@@ -10,16 +10,17 @@ EquipmentServicingMission, ExtremeRetrievalDeliveryMission, and ScienceMission.
 
 Author: Ryan Barry
 Date Created: July 16, 2023
-'''
+"""
 
 import rclpy
+from communications.XBox_Controller import XboxController
 from hardware.Rover import Rover
 from hardware.RoverConstants import *
 from missions.AutonomousNavigation import AutonomousNavigationMission
 from missions.EquipmentServicing import EquipmentServicingMission
 from missions.ExtremeRetrievalDelivery import ExtremeRetrievalDeliveryMission
 from missions.ScienceMission import ScienceMission
-from communications.XBox_Controller import XboxController
+
 
 class MissionControl:
     def __init__(self):
@@ -32,7 +33,7 @@ class MissionControl:
 
     def exec(self):
         self.controller.publish_controller_state()
-        
+
         mission = self.rover.get_mission()
 
         if mission == AUTONOMOUS:
@@ -56,5 +57,6 @@ def main(args=None):
     mission_control.controller.destroy_node()
     rclpy.shutdown()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
