@@ -1,6 +1,8 @@
 import sys
-sys.path.append('../peripherals/')
+
+sys.path.append("../peripherals/")
 from peripherals.Motor import Motor
+
 
 class DriveBase:
     def __init__(self):

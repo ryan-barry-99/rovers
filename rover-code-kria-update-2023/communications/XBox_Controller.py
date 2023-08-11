@@ -1,4 +1,4 @@
-'''
+"""
 File: XBox_Controller.py
 
 Description: This script defines the XboxController class, which interfaces with
@@ -17,16 +17,17 @@ Dependencies:
     sensor_msgs.msg.Joy
     pygame
 
-'''
+"""
 
+import pygame
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
-import pygame
+
 
 class XboxController(Node):
     def __init__(self):
-        super().__init__('xbox_controller')
+        super().__init__("xbox_controller")
         pygame.init()
         self.joystick = None
         self.button_states = []
@@ -47,12 +48,12 @@ class XboxController(Node):
                 break
 
         if not self.joystick:
-            raise Exception('Xbox controller not found!')
+            raise Exception("Xbox controller not found!")
 
         # Create publishers for Joy message
-        self.button_publisher = self.create_publisher(Joy, 'xbox_controller/buttons', 10)
-        self.axis_publisher = self.create_publisher(Joy, 'xbox_controller/axes', 10)
-        self.hat_publisher = self.create_publisher(Joy, 'xbox_controller/hats', 10)
+        self.button_publisher = self.create_publisher(Joy, "xbox_controller/buttons", 10)
+        self.axis_publisher = self.create_publisher(Joy, "xbox_controller/axes", 10)
+        self.hat_publisher = self.create_publisher(Joy, "xbox_controller/hats", 10)
         self.timer_ = self.create_timer(0.1, self.publish_controller_state)
 
         # Variables to track previous state
@@ -96,4 +97,3 @@ class XboxController(Node):
         self.prev_button_states = self.button_states[:]
         self.prev_axis_states = self.axis_states[:]
         self.prev_hat_states = self.hat_states[:]
-

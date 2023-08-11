@@ -1,4 +1,4 @@
-'''
+"""
 File: ArmRobot.py
 
 This module defines the ArmRobot class, which represents an arm robot with multiple joints.
@@ -8,9 +8,10 @@ position and orientation.
 
 Author: Ryan Barry
 Date created: June, 26 2023
-'''
+"""
 
 import numpy as np  # Importing the NumPy library for mathematical operations
+
 
 class ArmRobot:
     def __init__(self):
@@ -40,7 +41,9 @@ class ArmRobot:
             elif self.__joint_type[joint] == "prismatic":  # Check if the joint type is prismatic
                 self.__d[joint] = angle_or_distance  # Set the d parameter
             else:
-                print(f"Invalid joint type at joint {joint}")  # Print an error message for invalid joint type
+                print(
+                    f"Invalid joint type at joint {joint}"
+                )  # Print an error message for invalid joint type
                 return None
             self.updateDHTable()  # Update the DH table
         else:
@@ -58,10 +61,14 @@ class ArmRobot:
             elif self.__joint_type[i] == "prismatic":  # Check if the joint type is prismatic
                 self.__d[i] = self.__joint_length[i]  # Set the d parameter
             else:
-                print(f"Invalid joint type at joint {i}")  # Print an error message for invalid joint type
+                print(
+                    f"Invalid joint type at joint {i}"
+                )  # Print an error message for invalid joint type
                 return None
 
-        self.dhTable = np.column_stack((self.__theta, self.__d, self.__a, self.__alpha))  # Create the DH table using NumPy
+        self.dhTable = np.column_stack(
+            (self.__theta, self.__d, self.__a, self.__alpha)
+        )  # Create the DH table using NumPy
 
     def forward_kinematics(self):
         T = np.identity(4)  # Initialize the transformation matrix as an identity matrix
@@ -78,23 +85,33 @@ class ArmRobot:
                 ca = np.cos(alpha)  # Compute the cosine of alpha
                 sa = np.sin(alpha)  # Compute the sine of alpha
 
-                A = np.array([[ct, -st * ca, st * sa, a * ct],  # Create the transformation matrix A
-                              [st, ct * ca, -ct * sa, a * st],
-                              [0, sa, ca, d],
-                              [0, 0, 0, 1]])
-                
+                A = np.array(
+                    [
+                        [ct, -st * ca, st * sa, a * ct],  # Create the transformation matrix A
+                        [st, ct * ca, -ct * sa, a * st],
+                        [0, sa, ca, d],
+                        [0, 0, 0, 1],
+                    ]
+                )
+
             elif self.__joint_type[i] == "prismatic":  # Check if the joint type is prismatic
                 ct = np.cos(theta)  # Compute the cosine of theta
                 st = np.sin(theta)  # Compute the sine of theta
                 ca = np.cos(alpha)  # Compute the cosine of alpha
                 sa = np.sin(alpha)  # Compute the sine of alpha
 
-                A = np.array([[ct, -st * ca, st * sa, ct * d],  # Create the transformation matrix A
-                              [st, ct * ca, -ct * sa, st * d],
-                              [0, sa, ca, a],
-                              [0, 0, 0, 1]])
+                A = np.array(
+                    [
+                        [ct, -st * ca, st * sa, ct * d],  # Create the transformation matrix A
+                        [st, ct * ca, -ct * sa, st * d],
+                        [0, sa, ca, a],
+                        [0, 0, 0, 1],
+                    ]
+                )
             else:
-                print(f"Invalid joint type at joint {i}")  # Print an error message for invalid joint type
+                print(
+                    f"Invalid joint type at joint {i}"
+                )  # Print an error message for invalid joint type
                 return None
 
             T = np.dot(T, A)  # Multiply the transformation matrix T by A
