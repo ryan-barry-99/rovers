@@ -39,6 +39,7 @@ class Rover(Node):
         self.comm_link_LED = LED()
         self.waypoint_LED = LED()
         self.lidar = LiDAR()
+        self.front_cam = Camera(name='front_camera', camera_index=0)
         self.drive_base = DriveBase()
         self.comms = Communications()
 
