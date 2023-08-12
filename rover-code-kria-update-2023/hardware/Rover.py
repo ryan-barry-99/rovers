@@ -12,6 +12,7 @@ Date Created: July 16, 2023
 """
 
 import rclpy
+import sys
 from communications.Communications import Communications
 from hardware.status.RoverStatus import RoverStatus
 from peripherals.LED import LED
