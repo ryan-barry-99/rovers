@@ -11,6 +11,7 @@ Date Created: August 11, 2023
 """
 from ArmConstants import PRISMATIC, REVOLUTE
 
+
 class ArmRobot(ArmRobotKinematics):
     def __init__(self):
         super().__init__()

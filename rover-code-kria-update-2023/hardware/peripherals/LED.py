@@ -37,7 +37,7 @@ class LED:
             "lavender": (230, 230, 250),
             "turquoise": (64, 224, 208),
             "gold": (255, 215, 0),
-            "silver": (192, 192, 192)
+            "silver": (192, 192, 192),
         }
 
     def on(self):

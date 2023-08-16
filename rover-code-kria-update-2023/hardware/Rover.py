@@ -12,11 +12,10 @@ Date Created: July 16, 2023
 """
 
 import rclpy
-from rclpy.node import Node
-
 from communications.Communications import Communications
 from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
+from rclpy.node import Node
 from RoverConstants import *
 from sensors.Camera import Camera
 from sensors.LiDAR import LiDAR
