@@ -1,3 +1,12 @@
+"""
+File: DifferentialDrive.py
+
+Description: This file contains the implementation of a differential drive class for controlling a rover's movement. 
+It includes methods for forward and inverse kinematics calculations.
+
+Author: Ryan Barry
+Date Created: August 12, 2023
+"""
 import sys
 sys.path.append('../..')
 

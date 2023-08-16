@@ -1,3 +1,13 @@
+""" 
+File: DriveBase.py 
+ 
+Description: This file contains the implementation of a DriveBase class that 
+extends the DifferentialDrive class. It provides methods for controlling the 
+movement of a rover using drive wheels. 
+ 
+Author: Ryan Barry
+Date Created: August 12, 2023
+""" 
 import sys
 sys.path.append("../..")
 from RoverPinout import *

@@ -1,3 +1,14 @@
+""" 
+File: StatusLEDs.py 
+ 
+Description: This file contains the implementation of three LED classes: 
+CommLinkLED, OperatingModeLED, and WaypointLED. 
+These classes inherit from the LED class and provide methods for updating 
+the different Status LEDs used in tje rover. 
+ 
+Author: Ryan Barry
+Date Created: August 16, 2023 
+""" 
 import sys
 sys.path.append("../..")
 from RoverConstants import *
