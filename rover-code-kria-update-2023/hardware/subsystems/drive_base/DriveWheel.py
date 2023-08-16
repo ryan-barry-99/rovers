@@ -33,11 +33,13 @@ class VelocityPublisher(Node):
 
 
 class DriveWheel(Motor):
-    def __init__(self, name):
+    def __init__(self, name, gpio_pin=None):
         self.__name = name
         self.__velocity = 0.0
         self.__velo_pub = VelocityPublisher(self.__name)
         self.__wheel_radius = WHEEL_RADIUS
+        if gpio_pin is not None:
+            self.gpio_pin = self.select_gpio_pin(gpio_pin)
         
     def set_radius(self, radius):
         self.__wheel_radius = radius
