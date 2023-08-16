@@ -10,8 +10,9 @@ Author: Ryan Barry
 Date created: June, 26 2023
 """
 
+from math import acos, atan2, cos, sin
+
 import numpy as np  # Importing the NumPy library for mathematical operations
-from math import atan2, cos, sin, acos
 from ArmConstants import PRISMATIC, REVOLUTE
 
 
@@ -23,7 +24,6 @@ class ArmRobotKinematics:
         self.__a = []  # Private list to store a parameters
         self.__alpha = []  # Private list to store alpha parameters
         self.dhTable = None  # Initialize DH table as None
-        
 
     # Add a link to the arm
     # Parameters:
@@ -32,7 +32,7 @@ class ArmRobotKinematics:
     #       - PRISMATIC
     #   length (meters)
     def addLink(self, joint_type, length):
-        
+
         self.num_joints += 1  # Increment the number of joints
         self.__joint_type.append(joint_type)  # Append the joint type to the private list
         self.__joint_length.append(length)  # Append the joint length to the private list
@@ -75,7 +75,7 @@ class ArmRobotKinematics:
         )  # Create the DH table using NumPy
 
     def forward_kinematics(self):
-        self.__A = [] # Initialize A matrices as empty list
+        self.__A = []  # Initialize A matrices as empty list
         self.__T = np.identity(4)  # Initialize the transformation matrix as an identity matrix
 
         for i in range(self.num_joints):
@@ -126,15 +126,13 @@ class ArmRobotKinematics:
             self.__T = np.dot(self.__T, self.__A[i])  # Multiply the transformation matrix T by A
 
         return self.__T  # Return the final transformation matrix
-    
-    
+
     def inverse_kinematics(self, target_position, target_orientation):
         pass
-            
-    
+
     # def inverse_kinematics(self, target_position, target_orientation):
     #     joint_angles = [0.0]*self.num_joints
-        
+
     #     # Perform the inverse kinematics calculation
     #     for i in range(self.num_joints):
     #         theta, d, a, alpha = self.dh_table[i]

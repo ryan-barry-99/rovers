@@ -7,7 +7,7 @@ temperature, battery voltage, and battery current data using ROS 2 (Robot Operat
  
 Author: Ryan Barry 
 Date Created: August 11, 2023
-""" 
+"""
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int32

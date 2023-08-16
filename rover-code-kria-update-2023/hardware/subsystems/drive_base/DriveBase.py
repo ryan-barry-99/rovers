@@ -7,12 +7,13 @@ movement of a rover using drive wheels.
  
 Author: Ryan Barry
 Date Created: August 12, 2023
-""" 
+"""
 import sys
+
 sys.path.append("../..")
-from RoverPinout import *
-from DriveWheel import DriveWheel
 from DifferentialDrive import DifferentialDrive
+from DriveWheel import DriveWheel
+from RoverPinout import *
 
 
 class DriveBase(DifferentialDrive):
@@ -24,11 +25,13 @@ class DriveBase(DifferentialDrive):
         self.fRight = DriveWheel(name="frontRight", gpio_pin=FRONT_RIGHT_PIN)
         self.mRight = DriveWheel(name="middleRight", gpio_pin=MIDDLE_RIGHT_PIN)
         self.bRight = DriveWheel(name="backRight", gpio_pin=BACK_RIGHT_PIN)
-        
+
         self.left_velo = 0.0
         self.right_velo = 0.0
         self.linear_velocity = 0.0
         self.angular_velocity = 0.0
-        
+
     def get_velo(self):
-        self.linear_velocity, self.angular_velocity = self.forward_kinematics(self.left_velo, self.right_velo)
+        self.linear_velocity, self.angular_velocity = self.forward_kinematics(
+            self.left_velo, self.right_velo
+        )
