@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
 """
 File: RoverStatus.py
 
-Description: This module defines the RoverStatus class, which represents the status of a rover in a ROS2 system. It provides functionality to subscribe to various topics and update the rover's operating mode, communication link status, and waypoint status based on received messages.
+Description: This module defines the RoverStatus class, which represents the status of a rover in a ROS2 system. 
+It provides functionality to subscribe to various topics and update the rover's operating mode, communication link 
+status, and waypoint status based on received messages.
 
 Author: Ryan Barry
 Date created: June 26, 2023

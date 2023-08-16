@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+""" 
+File: Health.py 
+ 
+Description: This file contains the implementation of a Health class that publishes 
+temperature, battery voltage, and battery current data using ROS 2 (Robot Operating System 2). 
+ 
+Author: Ryan Barry 
+Date Created: August 11, 2023
+"""
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int32

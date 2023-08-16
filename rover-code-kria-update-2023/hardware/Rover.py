@@ -14,7 +14,7 @@ Date Created: July 16, 2023
 import rclpy
 from communications.Communications import Communications
 from hardware.status.RoverStatus import RoverStatus
-from peripherals.LED import LED
+from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
 from RoverConstants import *
 from sensors.Camera import Camera
@@ -35,9 +35,9 @@ class Rover(Node):
         # Initialize Peripherals
         self.arm = ArmRobot()
         self.science_plate = SciencePlate()
-        self.operating_mode_LED = LED(color=BLUE)
-        self.comm_link_LED = LED()
-        self.waypoint_LED = LED()
+        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
+        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
+        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
         self.lidar = LiDAR()
         self.front_cam = Camera(name="front_camera", camera_index=0)
         self.drive_base = DriveBase()
@@ -50,20 +50,9 @@ class Rover(Node):
         self.__active_mission = mission
 
     def update_LEDs(self):
-        if self.status.operating_mode == DRIVER_CONTROL_MODE:
-            self.operating_mode_LED.set_color(BLUE)
-        elif self.status.operating_mode == AUTONOMOUS_MODE:
-            self.operating_mode_LED.set_color(RED)
-        # Add code to set the operating mode LED color
-
-        if self.status.comm_link_status == CONNECTED:
-            pass
-        elif self.status.comm_link_status == NOT_CONNECTED:
-            pass
-
-        if self.status.waypoint_status == WAYPOINT_COMPLETE:
-            self.waypoint_LED.set_color(GREEN)
-            # Add code to set waypoint LED
+        self.operating_mode_LED.update()
+        self.comm_link_LED.update()
+        self.waypoint_LED.update()
 
     def run(self):
         rclpy.spin(self.status)  # Spin the RoverStatus node
