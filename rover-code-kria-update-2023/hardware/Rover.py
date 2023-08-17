@@ -45,14 +45,18 @@ class Rover(Node, ErrorHandler):
         self.waypoint_LED = WaypointLED(self.status.get_waypoint_status())
         self.lidar = LiDAR()
         self.front_cam = Camera(name="front_camera", camera_index=0)
+        self.rear_cam = Camera(name="rear_camera", camera_index=1)
         self.drive_base = DriveBase()
         self.comms = Communications()
 
     def get_mission(self):
-        if self.__active_mission is not None:
+        missions = [EXTREME_RETRIEVAL_DELIVERY,
+                    SCIENCE,
+                    AUTONOMOUS,
+                    EQUIPMENT_SERVICING]
+        if self.__active_mission in missions:
             return self.__active_mission
-        else:
-            self.log_error(MISSION_FAILURE)
+        self.log_error(MISSION_FAILURE)
 
     def set_mission(self, mission):
         self.__active_mission = mission
