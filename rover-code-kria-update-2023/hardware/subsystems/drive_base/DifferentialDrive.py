@@ -47,10 +47,10 @@ class DifferentialDrive:
                       [1,              0           ],
                       [0,              1           ]])
         
-        matrix2 = np.array([[self.left_wheel_velocity],
-                            [self.right_wheel_velocity]])
+        C = np.array([[self.left_wheel_velocity],
+                      [self.right_wheel_velocity]])
         
-        self.q_dot = np.dot(matrix1, matrix2)
+        self.q_dot = np.dot(J, C)
         self.update_velocities()
 
 
