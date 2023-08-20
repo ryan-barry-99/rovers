@@ -24,6 +24,23 @@ BLUE = 402
 RED = 403
 GREEN = 404
 
+# ERROR CONSTANTS
+MISSION_FAILURE = 500
+
 # DRIVE BASE ATTRIBUTES
 WHEEL_RADIUS = 0.1  # (m)
 BASE_WIDTH = 0.75  # (m)
+GAMMA = 0
+ALPHA = 0
+BETA = 0
+WHEEL_NAMES = [
+    "front_left_wheel",
+    "middle_left_wheel",
+    "back_left_wheel",
+    "front_right_wheel",
+    "middle_right_wheel",
+    "back_right_wheel",
+]
+KP = [1.0, 1.0, 1.0, 1.0, 1.0]
+KI = [0.1, 0.1, 0.1, 0.1, 0.1]
+KD = [0.1, 0.1, 0.1, 0.1, 0.1]

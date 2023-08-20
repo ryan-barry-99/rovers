@@ -12,8 +12,13 @@ Author: Ryan Barry
 Date Created: July 16, 2023
 """
 
+import sys
+
 import rclpy
+
+sys.path.append("..")
 from communications.Communications import Communications
+from ErrorHandler import ErrorHandler
 from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
@@ -25,27 +30,32 @@ from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
 
 
-class Rover(Node):
+class Rover(Node, ErrorHandler):
     def __init__(self):
+        ErrorHandler.__init__(self)
         super().__init__("rover")
 
         # Initialize Status
         self.status = RoverStatus()
-        self.__active_mission = EXTREME_RETRIEVAL_DELIVERY
+        self.__active_mission = None
 
         # Initialize Peripherals
         self.arm = ArmRobot()
         self.science_plate = SciencePlate()
-        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
-        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
-        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
+        self.operating_mode_LED = OperatingModeLED(self.status.get_operating_mode())
+        self.comm_link_LED = CommLinkLED(self.status.get_comm_link_status())
+        self.waypoint_LED = WaypointLED(self.status.get_waypoint_status())
         self.lidar = LiDAR()
         self.front_cam = Camera(name="front_camera", camera_index=0)
+        self.rear_cam = Camera(name="rear_camera", camera_index=1)
         self.drive_base = DriveBase()
         self.comms = Communications()
 
     def get_mission(self):
-        return self.__active_mission
+        missions = [EXTREME_RETRIEVAL_DELIVERY, SCIENCE, AUTONOMOUS, EQUIPMENT_SERVICING]
+        if self.__active_mission in missions:
+            return self.__active_mission
+        self.log_error(MISSION_FAILURE)
 
     def set_mission(self, mission):
         self.__active_mission = mission

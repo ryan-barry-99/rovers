@@ -13,18 +13,19 @@ import sys
 sys.path.append("../..")
 from DifferentialDrive import DifferentialDrive
 from DriveWheel import DriveWheel
+from RoverConstants import BACK_LEFT, BACK_RIGHT, FRONT_LEFT, FRONT_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT
 from RoverPinout import *
 
 
 class DriveBase(DifferentialDrive):
     def __init__(self):
-        self.fLeft = DriveWheel(name="frontLeft", gpio_pin=FRONT_LEFT_PIN)
-        self.mLeft = DriveWheel(name="middleLeft", gpio_pin=MIDDLE_LEFT_PIN)
-        self.bLeft = DriveWheel(name="backLeft", gpio_pin=BACK_LEFT_PIN)
+        self.fLeft = DriveWheel(name="front_left_wheel", gpio_pin=FRONT_LEFT_PIN)
+        self.mLeft = DriveWheel(name="middle_left_wheel", gpio_pin=MIDDLE_LEFT_PIN)
+        self.bLeft = DriveWheel(name="back_left_wheel", gpio_pin=BACK_LEFT_PIN)
 
-        self.fRight = DriveWheel(name="frontRight", gpio_pin=FRONT_RIGHT_PIN)
-        self.mRight = DriveWheel(name="middleRight", gpio_pin=MIDDLE_RIGHT_PIN)
-        self.bRight = DriveWheel(name="backRight", gpio_pin=BACK_RIGHT_PIN)
+        self.fRight = DriveWheel(name="front_right_wheel", gpio_pin=FRONT_RIGHT_PIN)
+        self.mRight = DriveWheel(name="middle_right_wheel", gpio_pin=MIDDLE_RIGHT_PIN)
+        self.bRight = DriveWheel(name="back_right_wheel", gpio_pin=BACK_RIGHT_PIN)
 
         self.left_velo = 0.0
         self.right_velo = 0.0

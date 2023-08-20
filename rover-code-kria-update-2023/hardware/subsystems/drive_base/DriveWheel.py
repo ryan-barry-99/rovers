@@ -17,8 +17,9 @@ from std_msgs.msg import Float32
 
 sys.path.append("../peripherals/")
 sys.path.append("../..")
+from controllers.pid_controller import PIDController
 from peripherals.Motor import Motor
-from RoverConstants import WHEEL_RADIUS
+from RoverConstants import *
 
 
 class VelocityPublisher(Node):
@@ -37,11 +38,15 @@ class VelocityPublisher(Node):
 
 
 class DriveWheel(Motor):
-    def __init__(self, name, gpio_pin=None):
+    def __init__(self, name: str, gpio_pin: int = None):
         self.__name = name
+        self.__wheel_num = WHEEL_NAMES.index(self.__name)
         self.__velocity = 0.0
         self.__velo_pub = VelocityPublisher(self.__name)
         self.__wheel_radius = WHEEL_RADIUS
+        self.__pid_controller = PIDController(
+            kp=KP[self.__wheel_num], ki=KI[self.__wheel_num], kd=KD[self.__wheel_num]
+        )
         if gpio_pin is not None:
             self.gpio_pin = self.select_gpio_pin(gpio_pin)
 
