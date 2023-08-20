@@ -44,19 +44,18 @@ class RoverStatus(Node):
 
     def operating_mode_callback(self, msg):
         self._operating_mode = msg.data
-        
+
     def get_operating_mode(self):
         return self._operating_mode
 
     def comm_link_status_callback(self, msg):
         self._comm_link_status = msg.data
-    
+
     def get_comm_link_status(self):
         return self._comm_link_status
 
     def waypoint_status_callback(self, msg):
         self._waypoint_status = msg.data
-        
+
     def get_waypoint_status(self):
         return self._waypoint_status
-        

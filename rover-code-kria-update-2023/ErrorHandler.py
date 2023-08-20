@@ -9,13 +9,15 @@ logging to write errors to log files, or simply print the errors to the console.
 Author: Ryan Barry
 Date Created: August 16, 2023
 """
-import logging
 import datetime
+import logging
 import os
+
 from hardware.RoverConstants import *
 
 current_file_path = os.path.abspath(__file__)
 current_folder_path = os.path.dirname(current_file_path)
+
 
 class Logger:
     def __init__(self, log_folder):
@@ -41,7 +43,7 @@ class Logger:
         file_handler.setLevel(logging.DEBUG)
 
         # Create a log format
-        log_format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        log_format = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(log_format)
 
         # Add the file handler to the logger
@@ -51,13 +53,9 @@ class Logger:
         self.logger.info("Begin Run Log.")
 
 
-
-
 class ErrorHandler:
     def __init__(self, logging_enabled=False):
-        self.error_messages = {
-            MISSION_FAILURE: "CRITICAL ERROR: MISSION FAILURE"
-        }
+        self.error_messages = {MISSION_FAILURE: "CRITICAL ERROR: MISSION FAILURE"}
         self._error = None
         self.logging_enabled = logging_enabled
 
@@ -65,7 +63,7 @@ class ErrorHandler:
             log_folder = os.path.join(current_folder_path, "logs")
             self.logger = Logger(log_folder)
             self.logger.configure_logger()
-            
+
     def error(self, new_error):
         self._error = new_error
 
@@ -80,7 +78,8 @@ class ErrorHandler:
         else:
             date_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             print(f"{date_time} - Error - {error_message}")
-        
+
+
 # if __name__ == "__main__":
 #     error_handler = ErrorHandler(logging_enabled=False)
 #     error_handler.log_error(MISSION_FAILURE)

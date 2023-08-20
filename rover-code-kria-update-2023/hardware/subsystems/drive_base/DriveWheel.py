@@ -38,13 +38,15 @@ class VelocityPublisher(Node):
 
 
 class DriveWheel(Motor):
-    def __init__(self, name: str, gpio_pin: int=None):
+    def __init__(self, name: str, gpio_pin: int = None):
         self.__name = name
         self.__wheel_num = WHEEL_NAMES.index(self.__name)
         self.__velocity = 0.0
         self.__velo_pub = VelocityPublisher(self.__name)
         self.__wheel_radius = WHEEL_RADIUS
-        self.__pid_controller = PIDController(kp=KP[self.__wheel_num], ki=KI[self.__wheel_num], kd=KD[self.__wheel_num])
+        self.__pid_controller = PIDController(
+            kp=KP[self.__wheel_num], ki=KI[self.__wheel_num], kd=KD[self.__wheel_num]
+        )
         if gpio_pin is not None:
             self.gpio_pin = self.select_gpio_pin(gpio_pin)
 

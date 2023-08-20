@@ -9,11 +9,12 @@ Author: Ryan Barry
 Date Created: August 12, 2023
 """
 import sys
+
 sys.path.append("../..")
 from DifferentialDrive import DifferentialDrive
 from DriveWheel import DriveWheel
+from RoverConstants import BACK_LEFT, BACK_RIGHT, FRONT_LEFT, FRONT_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT
 from RoverPinout import *
-from RoverConstants import FRONT_LEFT, FRONT_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT, BACK_LEFT, BACK_RIGHT
 
 
 class DriveBase(DifferentialDrive):

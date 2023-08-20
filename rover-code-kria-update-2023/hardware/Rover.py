@@ -12,11 +12,13 @@ Author: Ryan Barry
 Date Created: July 16, 2023
 """
 
-import rclpy
 import sys
+
+import rclpy
+
 sys.path.append("..")
-from ErrorHandler import ErrorHandler
 from communications.Communications import Communications
+from ErrorHandler import ErrorHandler
 from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
@@ -50,10 +52,7 @@ class Rover(Node, ErrorHandler):
         self.comms = Communications()
 
     def get_mission(self):
-        missions = [EXTREME_RETRIEVAL_DELIVERY,
-                    SCIENCE,
-                    AUTONOMOUS,
-                    EQUIPMENT_SERVICING]
+        missions = [EXTREME_RETRIEVAL_DELIVERY, SCIENCE, AUTONOMOUS, EQUIPMENT_SERVICING]
         if self.__active_mission in missions:
             return self.__active_mission
         self.log_error(MISSION_FAILURE)
