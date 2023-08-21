@@ -33,7 +33,7 @@ from subsystems.science_plate.SciencePlate import SciencePlate
 class Rover(Node, ErrorHandler):
     def __init__(self):
         ErrorHandler.__init__(self)
-        super().__init__("rover")
+        Node.__init__("rover")
 
         # Initialize Status
         self.status = RoverStatus()
