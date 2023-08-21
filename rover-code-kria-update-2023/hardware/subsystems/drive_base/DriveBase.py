@@ -19,6 +19,7 @@ from RoverPinout import *
 
 class DriveBase(DifferentialDrive):
     def __init__(self):
+        DifferentialDrive.__init__(self)
         self.left_wheels = []
         self.right_wheels = []
         for i in range(len(WHEEL_NAMES)):

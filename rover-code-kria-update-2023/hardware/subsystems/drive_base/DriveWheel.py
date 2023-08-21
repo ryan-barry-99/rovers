@@ -39,6 +39,7 @@ class VelocityPublisher(Node):
 
 class DriveWheel(Motor):
     def __init__(self, name: str, gpio_pin: int = None):
+        Motor.__init__(self)
         self.__name = name
         self.__wheel_num = WHEEL_NAMES.index(self.__name)
         self.__velocity = 0.0
