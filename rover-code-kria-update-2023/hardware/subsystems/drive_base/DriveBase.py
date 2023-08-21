@@ -13,26 +13,17 @@ import sys
 sys.path.append("../..")
 from DifferentialDrive import DifferentialDrive
 from DriveWheel import DriveWheel
-from RoverConstants import BACK_LEFT, BACK_RIGHT, FRONT_LEFT, FRONT_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT
+from RoverConstants import WHEEL_NAMES
 from RoverPinout import *
 
 
 class DriveBase(DifferentialDrive):
     def __init__(self):
-        self.fLeft = DriveWheel(name="front_left_wheel", gpio_pin=FRONT_LEFT_PIN)
-        self.mLeft = DriveWheel(name="middle_left_wheel", gpio_pin=MIDDLE_LEFT_PIN)
-        self.bLeft = DriveWheel(name="back_left_wheel", gpio_pin=BACK_LEFT_PIN)
+        self.left_wheels = []
+        self.right_wheels = []
+        for i in range(len(WHEEL_NAMES)):
+            if i < 3:
+                self.left_wheels.append(DriveWheel(name=WHEEL_NAMES[i], gpio_pin=LEFT_WHEEL_PINS[i]))
+            else:
+                self.right_wheels.append(DriveWheel(name=WHEEL_NAMES[i], gpio_pin=RIGHT_WHEEL_PINS[i]))
 
-        self.fRight = DriveWheel(name="front_right_wheel", gpio_pin=FRONT_RIGHT_PIN)
-        self.mRight = DriveWheel(name="middle_right_wheel", gpio_pin=MIDDLE_RIGHT_PIN)
-        self.bRight = DriveWheel(name="back_right_wheel", gpio_pin=BACK_RIGHT_PIN)
-
-        self.left_velo = 0.0
-        self.right_velo = 0.0
-        self.linear_velocity = 0.0
-        self.angular_velocity = 0.0
-
-    def get_velo(self):
-        self.linear_velocity, self.angular_velocity = self.forward_kinematics(
-            self.left_velo, self.right_velo
-        )
