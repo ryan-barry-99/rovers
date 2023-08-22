@@ -29,21 +29,24 @@ from sensor_msgs.msg import Image
 
 class Camera(Node):
     def __init__(self, name, camera_index):
-        self.name = name
-        self.camera_index = camera_index
-        super().__init__(f"camera_{self.name}_node")  # Modify the node name
-        self.publisher = self.create_publisher(Image, f"camera_{self.name}_topic", 10)
+        self.__name = name
+        self.__camera_index = camera_index
+        super().__init__(f"camera_{self.__name}_node")  # Modify the node name
+        self.publisher = self.create_publisher(Image, f"camera_{self.__name}_topic", 10)
         self.timer = self.create_timer(1.0 / 30, self.capture)  # Adjust the capture rate as needed
         self.cv_bridge = CvBridge()
 
-    def capture(self):
+    def capture(self, display=False):
+        cv2.destroyWindow(f"{self.__name} Stream")
         # Capture the frame from the specified camera index using OpenCV
-        cap = cv2.VideoCapture(self.camera_index)
+        cap = cv2.VideoCapture(self.__camera_index)
         ret, frame = cap.read()
         cap.release()
 
         # Convert the OpenCV frame to a ROS2 Image message
         if ret:
+            if display:
+                cv2.imshow(f"{self.__name} Stream", frame)
             image_msg = self.cv_bridge.cv2_to_imgmsg(frame, "bgr8")
             # Publish the image message to the topic
             self.publisher.publish(image_msg)
