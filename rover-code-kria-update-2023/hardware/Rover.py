@@ -23,11 +23,13 @@ from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
 from RoverConstants import *
+from RoverPinout import *
 from sensors.Camera import Camera
 from sensors.LiDAR import LiDAR
 from subsystems.arm.ArmRobot import ArmRobot
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
+from subsystems.cameras.FrontCamera import FrontCamera
 
 
 class Rover(Node, ErrorHandler):
@@ -46,8 +48,7 @@ class Rover(Node, ErrorHandler):
         self.comm_link_LED = CommLinkLED(self.status.get_comm_link_status())
         self.waypoint_LED = WaypointLED(self.status.get_waypoint_status())
         self.lidar = LiDAR()
-        self.front_cam = Camera(name="front_camera", camera_index=0)
-        self.rear_cam = Camera(name="rear_camera", camera_index=1)
+        self.front_cam = FrontCamera()
         self.drive_base = DriveBase()
         self.comms = Communications()
 
