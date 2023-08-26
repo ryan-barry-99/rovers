@@ -26,7 +26,7 @@ class DriveBase(DifferentialDrive):
         for i in range(len(WHEEL_NAMES)):
             name = WHEEL_NAMES[i]
             pwm_pin = WHEEL_PINS[f"{name}_pwm"]
-            wheel = DriveWheel(name=name, gpio_pin=pwm_pin)
+            wheel = DriveWheel(name=name, pwm_pin=pwm_pin)
             
             if "left" in name:
                 self.left_wheels.append(wheel)
