@@ -55,7 +55,6 @@ def main(args=None):
         mission_control.exec()
         rclpy.spin_once(mission_control.controller)
 
-    mission_control.controller.destroy_node()
     rclpy.shutdown()
 
 

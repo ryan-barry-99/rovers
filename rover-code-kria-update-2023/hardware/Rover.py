@@ -67,7 +67,6 @@ class Rover(Node, ErrorHandler):
         self.waypoint_LED.update()
 
     def run(self):
-        rclpy.spin(self.status)  # Spin the RoverStatus node
         rclpy.spin(self.arm)  # Spin the ArmRobot node
 
         self.status.destroy_node()
