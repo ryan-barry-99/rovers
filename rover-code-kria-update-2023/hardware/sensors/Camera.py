@@ -32,7 +32,7 @@ class Camera(Node):
         self.__name = name
         self.__camera_index = camera_index
         super().__init__(f"camera_{self.__name}_node")  # Modify the node name
-        self.publisher = self.create_publisher(Image, f"camera_{self.__name}_topic", 10)
+        self.publisher = self.create_publisher(Image, f"{self.__name}_topic", 10)
         self.timer = self.create_timer(1.0 / 30, self.capture)  # Adjust the capture rate as needed
         self.cv_bridge = CvBridge()
 
