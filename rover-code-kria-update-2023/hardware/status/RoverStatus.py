@@ -42,6 +42,9 @@ class RoverStatus(Node):
             Int32, "waypoint_status_topic", self._waypoint_status_callback, 10
         )
 
+        # Start spinning the node
+        rclpy.spin(self)
+
     def operating_mode_callback(self, msg):
         self._operating_mode = msg.data
 
