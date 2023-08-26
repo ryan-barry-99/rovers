@@ -13,8 +13,9 @@ Date created: June, 26 2023
 from math import acos, atan2, cos, sin
 
 import numpy as np  # Importing the NumPy library for mathematical operations
-from ArmConstants import PRISMATIC, REVOLUTE
 
+PRISMATIC = 0
+REVOLUTE = 1
 
 class ArmRobotKinematics:
     def __init__(self):
