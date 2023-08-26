@@ -57,3 +57,6 @@ class DriveWheel(Motor):
     def calculate_velocity(self):
         # Insert code here to calculate the velocity of the wheel
         self.__velo_pub.publish_velocity(self.__velocity)
+
+    def get_velocity(self):
+        return self.__velocity
