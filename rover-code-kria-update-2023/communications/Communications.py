@@ -6,7 +6,7 @@ from rclpy.node import Node
 
 sys.path.append("../hardware/")
 from hardware.RoverConstants import *
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, Float32
 
 
 class Communications(Node):
@@ -29,26 +29,26 @@ class Communications(Node):
             Int32, "waypoint_status", self.waypoint_status_callback, 10
         )
         self.temperature_subscriber = self.create_subscription(
-            Int32, "temperature", self.temperature_callback, 10
+            Float32, "temperature", self.temperature_callback, 10
         )
         self.battery_voltage_subscriber = self.create_subscription(
-            Int32, "battery_voltage", self.battery_voltage_callback, 10
+            Float32, "battery_voltage", self.battery_voltage_callback, 10
         )
         self.battery_current_subscriber = self.create_subscription(
-            Int32, "battery_current", self.battery_current_callback, 10
+            Float32, "battery_current", self.battery_current_callback, 10
         )
 
     def waypoint_status_callback(self, msg):
-        self.waypoint_status = msg
+        self.waypoint_status = msg.data
 
     def temperature_callback(self, msg):
-        self.temperature = msg
+        self.temperature = msg.data
 
     def battery_voltage_callback(self, msg):
-        self.battery_voltage = msg
+        self.battery_voltage = msg.data
 
     def battery_current_callback(self, msg):
-        self.battery_current = msg
+        self.battery_current = msg.data
 
     def update_operating_mode(self, mode=DRIVER_CONTROL_MODE):
         self.operating_mode = mode
