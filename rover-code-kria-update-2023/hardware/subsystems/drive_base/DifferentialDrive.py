@@ -22,6 +22,10 @@ class DifferentialDrive:
         self.wheel_radius = wheel_radius
         self.wheel_base = wheel_base
         self.q_dot = np.zeros(5, 1)
+        self.target_linear_velocity = 0
+        self.target_angular_velocity = 0
+        self.target_left_velocity = 0
+        self.target_right_velocity = 0
         self.update_velocities()
         self.phi = 0
 
@@ -37,12 +41,13 @@ class DifferentialDrive:
         self.thetaL_dot = self.q_dot[3]  # Left Wheel Velocity
         self.thetaR_dot = self.q_dot[4]  # Right Wheel Velocity
 
-    def forward_kinematics(self):
+    def update_jacobians(self):
         r = self.wheel_radius
         d = self.wheel_base
         phi = self.phi
 
-        J = np.array(
+        # Calculate the Jacobian Matrix
+        self.J = np.array(
             [
                 [-r / d, -r / d],
                 [r / 2 * cos(phi), r / 2 * cos(phi)],
@@ -51,19 +56,27 @@ class DifferentialDrive:
                 [0, 1],
             ]
         )
+        self.J_inv = np.linalg.pinv(self.J)  # Calculate the pseudo-inverse of the Jacobian matrix
 
-        C = np.array([[self.left_wheel_velocity], [self.right_wheel_velocity]])
+        self.C = np.array([[self.left_wheel_velocity], [self.right_wheel_velocity]])
 
-        self.q_dot = np.dot(J, C)
+    def forward_kinematics(self):
+        self.update_jacobians()
+        self.q_dot = np.dot(self.J, self.C)
         self.update_velocities()
 
-    def inverse_kinematics(self, linear_velocity, angular_velocity):
+    def inverse_kinematics(self, target_linear_velocity, target_angular_velocity):
+        self.target_linear_velocity = target_linear_velocity
+        self.target_angular_velocity = target_angular_velocity
+        self.update_jacobians()
 
-        pass
-        # left_wheel_velocity = (2 * linear_velocity - angular_velocity * self.wheel_base) / (
-        #     2 * self.wheel_radius
-        # )
-        # right_wheel_velocity = (2 * linear_velocity + angular_velocity * self.wheel_base) / (
-        #     2 * self.wheel_radius
-        # )
-        # return left_wheel_velocity, right_wheel_velocity
+        vel = np.array([linear_velocity, angular_velocity]).reshape((2, 1))
+        wheel_velocities = np.dot(self.J_inv, vel)
+
+        self.thetaL_dot = wheel_velocities[0, 0]
+        self.thetaR_dot = wheel_velocities[1, 0]
+
+        self.update_q_dot()
+
+        self.target_left_velocity = self.wheel_radius * self.thetaL_dot
+        self.target_right_velocity = self.wheel_radius * self.thetaR_dot

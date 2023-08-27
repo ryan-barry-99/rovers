@@ -27,35 +27,29 @@ class RoverStatus(Node):
     def __init__(self):
         super().__init__("rover_status")
 
-        self._operating_mode = DRIVER_CONTROL_MODE
-        self._comm_link_status = NOT_CONNECTED
-        self._waypoint_status = WAYPOINT_INACTIVE
+        self.operating_mode = DRIVER_CONTROL_MODE
+        self.comm_link_status = NOT_CONNECTED
+        self.waypoint_status = WAYPOINT_INACTIVE
 
         # Create subscribers
         self.__operating_mode_subscriber = self._create_subscription(
-            Int32, "operating_mode_topic", self._operating_mode_callback, 10
+            Int32, "status/operating_mode_topic", self.operating_mode_callback, 10
         )
         self.__comm_link_status_subscriber = self._create_subscription(
-            Int32, "comm_link_status_topic", self._comm_link_status_callback, 10
+            Int32, "status/comm_link_status_topic", self.comm_link_status_callback, 10
         )
         self.__waypoint_status_subscriber = self._create_subscription(
-            Int32, "waypoint_status_topic", self._waypoint_status_callback, 10
+            Int32, "status/waypoint_status_topic", self.waypoint_status_callback, 10
         )
 
-    def operating_mode_callback(self, msg):
-        self._operating_mode = msg.data
+        # Start spinning the node
+        rclpy.spin(self)
 
-    def get_operating_mode(self):
-        return self._operating_mode
+    def operating_mode_callback(self, msg):
+        self.operating_mode = msg.data
 
     def comm_link_status_callback(self, msg):
-        self._comm_link_status = msg.data
-
-    def get_comm_link_status(self):
-        return self._comm_link_status
+        self.comm_link_status = msg.data
 
     def waypoint_status_callback(self, msg):
-        self._waypoint_status = msg.data
-
-    def get_waypoint_status(self):
-        return self._waypoint_status
+        self.waypoint_status = msg.data

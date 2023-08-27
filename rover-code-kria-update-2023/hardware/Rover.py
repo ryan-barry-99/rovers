@@ -23,9 +23,11 @@ from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
 from RoverConstants import *
+from RoverPinout import *
 from sensors.Camera import Camera
 from sensors.LiDAR import LiDAR
 from subsystems.arm.ArmRobot import ArmRobot
+from subsystems.cameras.FrontCamera import FrontCamera
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
 
@@ -33,7 +35,8 @@ from subsystems.science_plate.SciencePlate import SciencePlate
 class Rover(Node, ErrorHandler):
     def __init__(self):
         ErrorHandler.__init__(self)
-        super().__init__("rover")
+        Node.__init__("rover")
+        rclpy.spin(self)
 
         # Initialize Status
         self.status = RoverStatus()
@@ -42,13 +45,12 @@ class Rover(Node, ErrorHandler):
         # Initialize Peripherals
         self.arm = ArmRobot()
         self.science_plate = SciencePlate()
-        self.operating_mode_LED = OperatingModeLED(self.status.get_operating_mode())
-        self.comm_link_LED = CommLinkLED(self.status.get_comm_link_status())
-        self.waypoint_LED = WaypointLED(self.status.get_waypoint_status())
+        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
+        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
+        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
         self.lidar = LiDAR()
-        self.front_cam = Camera(name="front_camera", camera_index=0)
-        self.rear_cam = Camera(name="rear_camera", camera_index=1)
-        self.drive_base = DriveBase()
+        self.front_cam = FrontCamera()
+        self.drive_base = DriveBase(self.status.operating_mode)
         self.comms = Communications()
 
     def get_mission(self):
@@ -66,7 +68,6 @@ class Rover(Node, ErrorHandler):
         self.waypoint_LED.update()
 
     def run(self):
-        rclpy.spin(self.status)  # Spin the RoverStatus node
         rclpy.spin(self.arm)  # Spin the ArmRobot node
 
         self.status.destroy_node()

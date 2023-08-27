@@ -9,13 +9,19 @@ It provides functionality to add links to the arm, move individual joints, updat
 Author: Ryan Barry
 Date Created: August 11, 2023
 """
-from ArmConstants import PRISMATIC, REVOLUTE
+import sys
+
+sys.path.append("../..")
+from ArmRobotKinematics import PRISMATIC, REVOLUTE, ArmRobotKinematics
+from RoverPinout import *
+from subsystems.cameras.ArmCamera import ArmCamera
 
 
 class ArmRobot(ArmRobotKinematics):
     def __init__(self):
-        super().__init__()
+        super().__init__(self)
         # Additional initialization code specific to the arm robot
+        self.camera = ArmCamera()
 
     def inverse_kinematics(self, target_position, target_orientation):
         # Override the generic inverse kinematics method
