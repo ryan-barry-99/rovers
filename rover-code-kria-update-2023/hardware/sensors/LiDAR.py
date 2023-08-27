@@ -5,4 +5,4 @@ from rclpy.node import Node
 
 class LiDAR(Node):
     def __init__(self, name=1):
-        super().__init__(f"lidar{name}")
+        super().__init__(f"lidar_{name}")
