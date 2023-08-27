@@ -6,7 +6,7 @@ from rclpy.node import Node
 
 sys.path.append("../hardware/")
 from hardware.RoverConstants import *
-from std_msgs.msg import Int32, Float32
+from std_msgs.msg import Float32, Int32
 
 
 class Communications(Node):

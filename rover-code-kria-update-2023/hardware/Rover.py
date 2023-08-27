@@ -27,9 +27,9 @@ from RoverPinout import *
 from sensors.Camera import Camera
 from sensors.LiDAR import LiDAR
 from subsystems.arm.ArmRobot import ArmRobot
+from subsystems.cameras.FrontCamera import FrontCamera
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
-from subsystems.cameras.FrontCamera import FrontCamera
 
 
 class Rover(Node, ErrorHandler):

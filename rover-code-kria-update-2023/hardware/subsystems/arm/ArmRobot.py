@@ -10,10 +10,12 @@ Author: Ryan Barry
 Date Created: August 11, 2023
 """
 import sys
+
 sys.path.append("../..")
-from subsystems.cameras.ArmCamera import ArmCamera
+from ArmRobotKinematics import PRISMATIC, REVOLUTE, ArmRobotKinematics
 from RoverPinout import *
-from ArmRobotKinematics import ArmRobotKinematics, PRISMATIC, REVOLUTE
+from subsystems.cameras.ArmCamera import ArmCamera
+
 
 class ArmRobot(ArmRobotKinematics):
     def __init__(self):

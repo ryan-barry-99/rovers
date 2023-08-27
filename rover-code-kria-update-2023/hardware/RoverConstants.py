@@ -39,7 +39,7 @@ WHEEL_NAMES = [
     "back_left_wheel",
     "front_right_wheel",
     "middle_right_wheel",
-    "back_right_wheel"
+    "back_right_wheel",
 ]
 KP = [1.0, 1.0, 1.0, 1.0, 1.0]
 KI = [0.1, 0.1, 0.1, 0.1, 0.1]

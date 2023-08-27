@@ -8,9 +8,11 @@ Author: Ryan Barry
 Date Created: August 23, 2023
 """
 import sys
+
 sys.path.append("../..")
-from sensors.Camera import Camera
 from RoverPinout import SCIENCE_CAMERA_INDEX
+from sensors.Camera import Camera
+
 
 class ScienceCamera(Camera):
     def __init__(self, name="science_camera", camera_index=SCIENCE_CAMERA_INDEX):
