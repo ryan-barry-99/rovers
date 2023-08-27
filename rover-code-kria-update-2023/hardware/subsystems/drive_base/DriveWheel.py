@@ -40,9 +40,23 @@ class VelocityPublisher(Node):
 class DriveWheel(Motor):
     def __init__(self, name: str, pwm_pin: int = None):
         Motor.__init__(self, pwm_pin=pwm_pin)
+
         self.__name = name
+        if "left" in self.__name:
+            side = "left"
+        elif "right" in self.__name:
+            side = "right"
+
+        self.velo_sub = self._create_subscription(
+            Float32,
+            f"drive_base/{side}_target_velocity",
+            self.velocity_callback,
+            10
+        )
+        
         self.__wheel_num = WHEEL_NAMES.index(self.__name)
         self.__velocity = 0.0
+        self.__target_velocity = 0.0
         self.__velo_pub = VelocityPublisher(self.__name)
         self.__wheel_radius = WHEEL_RADIUS
         self.__pid_controller = PIDController(
@@ -51,6 +65,9 @@ class DriveWheel(Motor):
         if pwm_pin is not None:
             self.pwm_pin = self.select_pwm_pin(pwm_pin)
 
+    def velocity_callback(self, msg):
+        self.__target_velocity = msg.data
+        
     def set_radius(self, radius):
         self.__wheel_radius = radius
 
