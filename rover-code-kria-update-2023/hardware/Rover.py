@@ -36,6 +36,7 @@ class Rover(Node, ErrorHandler):
     def __init__(self):
         ErrorHandler.__init__(self)
         Node.__init__("rover")
+        rclpy.spin(self)
 
         # Initialize Status
         self.status = RoverStatus()
@@ -44,12 +45,12 @@ class Rover(Node, ErrorHandler):
         # Initialize Peripherals
         self.arm = ArmRobot()
         self.science_plate = SciencePlate()
-        self.operating_mode_LED = OperatingModeLED(self.status.get_operating_mode())
-        self.comm_link_LED = CommLinkLED(self.status.get_comm_link_status())
-        self.waypoint_LED = WaypointLED(self.status.get_waypoint_status())
+        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
+        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
+        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
         self.lidar = LiDAR()
         self.front_cam = FrontCamera()
-        self.drive_base = DriveBase()
+        self.drive_base = DriveBase(self.status.operating_mode)
         self.comms = Communications()
 
     def get_mission(self):
