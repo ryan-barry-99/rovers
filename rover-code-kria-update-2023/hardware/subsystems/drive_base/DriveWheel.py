@@ -48,12 +48,9 @@ class DriveWheel(Motor):
             side = "right"
 
         self.velo_sub = self._create_subscription(
-            Float32,
-            f"drive_base/{side}_target_velocity",
-            self.velocity_callback,
-            10
+            Float32, f"drive_base/{side}_target_velocity", self.velocity_callback, 10
         )
-        
+
         self.__wheel_num = WHEEL_NAMES.index(self.__name)
         self.__velocity = 0.0
         self.__target_velocity = 0.0
@@ -67,7 +64,7 @@ class DriveWheel(Motor):
 
     def velocity_callback(self, msg):
         self.__target_velocity = msg.data
-        
+
     def set_radius(self, radius):
         self.__wheel_radius = radius
 

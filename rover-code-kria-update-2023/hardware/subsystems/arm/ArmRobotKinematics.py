@@ -17,6 +17,7 @@ import numpy as np  # Importing the NumPy library for mathematical operations
 PRISMATIC = 0
 REVOLUTE = 1
 
+
 class ArmRobotKinematics:
     def __init__(self):
         self.num_joints = 0  # Initialize the number of joints to 0
