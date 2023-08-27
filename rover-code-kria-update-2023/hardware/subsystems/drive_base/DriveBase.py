@@ -37,6 +37,7 @@ class DriveBase(DifferentialDrive, Node):
         self.rover_sub = self._create_subscription(
             Twist, "drive_base/target_rover_velocity", self.rover_callback, 10
         )
+        rclpy.spin(self)
         self.operating_mode = operating_mode
         self.left_wheels = []
         self.right_wheels = []
