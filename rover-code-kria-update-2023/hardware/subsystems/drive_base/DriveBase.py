@@ -37,10 +37,15 @@ class DriveBase(DifferentialDrive, Node):
         self.rover_sub = self._create_subscription(
             Twist, "drive_base/target_rover_velocity", self.rover_callback, 10
         )
+        self.left_velo_pub = self.create_publisher(Float32, "drive_base/left_target_velocity", 10)
+        self.right_velo_pub = self.create_publisher(Float32, "drive_base/right_target_velocity", 10)
         rclpy.spin(self)
         self.operating_mode = operating_mode
         self.left_wheels = []
         self.right_wheels = []
+        self.target_velocity_old = None
+        self.target_left_velocity_old = None
+        self.target_right_velocity_old = None
 
         for i in range(len(WHEEL_NAMES)):
             name = WHEEL_NAMES[i]
@@ -51,6 +56,8 @@ class DriveBase(DifferentialDrive, Node):
                 self.left_wheels.append(wheel)
             elif "right" in name:
                 self.right_wheels.append(wheel)
+
+        rclpy.spin(self)
 
     def left_callback(self, msg):
         # Process left target velocity message
@@ -72,9 +79,18 @@ class DriveBase(DifferentialDrive, Node):
             self.target_velocity = np.array([[x], [y], [z], [w]])
 
     def set_right_velo(self, velocity):
-        for wheel in self.right_wheels:
-            wheel.set_velocity(velocity)
+        msg = Float32()
+        msg.data = velocity
+        self.right_velo_pub.publish(msg)
 
     def set_left_velo(self, velocity):
-        for wheel in self.left_wheels:
-            wheel.set_velocity(velocity)
+        msg = Float32()
+        msg.data = velocity
+        self.left_velo_pub.publish(msg)
+
+    def run(self):
+        if self.target_velocity != self.target_left_velocity_old:
+            self.inverse_kinematics()
+
+        if self.target_left_velocity != self.target_left_velocity_old or self.target_right_velocity != self.target_left_velocity_old:
+            self.forward_kinematics()
