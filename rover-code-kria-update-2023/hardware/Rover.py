@@ -31,7 +31,6 @@ from subsystems.cameras.FrontCamera import FrontCamera
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
 
-
 class Rover(Node, ErrorHandler):
     def __init__(self):
         ErrorHandler.__init__(self)
@@ -59,7 +58,6 @@ class Rover(Node, ErrorHandler):
         self.front_cam = FrontCamera()
 
     def get_mission(self):
-        missions = [EXTREME_RETRIEVAL_DELIVERY, SCIENCE, AUTONOMOUS, EQUIPMENT_SERVICING]
         if self.__active_mission in missions:
             return self.__active_mission
         self.log_error(MISSION_FAILURE)
