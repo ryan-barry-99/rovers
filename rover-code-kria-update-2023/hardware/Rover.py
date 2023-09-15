@@ -24,13 +24,12 @@ from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLE
 from rclpy.node import Node
 from RoverConstants import *
 from RoverPinout import *
-from sensors.Camera import Camera
 from sensors.LiDAR import LiDAR
+from sensors.GPS import GPS
 from subsystems.arm.ArmRobot import ArmRobot
 from subsystems.cameras.FrontCamera import FrontCamera
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
-
 
 class Rover(Node, ErrorHandler):
     def __init__(self):
@@ -42,19 +41,23 @@ class Rover(Node, ErrorHandler):
         self.status = RoverStatus()
         self.__active_mission = None
 
-        # Initialize Peripherals
+        # Initialize Subsystems
         self.arm = ArmRobot()
         self.science_plate = SciencePlate()
-        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
-        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
-        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
-        self.lidar = LiDAR()
-        self.front_cam = FrontCamera()
         self.drive_base = DriveBase(self.status.operating_mode)
         self.comms = Communications()
 
+        # Initialize LEDs
+        self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
+        self.comm_link_LED = CommLinkLED(self.status.comm_link_status)
+        self.waypoint_LED = WaypointLED(self.status.waypoint_status)
+
+        # Initialize Sensors
+        self.lidar = LiDAR()
+        self.gps = GPS()
+        self.front_cam = FrontCamera()
+
     def get_mission(self):
-        missions = [EXTREME_RETRIEVAL_DELIVERY, SCIENCE, AUTONOMOUS, EQUIPMENT_SERVICING]
         if self.__active_mission in missions:
             return self.__active_mission
         self.log_error(MISSION_FAILURE)
