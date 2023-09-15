@@ -10,8 +10,6 @@ Author: Ryan Barry
 Date created: June, 26 2023
 """
 
-from math import acos, atan2, cos, sin
-
 import numpy as np  # Importing the NumPy library for mathematical operations
 
 PRISMATIC = 0
