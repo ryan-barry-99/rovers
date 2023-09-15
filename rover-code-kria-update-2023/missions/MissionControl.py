@@ -19,12 +19,10 @@ from AutonomousNavigation import AutonomousNavigationMission  # Importing the Au
 from EquipmentServicing import EquipmentServicingMission  # Importing the EquipmentServicingMission class
 from ExtremeRetrievalDelivery import ExtremeRetrievalDeliveryMission  # Importing the ExtremeRetrievalDeliveryMission class
 from ScienceMission import ScienceMission  # Importing the ScienceMission class
-from Test import TestingEnvironment # Importing the TestingEnvironment class
 import sys  # Importing the sys module for system-specific parameters and functions
-
 sys.path.append("..")  # Adding the parent directory to the system path
-
 from hardware.Rover import Rover  # Importing the Rover class from the specified module
+from testing.Test import TestingEnvironment # Importing the TestingEnvironment class
 
 class MissionControl:  # Defining a class named MissionControl
     def __init__(self):  # Constructor for the MissionControl class
