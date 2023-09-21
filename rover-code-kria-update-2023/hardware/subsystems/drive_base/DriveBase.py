@@ -92,5 +92,8 @@ class DriveBase(DifferentialDrive, Node):
         if self.target_velocity != self.target_left_velocity_old:
             self.inverse_kinematics()
 
-        if self.target_left_velocity != self.target_left_velocity_old or self.target_right_velocity != self.target_left_velocity_old:
+        if (
+            self.target_left_velocity != self.target_left_velocity_old
+            or self.target_right_velocity != self.target_left_velocity_old
+        ):
             self.forward_kinematics()

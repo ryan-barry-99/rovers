@@ -12,6 +12,7 @@ Date Created: August 27, 2023
 import rclpy
 from rclpy.node import Node
 
+
 class GPS(Node):
     def __init__(self):
         super().__init__("GPS")

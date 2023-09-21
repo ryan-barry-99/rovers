@@ -1,5 +1,6 @@
-from pynq.lib.rpi import GPIO
 import time
+
+from pynq.lib.rpi import GPIO
 
 
 class Motor:

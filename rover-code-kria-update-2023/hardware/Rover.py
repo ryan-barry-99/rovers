@@ -24,12 +24,13 @@ from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLE
 from rclpy.node import Node
 from RoverConstants import *
 from RoverPinout import *
-from sensors.LiDAR import LiDAR
 from sensors.GPS import GPS
+from sensors.LiDAR import LiDAR
 from subsystems.arm.ArmRobot import ArmRobot
 from subsystems.cameras.FrontCamera import FrontCamera
 from subsystems.drive_base.DriveBase import DriveBase
 from subsystems.science_plate.SciencePlate import SciencePlate
+
 
 class Rover(Node, ErrorHandler):
     def __init__(self):

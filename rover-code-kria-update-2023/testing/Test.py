@@ -15,11 +15,12 @@ from std_msgs.msg import Int32
 
 class TestingEnvironment(Node):
     def __init__(self, rover):
-        super().__init__("testing_environment")  # Initializing the parent class Node with the name "testing_environment"
+        super().__init__(
+            "testing_environment"
+        )  # Initializing the parent class Node with the name "testing_environment"
         self.rover = rover
-        self.operating_mode_pub = self.create_publisher(Int32, 'status/operating_mode_topic', 10)
+        self.operating_mode_pub = self.create_publisher(Int32, "status/operating_mode_topic", 10)
         # self.set_operating_mode(TEST_MODE)
-        
 
     def run(self):
         pass

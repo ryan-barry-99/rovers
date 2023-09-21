@@ -29,5 +29,5 @@ def main(args=None):
 if __name__ == "__main__":
     try:
         main()
-    except: 
+    except:
         rclpy.shutdown()
