@@ -19,14 +19,15 @@ from std_msgs.msg import Float32
 
 sys.path.append("../..")
 from DifferentialDrive import DifferentialDrive
+from MobileRobotKinematics import MobileRobotKinematics
 from DriveWheel import DriveWheel
 from RoverConstants import AUTONOMOUS_MODE, WHEEL_NAMES
 from RoverPinout import *
 
 
-class DriveBase(DifferentialDrive, Node):
+class DriveBase(MobileRobotKinematics, Node):
     def __init__(self, operating_mode):
-        DifferentialDrive.__init__(self)
+        MobileRobotKinematics.__init__(self)
         Node.__init__("drive_base_node")
         self.left_sub = self._create_subscription(
             Float32, "drive_base/left_target_velocity", self.left_callback, 10
