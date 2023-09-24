@@ -19,8 +19,8 @@ from std_msgs.msg import Float32
 
 sys.path.append("../..")
 from DifferentialDrive import DifferentialDrive
-from MobileRobotKinematics import MobileRobotKinematics
 from DriveWheel import DriveWheel
+from MobileRobotKinematics import MobileRobotKinematics
 from RoverConstants import AUTONOMOUS_MODE, WHEEL_NAMES
 from RoverPinout import *
 from VelocityPublisher import VelocityPublisher
@@ -54,7 +54,7 @@ class DriveBase(MobileRobotKinematics, Node):
             name = WHEEL_NAMES[i]
             pwm_pin = WHEEL_PINS[f"{name}_pwm"]
 
-            # Add a tuple of VelocityPublisher and DriveWheel objects to the 
+            # Add a tuple of VelocityPublisher and DriveWheel objects to the
             # self.wheels dictionary for each wheel name
             velo_pub = VelocityPublisher(name)
             wheel = DriveWheel(name=name, pwm_pin=pwm_pin)
@@ -96,7 +96,10 @@ class DriveBase(MobileRobotKinematics, Node):
             self.inverse_kinematics()
             self.target_velocity_old = self.target_velocity
 
-        if self.target_left_velocity != self.target_left_velocity_old or self.target_right_velocity != self.target_right_velocity_old:
+        if (
+            self.target_left_velocity != self.target_left_velocity_old
+            or self.target_right_velocity != self.target_right_velocity_old
+        ):
             self.forward_kinematics()
             self.target_left_velocity_old = self.target_left_velocity
             self.target_right_velocity_old = self.target_right_velocity

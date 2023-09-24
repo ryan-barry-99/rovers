@@ -7,15 +7,15 @@ Description:
 Author: Ryan Barry
 Date Created:
 """
-import sys  
+import sys
 
 import rclpy  # Importing the rclpy module for ROS 2 Python client library
 from rclpy.node import Node  # Importing the Node class from rclpy.node module
 from std_msgs.msg import Int32  # Importing the Int32 message type from the std_msgs package
 
-sys.path.append("../..")  
+sys.path.append("../..")
 
-from RoverConstants import DNA_DETECTED, DNA_NOT_DETECTED, LIPID_DETECTED, LIPID_NOT_DETECTED,
+from RoverConstants import DNA_DETECTED, DNA_NOT_DETECTED, LIPID_DETECTED, LIPID_NOT_DETECTED
 from subsystems.cameras.ScienceCamera import ScienceCamera
 
 
@@ -23,7 +23,7 @@ class SciencePlate(Node):
     def __init__(self):
         super().__init__("science_plate")
         self.camera = ScienceCamera()
-        
+
         self.lipid_publisher = self.create_publisher(
             Int32, "science/lipid_detection", 10
         )  # Creating a publisher for lipid detection messages
@@ -31,8 +31,8 @@ class SciencePlate(Node):
             Int32, "science/dna_detection", 10
         )  # Creating a publisher for DNA detection messages
 
-        self.lipid_detection = LIPID_NOT_DETECTED  
-        self.dna_detection = DNA_NOT_DETECTED  
+        self.lipid_detection = LIPID_NOT_DETECTED
+        self.dna_detection = DNA_NOT_DETECTED
         rclpy.spin(self)  # Starting the ROS 2 event loop
 
     def publish_lipid_detection(self):  # Method for publishing lipid detection status

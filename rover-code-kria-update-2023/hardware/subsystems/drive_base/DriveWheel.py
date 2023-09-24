@@ -20,7 +20,7 @@ sys.path.append("../..")
 from controllers.pid_controller import PIDController
 from peripherals.Motor import Motor
 from RoverConstants import *
-from VelocityPublisher import VelocityPublisher 
+from VelocityPublisher import VelocityPublisher
 
 
 class DriveWheel(Motor):
@@ -46,12 +46,10 @@ class DriveWheel(Motor):
         )
         if pwm_pin is not None:
             self.pwm_pin = self.select_pwm_pin(pwm_pin)
-            
 
         rclpy.spin(self)
 
         self.get_logger().info(f"{self.__name} DriveWheel initialized.")
-
 
     def velocity_callback(self, msg):
         self.__target_velocity = msg.data

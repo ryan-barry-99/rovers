@@ -55,7 +55,6 @@ class GPIO:
             raise Exception(f"Cannot read from GPIO pin {self.pin} with direction {self.direction}")
 
 
-
 # """
 # GPIO.py
 # Author: Ryan Barry
