@@ -31,7 +31,7 @@ class GPIO:
         rpi.set_pin(pin, "gpio")
         # Set the pin direction using the RPi interface
         rpi.set_direction(pin, direction)
-    
+
     # Write a value (0 or 1) to the GPIO pin
     def write(self, value):
         # Check if the pin direction is "out"
@@ -41,7 +41,7 @@ class GPIO:
         else:
             # Raise an exception if the pin direction is not "out"
             raise Exception(f"Cannot write to GPIO pin {self.pin} with direction {self.direction}")
-    
+
     # Read a value (0 or 1) from the GPIO pin
     def read(self):
         # Check if the pin direction is "in"
