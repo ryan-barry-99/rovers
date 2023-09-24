@@ -34,6 +34,7 @@ class MobileRobotKinematics:
         :param wheel_names: The names of wheels in the robot.
         :param wheel_radius: The radius of the wheel in meters.
         :param L: The distance from the center of the robot to the center of the wheels in meters.
+        :param alpha: The angle offset from the robot's x-axis of each wheel
         """
 
         # Define variables
