@@ -30,9 +30,12 @@ class DriveWheel(Motor):
         self.__name = name
         self.__wheel_num = WHEEL_NAMES.index(self.__name)
 
+        # Ros2 Subscriber for the velocity of the wheel
         self.velo_sub = self._create_subscription(
             Float32, f"velocity_topics/{self.__name}_velocity", self.velocity_callback, 10
         )
+
+        # ROS2 Publisher to publish the velocity of the wheel
         self.__velo_pub = VelocityPublisher(self.__name)
 
         self.__velocity = 0.0
@@ -43,6 +46,12 @@ class DriveWheel(Motor):
         )
         if pwm_pin is not None:
             self.pwm_pin = self.select_pwm_pin(pwm_pin)
+            
+
+        rclpy.spin(self)
+
+        self.get_logger().info(f"{self.__name} DriveWheel initialized.")
+
 
     def velocity_callback(self, msg):
         self.__target_velocity = msg.data

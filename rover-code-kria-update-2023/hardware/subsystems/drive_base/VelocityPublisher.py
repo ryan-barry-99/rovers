@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+File: VelocityPublisher.py
+
+Description: This module contains a publisher object to a velocity
+topic.
+
+Author: Ryan Barry
+Date Created: Septermber 24, 2023
+"""
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32

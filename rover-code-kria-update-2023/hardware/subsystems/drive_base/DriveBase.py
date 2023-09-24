@@ -43,25 +43,22 @@ class DriveBase(MobileRobotKinematics, Node):
         self.right_velo_pub = self.create_publisher(Float32, "drive_base/right_target_velocity", 10)
 
         self.operating_mode = operating_mode
-        self.wheels = []
-        # self.left_wheels = []
-        # self.right_wheels = []
         self.target_velocity_old = None
         self.target_left_velocity_old = None
         self.target_right_velocity_old = None
 
-        self.velocity_publishers = {}
+        # A dictionary of publishers for the targeted velocities of each wheel
+        self.wheels = {}
 
         for i in range(len(WHEEL_NAMES)):
             name = WHEEL_NAMES[i]
-            self.velocity_publishers[name] = VelocityPublisher(name)
             pwm_pin = WHEEL_PINS[f"{name}_pwm"]
+
+            # Add a tuple of VelocityPublisher and DriveWheel objects to the 
+            # self.wheels dictionary for each wheel name
+            velo_pub = VelocityPublisher(name)
             wheel = DriveWheel(name=name, pwm_pin=pwm_pin)
-            self.wheels.append(wheel)
-            # if "left" in name:
-            #     self.left_wheels.append(wheel)
-            # elif "right" in name:
-            #     self.right_wheels.append(wheel)
+            self.wheels[name] = (velo_pub, wheel)
 
         rclpy.spin(self)
 
@@ -105,4 +102,7 @@ class DriveBase(MobileRobotKinematics, Node):
             self.target_right_velocity_old = self.target_right_velocity
 
         for i, velo in enumerate(self._phi):
-            self.velocity_publishers[WHEEL_NAMES[i]].publish_velocity(velo)
+            # Publish the velocity to its corresponding DriveWheel
+            self.wheels[WHEEL_NAMES[i]][0].publish_velocity(velo)
+            # Update the pwm signal of the DriveWheel
+            self.wheels[WHEEL_NAMES[i]][1].update_pwm()
