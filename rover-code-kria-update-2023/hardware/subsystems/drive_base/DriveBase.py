@@ -23,6 +23,7 @@ from MobileRobotKinematics import MobileRobotKinematics
 from DriveWheel import DriveWheel
 from RoverConstants import AUTONOMOUS_MODE, WHEEL_NAMES
 from RoverPinout import *
+from VelocityPublisher import VelocityPublisher
 
 
 class DriveBase(MobileRobotKinematics, Node):
@@ -40,35 +41,39 @@ class DriveBase(MobileRobotKinematics, Node):
         )
         self.left_velo_pub = self.create_publisher(Float32, "drive_base/left_target_velocity", 10)
         self.right_velo_pub = self.create_publisher(Float32, "drive_base/right_target_velocity", 10)
-        rclpy.spin(self)
+
         self.operating_mode = operating_mode
-        self.left_wheels = []
-        self.right_wheels = []
+        self.wheels = []
+        # self.left_wheels = []
+        # self.right_wheels = []
         self.target_velocity_old = None
         self.target_left_velocity_old = None
         self.target_right_velocity_old = None
 
+        self.velocity_publishers = {}
+
         for i in range(len(WHEEL_NAMES)):
             name = WHEEL_NAMES[i]
+            self.velocity_publishers[name] = VelocityPublisher(name)
             pwm_pin = WHEEL_PINS[f"{name}_pwm"]
             wheel = DriveWheel(name=name, pwm_pin=pwm_pin)
-
-            if "left" in name:
-                self.left_wheels.append(wheel)
-            elif "right" in name:
-                self.right_wheels.append(wheel)
+            self.wheels.append(wheel)
+            # if "left" in name:
+            #     self.left_wheels.append(wheel)
+            # elif "right" in name:
+            #     self.right_wheels.append(wheel)
 
         rclpy.spin(self)
 
     def left_callback(self, msg):
         # Process left target velocity message
         if self.operating_mode == AUTONOMOUS_MODE:
-            self.new_target_left_velocity = msg.data
+            self.target_left_velocity = msg.data
 
     def right_callback(self, msg):
         # Process right target velocity message
         if self.operating_mode == AUTONOMOUS_MODE:
-            self.new_target_right_velocity = msg.data
+            self.target_right_velocity = msg.data
 
     def rover_callback(self, msg):
         # Process rover target velocity message
@@ -90,8 +95,14 @@ class DriveBase(MobileRobotKinematics, Node):
         self.left_velo_pub.publish(msg)
 
     def run(self):
-        if self.target_velocity != self.target_left_velocity_old:
+        if self.target_velocity != self.target_velocity_old:
             self.inverse_kinematics()
+            self.target_velocity_old = self.target_velocity
 
-        if self.target_left_velocity != self.target_left_velocity_old or self.target_right_velocity != self.target_left_velocity_old:
+        if self.target_left_velocity != self.target_left_velocity_old or self.target_right_velocity != self.target_right_velocity_old:
             self.forward_kinematics()
+            self.target_left_velocity_old = self.target_left_velocity
+            self.target_right_velocity_old = self.target_right_velocity
+
+        for i, velo in enumerate(self._phi):
+            self.velocity_publishers[WHEEL_NAMES[i]].publish_velocity(velo)

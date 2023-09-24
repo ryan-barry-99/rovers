@@ -43,16 +43,16 @@ class MobileRobotKinematics :
             self.__C1_list.append(np.array([cos(self.__alpha[i] + self.__beta[i]), sin(self.__alpha[i] + self.__beta[i]), self.L[i]*sin(self.__beta[i])]))
         self.__J1 = np.array(self.__J1_list).T
         self.__C1 = np.array(self.__C1_list).T
-        self.__zeta_dot = np.zeros(3,1)
-        self.__phi = np.zeros(range(self.__num_wheels, 1))
+        self._zeta_dot = np.zeros(3,1)
+        self._phi = np.zeros(range(self.__num_wheels, 1))
 
 
-    def calculate_robot_velocity(self, velocities):
-        self.__phi = np.array(velocities)
+    def calculate_robot_velocity(self, velocities: list):
+        self._phi = np.array(velocities)
         return self.forward_kinematics()
     
-    def calculate_wheel_velocities(self, velocity):
-        self.__zeta_dot = np.array(velocity)
+    def calculate_wheel_velocities(self, velocity: list):
+        self._zeta_dot = np.array(velocity)
         return self.inverse_kinematics()
 
 
@@ -64,8 +64,8 @@ class MobileRobotKinematics :
         zeta_dot =  [  y_dot  ] # linear velocity in the y direction
                     [ phi_dot ] # angular velocity about the z axis
         '''
-        self.__zeta_dot = np.linalg.inv(self.__r_theta) @ self.__J1 @ self.__J2 @ self.__phi
-        return self.__zeta_dot
+        self._zeta_dot = np.linalg.inv(self.__r_theta) @ self.__J1 @ self.__J2 @ self._phi
+        return self._zeta_dot
   
 
     # Calculates the inverse kinematics of the robot
@@ -77,5 +77,5 @@ class MobileRobotKinematics :
                 [   ...   ]
                 [ wheel_n ]
         '''
-        self.__phi = np.linalg.inv(self.__J2) @ self.__J1 @ self.__r_theta @ self.__zeta_dot
-        return self.__phi
+        self._phi = np.linalg.inv(self.__J2) @ self.__J1 @ self.__r_theta @ self._zeta_dot
+        return self._phi
