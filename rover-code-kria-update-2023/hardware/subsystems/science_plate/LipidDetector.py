@@ -8,11 +8,13 @@ Author: Ryan Barry
 Date Created: October 8, 2023
 """
 import sys
+
 sys.path.append("../..")
 import rclpy  # Importing the rclpy module for ROS 2 Python client library
 from rclpy.node import Node  # Importing the Node class from rclpy.node module
-from std_msgs.msg import Int32  # Importing the Int32 message type from the std_msgs package
 from RoverConstants import LIPID_DETECTED, LIPID_NOT_DETECTED
+from std_msgs.msg import Int32  # Importing the Int32 message type from the std_msgs package
+
 
 class LipidDetector(Node):
     def __init__(self):
@@ -22,7 +24,7 @@ class LipidDetector(Node):
         )  # Creating a publisher for lipid detection messages
 
         self.lipid_detection = LIPID_NOT_DETECTED
-        
+
         rclpy.spin(self)  # Starting the ROS 2 event loop
 
     def publish(self):  # Method for publishing lipid detection status
