@@ -12,15 +12,21 @@ Date created: June, 26 2023
 
 import numpy as np  # Importing the NumPy library for mathematical operations
 from Link import PRISMATIC, REVOLUTE, Link
-from DHTable import DHTable
 
 
 class ArmRobotKinematics:
     def __init__(self):
-        # self.num_joints = 0  # Initialize the number of joints to 0
         self.links = []
-        self.dhTable = DHTable(self.links)  # Initialize DH table
+        # Arm offset from robot's home frame
+        self.__offset = np.eye(4)
 
+    def set_offset(self, offset: list):
+        '''
+        Function to set an offset from the robot's jome frame
+        '''
+        for i, point in enumerate(offset):
+            self.__offset[i,3] = point
+            
     # Add a link to the arm
     # Parameters:
     #   joint_type:
@@ -29,60 +35,18 @@ class ArmRobotKinematics:
     #   length (meters)
     #   alpha (radians)
     #       - rotate around the x1 axis an angle alpha to make z1 parallel to z2
-    def addLink(self, joint_type, length, alpha):
-        new_link = Link(joint_type=joint_type, length=length, alpha=alpha)
+    def addLink(self, joint_type, length, theta_fix=0, a=0, alpha_fix=0):
+        new_link = Link(joint_type=joint_type, length=length, theta_fix=theta_fix, a=a, alpha_fix=alpha_fix)
         self.links.append(new_link)
-        self.dhTable.setLinks(self.links)
         return new_link
 
-    def updateDHTable(self):
-        self.dhTable.update()
-        # Compute the forward kinematics based on the updated DH Table and return the transformation matrix
-        return self.forward_kinematics()
-
     def forward_kinematics(self):
-        self.__A = []  # Initialize A matrices as empty list
         self.__T = np.identity(4)  # Initialize the transformation matrix as an identity matrix
 
-        for i, link in enumerate(self.links):
-            theta = self.dhTable.theta(i)  # Get the joint angle
-            d = self.dhTable.d(i)  # Get the d parameter
-            a = self.dhTable.a(i)  # Get the a parameter
-            alpha = self.dhTable.alpha(i)  # Get the alpha parameter
-            
-            ct = np.cos(theta)  # Compute the cosine of theta
-            st = np.sin(theta)  # Compute the sine of theta
-            ca = np.cos(alpha)  # Compute the cosine of alpha
-            sa = np.sin(alpha)  # Compute the sine of alpha
+        for link in self.links:
+            self.__T = np.dot(self.__T, link.transform_matrix())  # Multiply the transformation matrix T by A
 
-            if link.joint_type == REVOLUTE:  # Check if the joint type is revolute
-                self.__A.append(
-                    np.array(
-                        [
-                            [ct, -st * ca, st * sa, a * ct],  # Create the transformation matrix A
-                            [st, ct * ca, -ct * sa, a * st],
-                            [0, sa, ca, d],
-                            [0, 0, 0, 1]
-                        ]
-                    )
-                )
-
-            elif link.joint_type == PRISMATIC:  # Check if the joint type is prismatic
-                self.__A.append(
-                    np.array(
-                        [
-                            [ct, -st * ca, st * sa, ct * d],  # Create the transformation matrix A
-                            [st, ct * ca, -ct * sa, st * d],
-                            [0, sa, ca, a],
-                            [0, 0, 0, 1]
-                        ]
-                    )
-                )
-            else:
-                print(f"Invalid joint type at joint {i}")
-                return None
-
-            self.__T = np.dot(self.__T, self.__A[i])  # Multiply the transformation matrix T by A
+        self.__T += self.__offset
 
         return self.__T  # Return the final transformation matrix
 
