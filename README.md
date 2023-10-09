@@ -1,4 +1,8 @@
-# rovers
+# Rovers
+
+This repository contains the source code for RIT's rover.
+The rover's ROS2 architecture and all subcomponents can be started and stopped via rover_main.py
+
 
 ### Setup
 
