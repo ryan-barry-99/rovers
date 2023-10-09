@@ -66,10 +66,10 @@ class ArmRobotKinematics:
         self.__T = np.identity(4)  # Initialize the transformation matrix as an identity matrix
 
         for i, link in enumerate(self.links):
-            theta = self.__theta[i]  # Get the joint angle
-            d = self.__d[i]  # Get the d parameter
-            a = self.__a[i]  # Get the a parameter
-            alpha = self.__alpha[i]  # Get the alpha parameter
+            theta = self.dhTable[i,0]  # Get the joint angle
+            d = self.dhTable[i,1]  # Get the d parameter
+            a = self.dhTable[i,2]  # Get the a parameter
+            alpha = self.dhTable[i,3]  # Get the alpha parameter
 
             ct = np.cos(theta)  # Compute the cosine of theta
             st = np.sin(theta)  # Compute the sine of theta
