@@ -54,10 +54,10 @@ class ArmRobotKinematics:
         d = np.array(self.__d)
         a = np.array(self.__a)
         alpha = np.array(self.__alpha)
-        
+
         # Create the DH table using NumPy
         self.dhTable = np.column_stack((theta, d, a, alpha))
-        
+
         # Compute the forward kinematics based on the updated DH Table and return the transformation matrix
         return self.forward_kinematics()
 
@@ -70,7 +70,7 @@ class ArmRobotKinematics:
             d = self.__d[i]  # Get the d parameter
             a = self.__a[i]  # Get the a parameter
             alpha = self.__alpha[i]  # Get the alpha parameter
-            
+
             ct = np.cos(theta)  # Compute the cosine of theta
             st = np.sin(theta)  # Compute the sine of theta
             ca = np.cos(alpha)  # Compute the cosine of alpha
@@ -83,7 +83,7 @@ class ArmRobotKinematics:
                             [ct, -st * ca, st * sa, a * ct],  # Create the transformation matrix A
                             [st, ct * ca, -ct * sa, a * st],
                             [0, sa, ca, d],
-                            [0, 0, 0, 1]
+                            [0, 0, 0, 1],
                         ]
                     )
                 )
@@ -95,7 +95,7 @@ class ArmRobotKinematics:
                             [ct, -st * ca, st * sa, ct * d],  # Create the transformation matrix A
                             [st, ct * ca, -ct * sa, st * d],
                             [0, sa, ca, a],
-                            [0, 0, 0, 1]
+                            [0, 0, 0, 1],
                         ]
                     )
                 )

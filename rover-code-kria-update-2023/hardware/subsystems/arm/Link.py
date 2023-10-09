@@ -10,6 +10,7 @@ Date Created: October 6, 2023
 PRISMATIC = 0
 REVOLUTE = 1
 
+
 class Link:
     def __init__(self, joint_type, length, alpha=0):
         self.joint_type = joint_type
@@ -24,7 +25,7 @@ class Link:
             self.a = length
         else:
             print(f"Invalid joint type at joint {i}")
-        
+
     def moveJoint(self, joint_value):
         if self.joint_type == REVOLUTE:
             self.theta = joint_value
