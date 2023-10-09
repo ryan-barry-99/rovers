@@ -18,7 +18,7 @@ class ArmRobotKinematics:
     def __init__(self):
         self.links = []
         # Arm offset from robot's home frame
-        self.__offset = np.eye(4)
+        self.__offset = np.zeros((4,4))
 
     def set_offset(self, offset: list):
         '''
