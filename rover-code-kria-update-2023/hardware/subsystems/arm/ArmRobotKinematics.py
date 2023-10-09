@@ -12,17 +12,14 @@ Date created: June, 26 2023
 
 import numpy as np  # Importing the NumPy library for mathematical operations
 from Link import PRISMATIC, REVOLUTE, Link
+from DHTable import DHTable
 
 
 class ArmRobotKinematics:
     def __init__(self):
         # self.num_joints = 0  # Initialize the number of joints to 0
         self.links = []
-        self.__theta = []  # Private list to store joint angles
-        self.__d = []  # Private list to store d parameters
-        self.__a = []  # Private list to store a parameters
-        self.__alpha = []  # Private list to store alpha parameters
-        self.dhTable = None  # Initialize DH table as None
+        self.dhTable = DHTable(self.links)  # Initialize DH table
 
     # Add a link to the arm
     # Parameters:
@@ -33,31 +30,13 @@ class ArmRobotKinematics:
     #   alpha (radians)
     #       - rotate around the x1 axis an angle alpha to make z1 parallel to z2
     def addLink(self, joint_type, length, alpha):
-        self.links.append(Link(joint_type=joint_type, length=length, alpha=alpha))
-        self.updateDHTable()
-        return self.links[len(self.links) - 1]
+        new_link = Link(joint_type=joint_type, length=length, alpha=alpha)
+        self.links.append(new_link)
+        self.dhTable.setLinks(self.links)
+        return new_link
 
     def updateDHTable(self):
-        if self.dhTable is None:
-            self.__theta = [0] * len(self.links)  # Initialize theta as a list of zeros
-            self.__d = [0] * len(self.links)  # Initialize d as a list of zeros
-            self.__a = [0] * len(self.links)  # Initialize a as a list of zeros
-            self.__alpha = [0] * len(self.links)  # Initialize alpha as a list of zeros
-
-            for i, link in enumerate(self.links):
-                self.__theta[i] = link.theta
-                self.__a[i] = link.a
-                self.__d[i] = link.d
-                self.__alpha[i] = link.alpha
-
-        theta = np.array(self.__theta)
-        d = np.array(self.__d)
-        a = np.array(self.__a)
-        alpha = np.array(self.__alpha)
-
-        # Create the DH table using NumPy
-        self.dhTable = np.column_stack((theta, d, a, alpha))
-
+        self.dhTable.update()
         # Compute the forward kinematics based on the updated DH Table and return the transformation matrix
         return self.forward_kinematics()
 
@@ -66,11 +45,11 @@ class ArmRobotKinematics:
         self.__T = np.identity(4)  # Initialize the transformation matrix as an identity matrix
 
         for i, link in enumerate(self.links):
-            theta = self.dhTable[i,0]  # Get the joint angle
-            d = self.dhTable[i,1]  # Get the d parameter
-            a = self.dhTable[i,2]  # Get the a parameter
-            alpha = self.dhTable[i,3]  # Get the alpha parameter
-
+            theta = self.dhTable.theta(i)  # Get the joint angle
+            d = self.dhTable.d(i)  # Get the d parameter
+            a = self.dhTable.a(i)  # Get the a parameter
+            alpha = self.dhTable.alpha(i)  # Get the alpha parameter
+            
             ct = np.cos(theta)  # Compute the cosine of theta
             st = np.sin(theta)  # Compute the sine of theta
             ca = np.cos(alpha)  # Compute the cosine of alpha
@@ -83,7 +62,7 @@ class ArmRobotKinematics:
                             [ct, -st * ca, st * sa, a * ct],  # Create the transformation matrix A
                             [st, ct * ca, -ct * sa, a * st],
                             [0, sa, ca, d],
-                            [0, 0, 0, 1],
+                            [0, 0, 0, 1]
                         ]
                     )
                 )
@@ -95,7 +74,7 @@ class ArmRobotKinematics:
                             [ct, -st * ca, st * sa, ct * d],  # Create the transformation matrix A
                             [st, ct * ca, -ct * sa, st * d],
                             [0, sa, ca, a],
-                            [0, 0, 0, 1],
+                            [0, 0, 0, 1]
                         ]
                     )
                 )
