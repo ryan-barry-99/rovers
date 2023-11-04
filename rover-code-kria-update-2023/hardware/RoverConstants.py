@@ -36,8 +36,8 @@ GREEN = 504
 MISSION_FAILURE = 600
 
 # DRIVE BASE ATTRIBUTES
-WHEEL_RADIUS = 0.1  # (m)
-BASE_WIDTH = 0.75  # (m)
+WHEEL_RADIUS = 8*.0254  # (m)
+BASE_WIDTH = [0.75,0.75,0.75,0.75,0.75,0.75]  # (m)
 GAMMA = [0, 0, 0, 0, 0, 0]
 ALPHA = [0, 0, 0, 0, 0, 0]
 BETA = [0, 0, 0, 0, 0, 0]
