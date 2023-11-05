@@ -13,12 +13,12 @@ Author: Ryan Barry
 Date Created: July 16, 2023
 """
 
-import sys
 
 import rclpy
-from AutonomousNavigation import AutonomousNavigationMission
-from EquipmentServicing import EquipmentServicingMission
-from ExtremeRetrievalDelivery import ExtremeRetrievalDeliveryMission
+from missions.AutonomousNavigation import AutonomousNavigationMission
+from missions.EquipmentServicing import EquipmentServicingMission
+from missions.ExtremeRetrievalDelivery import ExtremeRetrievalDeliveryMission
+from missions.ScienceMission import ScienceMission
 from hardware.RoverConstants import (
     AUTONOMOUS,
     EQUIPMENT_SERVICING,
@@ -26,17 +26,17 @@ from hardware.RoverConstants import (
     SCIENCE,
     TEST_MODE,
 )
-from ScienceMission import ScienceMission
 
-sys.path.append("..")
 from hardware.Rover import Rover
-from testing.Test import TestingEnvironment
+from testing.TestingEnvironment import TestingEnvironment
 
 
 class MissionControl:
     def __init__(self):
+        print("pre rover")
         self.rover = Rover()
         # Implement the testing environment for rover upbringing and subsystem testing
+        print("post rover")
         self.testing_environment = TestingEnvironment(self.rover)
         self.autonomous_navigation = AutonomousNavigationMission(self.rover)
         self.equipment_servicing = EquipmentServicingMission(self.rover)
@@ -44,7 +44,7 @@ class MissionControl:
         self.science_mission = ScienceMission(self.rover)
 
     def exec(self):  # Method for executing the mission control logic
-
+        print("execute mission control")
         # Run testing environment if Rover in TEST_MODE
         # Use TEST_MODE for hardware bringup
         if self.rover.status.operating_mode == TEST_MODE:
