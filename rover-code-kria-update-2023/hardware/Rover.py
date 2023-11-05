@@ -12,41 +12,42 @@ Author: Ryan Barry
 Date Created: July 16, 2023
 """
 
-import sys
 
 import rclpy
 
-sys.path.append("..")
 from communications.Communications import Communications
 from ErrorHandler import ErrorHandler
 from hardware.status.RoverStatus import RoverStatus
 from hardware.status.StatusLEDs import CommLinkLED, OperatingModeLED, WaypointLED
 from rclpy.node import Node
-from RoverConstants import *
-from RoverPinout import *
-from sensors.GPS import GPS
-from sensors.LiDAR import LiDAR
-from subsystems.arm.ArmRobot import ArmRobot
-from subsystems.cameras.FrontCamera import FrontCamera
-from subsystems.drive_base.DriveBase import DriveBase
-from subsystems.science_plate.SciencePlate import SciencePlate
+from hardware.RoverConstants import *
+from hardware.RoverPinout import *
+from hardware.sensors.GPS import GPS
+from hardware.sensors.LiDAR import LiDAR
+from hardware.subsystems.arm.ArmRobot import ArmRobot
+from hardware.subsystems.cameras.FrontCamera import FrontCamera
+from hardware.subsystems.drive_base.DriveBase import DriveBase
+from hardware.subsystems.science_plate.SciencePlate import SciencePlate
 
 
 class Rover(Node, ErrorHandler):
     def __init__(self):
         ErrorHandler.__init__(self)
-        Node.__init__("rover")
-        rclpy.spin(self)
+        Node.__init__(self,"rover")
 
         # Initialize Status
         self.status = RoverStatus()
         self.__active_mission = None
-
+        print("status")
         # Initialize Subsystems
         self.arm = ArmRobot()
+        print("arm")
         self.science_plate = SciencePlate()
+        print("science plate")
         self.drive_base = DriveBase(self.status.operating_mode)
+        print("drive base")
         self.comms = Communications()
+        print("comms")
 
         # Initialize LEDs
         self.operating_mode_LED = OperatingModeLED(self.status.operating_mode)
@@ -61,7 +62,7 @@ class Rover(Node, ErrorHandler):
     def get_mission(self):
         if self.__active_mission in missions:
             return self.__active_mission
-        self.log_error(MISSION_FAILURE)
+        # self.log_error(MISSION_FAILURE)
 
     def set_mission(self, mission):
         self.__active_mission = mission
@@ -72,7 +73,8 @@ class Rover(Node, ErrorHandler):
         self.waypoint_LED.update()
 
     def run(self):
-        rclpy.spin(self.arm)  # Spin the ArmRobot node
+        rclpy.spin_once(self)  # Spin the node
+        self.status.spin()
 
         self.status.destroy_node()
         self.arm.destroy_node()

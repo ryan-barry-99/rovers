@@ -1,5 +1,5 @@
 # Drive Motor Pins
-from RoverConstants import WHEEL_NAMES
+from hardware.RoverConstants import WHEEL_NAMES
 
 WHEEL_PINS = {
     f"{WHEEL_NAMES[0]}_pwm": 1,
