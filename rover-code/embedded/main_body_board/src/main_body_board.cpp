@@ -1,4 +1,4 @@
-#include "../lib/main_body_board.h"
+#include "../include/main_body_board.h"
 
 MainBodyBoard::MainBodyBoard() :
     drive_base(),

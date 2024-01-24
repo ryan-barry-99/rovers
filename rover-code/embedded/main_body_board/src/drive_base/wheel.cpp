@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "../lib/wheel.h"
-#include "../lib/pinout.h"
+#include "../include/wheel.h"
+#include "../include/pinout.h"
 
 Wheel::Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin) {
     this->pwm_pin = pwm_pin;
