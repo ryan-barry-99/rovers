@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../lib/main_body_board.h"
+#include "../include/main_body_board.h"
 
 MainBodyBoard mbb;
 
