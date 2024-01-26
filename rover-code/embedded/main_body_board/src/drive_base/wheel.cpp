@@ -1,19 +1,11 @@
-#include <Arduino.h>
-#include <Servo.h>
 #include "../include/wheel.h"
-#include "../include/pinout.h"
 
 Wheel::Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin) {
-    this->pwm_pin = pwm_pin;
-    this->enc_A_pin = enc_A_pin;
-    this->enc_B_pin = enc_B_pin;
+    Motor motor(pwm_pin);
+    QuadEncoder encoder(enc_A_pin, enc_B_pin);
+
     this->targetSpeed = 0;
     this->currentSpeed = 0;
-
-    // Configure pins as outputs or inputs
-    pinMode(this->pwm_pin, OUTPUT);
-    pinMode(this->enc_A_pin, INPUT);
-    pinMode(this->enc_B_pin, INPUT);
 }
 
 void Wheel::setSpeed(float targetSpeed) {
@@ -31,5 +23,5 @@ void Wheel::setSpeed(float targetSpeed) {
     Maximum pulse range 500 to 2500 us
     Valid frequency 50 to 200 Hz
     */
-   analogWrite(this->pwm_pin, this->pwm_duty_cycle);
+   motor.setSpeed(targetSpeed);
 }

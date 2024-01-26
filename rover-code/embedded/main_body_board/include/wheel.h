@@ -12,6 +12,13 @@ based on its target speed.
 #ifndef WHEEL_H
 #define WHEEL_H
 
+#include <Arduino.h>
+#include <Servo.h>
+#include "pinout.h"
+#include "wheel.h"
+#include "motor.h"
+#include "quad_encoder.h"
+
 class Wheel {
     public:
         /*
@@ -36,10 +43,9 @@ class Wheel {
     private:
         float currentSpeed;
         float targetSpeed;
-        pwm_pins pwm_pin;
-        int pwm_duty_cycle;
-        enc_A_pins enc_A_pin;
-        enc_B_pins enc_B_pin;
+        Motor motor;
+        QuadEncoder encoder;
+        float pwm_duty_cycle;
 };
 
 #endif
