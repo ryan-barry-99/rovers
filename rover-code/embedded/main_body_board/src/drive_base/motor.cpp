@@ -9,6 +9,6 @@ Motor::Motor(pwm_pins pwm_pin) {
 }
 
 
-Motor::setSpeed(float duty_cycle_us) {
+void Motor::setSpeed(float duty_cycle_us) {
     motor.writeMicroseconds(duty_cycle_us);
 }

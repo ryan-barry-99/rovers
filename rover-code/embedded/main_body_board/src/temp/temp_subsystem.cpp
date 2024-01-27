@@ -1,5 +1,5 @@
-#include "../lib/temp_subsystem.h"
-#include "../lib/pinout.h"
+#include "../../include/temp_subsystem.h"
+#include "../../include/pinout.h"
 
 TempSubsystem::TempSubsystem() :
     thermistors

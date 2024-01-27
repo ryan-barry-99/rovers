@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../lib/thermistor.h"
+#include "../../include/thermistor.h"
 
 Thermistor::Thermistor(thermistor_pins thermistor_pin) {
     this->thermistor_pin = thermistor_pin;
