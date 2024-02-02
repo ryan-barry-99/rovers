@@ -33,4 +33,9 @@ enum thermistor_pins {
     THERMISTOR_PIN_1 = 21
 };
 
+enum CAN_pins {
+    CAN_RX_PIN = 0,
+    CAN_TX_PIN = 1
+};
+
 #endif
