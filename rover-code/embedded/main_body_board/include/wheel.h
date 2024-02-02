@@ -17,7 +17,7 @@ based on its target speed.
 #include "pinout.h"
 #include "wheel.h"
 #include "motor.h"
-#include "quad_encoder.h"
+#include "quad_decoder.h"
 
 class Wheel {
     public:
@@ -44,7 +44,7 @@ class Wheel {
         float currentSpeed;
         float targetSpeed;
         Motor motor;
-        QuadEncoder encoder;
+        QuadratureDecoder encoder;
         float pwm_duty_cycle;
 };
 
