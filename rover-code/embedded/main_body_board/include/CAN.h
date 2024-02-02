@@ -23,6 +23,8 @@ class CAN
     // void canSniff(const CAN_message_t &msg);
     auto GetMessage();
 
+    //void test(const CAN_message_t &msg);
+
     // static void staticCanSniff(const CAN_message_t &msg);
 
     ObjectDictionary m_objectDict;

@@ -1,6 +1,8 @@
 #include "../include/CAN.h"
 #include <FlexCAN_T4.h>
 
+//#include <functional>
+
 uint8_t m_CANMessage[8];
 
 void CANSniff(const CAN_message_t &msg)
@@ -15,6 +17,10 @@ void CANSniff(const CAN_message_t &msg)
 
 CAN::CAN(CAN::CAN_MB mailBox)
 {
+  //std::bind<void>(test, this);
+
+
+
   // m_CAN.setRX(CAN_pins::CAN_RX_PIN);
   // m_CAN.setTX(CAN_pins::CAN_TX_PIN);
   m_CAN.enableMBInterrupt((FLEXCAN_MAILBOX) mailBox);
