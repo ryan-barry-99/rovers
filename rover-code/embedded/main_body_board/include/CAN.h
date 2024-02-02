@@ -20,16 +20,18 @@ class CAN
 
     void SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8]);
 
-    // void canSniff(const CAN_message_t &msg);
-    auto GetMessage();
+    static void canSniff(const CAN_message_t &msg);
+    //auto GetMessage();
 
-    //void test(const CAN_message_t &msg);
+    void CANSetup(CAN can);
 
     // static void staticCanSniff(const CAN_message_t &msg);
 
-    ObjectDictionary m_objectDict;
-    ObjectDictionary::Type
+    //ObjectDictionary m_objectDict;
+    //ObjectDictionary::Type
+    void test(const CAN_message_t &msg);
     private:
+    bool m_test = false;
     
     FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> m_CAN;
 };

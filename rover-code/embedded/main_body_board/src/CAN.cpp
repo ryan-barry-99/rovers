@@ -1,7 +1,7 @@
 #include "../include/CAN.h"
 #include <FlexCAN_T4.h>
 
-//#include <functional>
+#include <functional>
 
 uint8_t m_CANMessage[8];
 
@@ -17,7 +17,13 @@ void CANSniff(const CAN_message_t &msg)
 
 CAN::CAN(CAN::CAN_MB mailBox)
 {
-  //std::bind<void>(test, this);
+  // boost::function<void(const CAN_message_t &msg)> test2;
+  // test2 = std::binder1st<void, const CAN_message_t &msg>(std::mem_fun(&CAN::test), this);
+
+  // void (*test2)(const CAN_message_t &msg) = std::bind(&test, std::placeholders::_1, this);
+
+
+  //auto test2 = std::bind<void>(test, this, std::placeholders::_1);
 
 
 
@@ -56,8 +62,21 @@ CAN::CAN(CAN::CAN_MB mailBox)
   m_CAN.setBaudRate(115200); 
 
   // Set the interrupt to call the canSniff function
-  m_CAN.onReceive((FLEXCAN_MAILBOX)mailBox, CANSniff);
+  //std::function<void(const CAN_message_t &msg)> test2 = &std::bind(&CAN::test, this, std::placeholders::_1);
+  //m_CAN.onReceive((FLEXCAN_MAILBOX)mailBox, test2);
   
+}
+
+void CAN::canSniff(const CAN_message_t &msg)
+{
+  msg.id;
+  // m_test = true;
+
+  for(int i = 0; i < 8; i++)
+  {
+    m_CANMessage[i] = msg.buf[i];    
+  } 
+
 }
 
 // Send a message to the CAN bus
@@ -83,7 +102,11 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
 
 }
 
-auto CAN::GetMessage()
+void CAN::CANSetup( CAN can)
 {
-
+  m_CAN.onReceive(&can.test);
 }
+// auto CAN::GetMessage()
+// {
+
+// }
