@@ -1,8 +1,10 @@
 #ifndef CAN_H
 #define CAN_H
 #include <FlexCAN_T4.h>
+#include <unordered_map>
 #include "pinout.h"
-#include "object_dict.h"
+
+using ObjectDictionary = std::unordered_map<uint32_t, CAN_message_t>;
 
 class CAN
 {
@@ -28,7 +30,7 @@ class CAN
     // static void staticCanSniff(const CAN_message_t &msg);
 
     ObjectDictionary m_objectDict;
-    ObjectDictionary::Type
+    
     private:
     
     FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> m_CAN;
