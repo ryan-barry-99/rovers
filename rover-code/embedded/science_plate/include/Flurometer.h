@@ -1,4 +1,4 @@
-#ifndef #FLUROMETER_H
+#ifndef FLUROMETER_H
 #define FLUROMETER_H
 
 #include "CAN.h"
@@ -10,28 +10,21 @@
 class Flurometer
 {
 private:
-    CAN *can;
+    CAN* can;
     MicroPump pump;
     FluroPos position;
     NEMA17Stepper stepper = new Motor(); 
 
     float photoDiode;
     int diodeLEDPin;     
-    bool pumping:
+    bool pumping;
     
     
 public:
-    Flurometer(/* args */);
+    Flurometer(CAN* can);
     ~Flurometer();
 };
 
-Flurometer::Flurometer(/* args */)
-{
-}
-
-Flurometer::~Flurometer()
-{
-}
 
 
 
