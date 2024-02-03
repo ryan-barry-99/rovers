@@ -15,7 +15,7 @@ class StepperMotor<T> : public Motor<T>
     public:
 
     // Constructor
-    Motor(int pin, Encoder encoder);
+    Motor();
     ~Motor(); // Virtual destructor to ensure proper cleanup
 
 
