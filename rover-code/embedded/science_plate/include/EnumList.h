@@ -1,7 +1,7 @@
 #ifndef ENUM_LIST_H
 #define ENUM_LIST_H
 
-enum FluroPos{
+enum FLURO_POS{
     POS0 = 0,
     POS1 = 1,
     POS2 = 2,
@@ -10,7 +10,7 @@ enum FluroPos{
     POS5 = 5,
 };
 
-enum PosSoilTransfer{
+enum POS_SOIL_TRANSFER{
     POS0 = 0,
     POS1 = 1,
     POS2 = 2,
@@ -19,25 +19,7 @@ enum PosSoilTransfer{
     POS5 = 5,
 };
 
-enum StepperPins{
-    ID0 = 0,
-    ID1 = 1,
-    ID2 = 2,
-    ID3 = 3,
-    ID4 = 4,
-    ID5 = 5,
-};
-
-enum VibratorPins{
-    ID0 = 0,
-    ID1 = 1,
-    ID2 = 2,
-    ID3 = 3,
-    ID4 = 4,
-    ID5 = 5,
-};
-
-enum TurnDirection{
+enum TURN_DIRECTION{
     CLOCKWISE = 0,
     COUNTERCLOCKWISE = 1
 };
@@ -47,6 +29,11 @@ enum CAN_MB{
     MAIN_BODY = FLEXCAN_MAILBOX::MB1, 
     SCIENCE_BOARD = FLEXCAN_MAILBOX::MB2,
     ARM_BOARD = FLEXCAN_MAILBOX::MB3
+};
+
+enum MICROPUMP_MODE{
+    DISCRETE = 0,
+    VARIABLE = 1
 };
 
 #endif
