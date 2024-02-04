@@ -24,16 +24,11 @@ class MainBodyBoard {
         * Initializes the drive base, temp subsystem, and LiDAR.
         */
         MainBodyBoard();
+        ~MainBodyBoard();
     private:
-        /*
-        * The drive base
-        */
-        DriveBase drive_base;
-
-        /*
-        * The temp subsystem
-        */
-        TempSubsystem temp_subsystem;
+        CAN can( CAN::CAN_ID::MAIN_BODY );
+        DriveBase drive_base = new DriveBase(&can);
+        TempSubsystem temp_subsystem = new TempSubsystem(&can);
 };
 
 #endif

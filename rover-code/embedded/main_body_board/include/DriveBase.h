@@ -23,7 +23,7 @@ class DriveBase {
         * Constructor for the drive base class.
         * Initializes the wheels of the rover.
         */
-        DriveBase();
+        DriveBase(CAN::CAN *can);
 
         /*
         * Updates the velocity of the wheels to match the target velocity

@@ -20,7 +20,7 @@ class TempSubsystem {
         * Constructor for the temp subsystem class.
         * Initializes the thermistors.
         */
-        TempSubsystem();
+        TempSubsystem(CAN::CAN *can);
 
         /*
         * @return The temperature measured by the thermistor
