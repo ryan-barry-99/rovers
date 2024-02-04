@@ -1,13 +1,10 @@
-#include  "../../include/Motor.h"
+#include "../../include/Motor.h"
 
-
-Motor::Motor(pwm_pins pwm_pin) {
+Motor::Motor(pwm_pins pwm_pin, double kp, double ki, double kd) : pid(kp, ki, kd){
     this->pwm_pin = pwm_pin;
     pinMode(this->pwm_pin, OUTPUT);
-    Servo motor;
-    motor.attach(this->pwm_pin);
+    motor.attach(this->pwm_pin);  // Assuming 'motor' is a member variable of the Motor class
 }
-
 
 void Motor::setSpeed(float duty_cycle_us) {
     motor.writeMicroseconds(duty_cycle_us);

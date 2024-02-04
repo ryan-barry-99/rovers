@@ -11,7 +11,7 @@ This class is responsible for reading the temperature of the thermistors.
 #ifndef TEMP_SUBSYSTEM_H
 #define TEMP_SUBSYSTEM_H
 
-#include "thermistor.h"
+#include "Thermistor.h"
 #include "Pinout.h"
 
 class TempSubsystem {

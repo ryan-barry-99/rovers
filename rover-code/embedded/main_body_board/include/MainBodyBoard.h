@@ -13,8 +13,9 @@ The main body board is responsible for:
 #ifndef MAIN_BODY_BOARD_H
 #define MAIN_BODY_BOARD_H
 
-#include "drive_base.h"
-#include "temp_subsystem.h"
+#include "CAN.h"
+#include "DriveBase.h"
+#include "TempSubsystem.h"
 
 class MainBodyBoard {
     public:
