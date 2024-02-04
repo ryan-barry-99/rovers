@@ -13,8 +13,9 @@ The main body board is responsible for:
 #ifndef MAIN_BODY_BOARD_H
 #define MAIN_BODY_BOARD_H
 
-#include "drive_base.h"
-#include "temp_subsystem.h"
+#include "CAN.h"
+#include "DriveBase.h"
+#include "TempSubsystem.h"
 
 class MainBodyBoard {
     public:
@@ -23,16 +24,11 @@ class MainBodyBoard {
         * Initializes the drive base, temp subsystem, and LiDAR.
         */
         MainBodyBoard();
+        ~MainBodyBoard();
     private:
-        /*
-        * The drive base
-        */
-        DriveBase drive_base;
-
-        /*
-        * The temp subsystem
-        */
-        TempSubsystem temp_subsystem;
+        CAN can( CAN::CAN_ID::MAIN_BODY );
+        DriveBase drive_base = new DriveBase(&can);
+        TempSubsystem temp_subsystem = new TempSubsystem(&can);
 };
 
 #endif

@@ -15,9 +15,9 @@ based on its target speed.
 #include <Arduino.h>
 #include <Servo.h>
 #include "Pinout.h"
-#include "wheel.h"
-#include "motor.h"
-#include "quad_decoder.h"
+#include "Wheel.h"
+#include "Motor.h"
+#include "QuadDecoder.h"
 
 class Wheel {
     public:
@@ -27,7 +27,7 @@ class Wheel {
         * @param enc_A_pin The A pin of the wheel's quadrature encoder
         * @param enc_B_pin The B pin of the wheel's quadrature encoder
         */
-        Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin);
+        Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin, double kp, double ki, double kd);
 
         /*
         * Adjust's the PWM signal to the wheel to match the target speed
