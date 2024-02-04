@@ -14,7 +14,7 @@ the target velocity transmitted over CAN.
 
 #include <Arduino.h>
 #include "wheel.h"
-#include "pinout.h"
+#include "Pinout.h"
 
 class DriveBase {
     public:

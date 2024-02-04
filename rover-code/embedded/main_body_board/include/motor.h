@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include "motor.h"
-#include "pinout.h"
+#include "Pinout.h"
 
 class Motor {
     public:
