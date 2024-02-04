@@ -16,8 +16,8 @@ CAN::CAN(CAN_MB mailBox)
   // Start the CAN bus
   m_CAN.begin(); // <- This is needed
 
-  // Set the baud rate to 115200
-  m_CAN.setBaudRate(115200); 
+  // Set the baud rate to 500000
+  m_CAN.setBaudRate(500000); 
 
   // Set the interrupt to call the canSniff function
   m_CAN.onReceive((FLEXCAN_MAILBOX)mailBox, &CAN::CANSniff);
