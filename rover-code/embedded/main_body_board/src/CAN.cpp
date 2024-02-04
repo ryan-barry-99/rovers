@@ -1,5 +1,4 @@
 #include "../include/CAN.h"
-#include <FlexCAN_T4.h>
 
 
 CAN::CAN(CAN_MB mailBox)
@@ -12,23 +11,7 @@ CAN::CAN(CAN_MB mailBox)
   m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
   m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
 
-  switch(mailBox){    
-    case CAN::CAN_MB::MAIN_BODY:
-      m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY, RX, STD); // Set the mailbox to receive
-      break;
-    
-    case CAN_MB::JETSON:
-      m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON, RX, STD); // Set the mailbox to receive
-      break;
-
-    case CAN::CAN_MB::SCIENCE_BOARD:
-      m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, RX, STD); // Set the mailbox to receive
-      break;
-    
-    case CAN::CAN_MB::ARM_BOARD:
-      m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD, RX, STD); // Set the mailbox to receive
-      break;
-  }
+  m_CAN.setMB( (FLEXCAN_MAILBOX)mailBox, RX, STD); // Set the mailbox to receive
 
   // Start the CAN bus
   m_CAN.begin(); // <- This is needed
@@ -63,6 +46,9 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
   {
     msg.buf[i] = message[i];
   }
+
+  // Add the message to the object dictionary
+  m_objectDict[msg.id] = msg;
 
   // Send the message
   m_CAN.write( (FLEXCAN_MAILBOX)mailBox, msg);

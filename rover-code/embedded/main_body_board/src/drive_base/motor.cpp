@@ -1,4 +1,4 @@
-#include  "../../include/motor.h"
+#include  "../../include/Motor.h"
 
 
 Motor::Motor(pwm_pins pwm_pin) {

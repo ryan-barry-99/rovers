@@ -1,4 +1,4 @@
-#include "../include/wheel.h"
+#include "../../include/Wheel.h"
 
 Wheel::Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin) : motor(pwm_pin), encoder(enc_A_pin, enc_B_pin) {
 

@@ -10,7 +10,8 @@ This class is responsible for reading the temperature of a thermistor.
 #ifndef THERMISTOR_H
 #define THERMISTOR_H
 
-#include "pinout.h"
+#include <Arduino.h>
+#include "Pinout.h"
 
 class Thermistor {
     public:

@@ -14,7 +14,7 @@ based on its target speed.
 
 #include <Arduino.h>
 #include <Servo.h>
-#include "pinout.h"
+#include "Pinout.h"
 #include "wheel.h"
 #include "motor.h"
 #include "quad_decoder.h"
