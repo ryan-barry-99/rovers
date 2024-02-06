@@ -1,7 +1,7 @@
-#ifndef QUAD_DECODER_H
-#define QUAD_DECODER_H
+#ifndef QUADDECODER_H
+#define QUADDECODER_H
 
-#include "pinout.h"
+#include "Pinout.h"
 #include <Encoder.h>
 #include <IntervalTimer.h>
 

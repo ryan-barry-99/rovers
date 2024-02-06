@@ -1,4 +1,4 @@
-#include "../../include/quad_decoder.h"
+#include "../../include/QuadDecoder.h"
 
 
 QuadratureDecoder* QuadratureDecoder::instance = nullptr;

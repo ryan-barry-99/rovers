@@ -1,8 +1,8 @@
 #ifndef CAN_H
 #define CAN_H
 #include <FlexCAN_T4.h>
-#include <unordered_map>
-#include "pinout.h"
+#include <unordered_map.h>
+#include "Pinout.h"
 
 using ObjectDictionary = std::unordered_map<uint32_t, CAN_message_t>;
 
