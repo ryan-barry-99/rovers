@@ -1,6 +1,6 @@
 #include "../../include/Vibrator.h"
 
-Vibrator::Vibrator(VibratorPins pin) {
+Vibrator::Vibrator(VIBRATOR_PINS pin) {
     // Constructor
     this->pin = pin;
     this->active = false;
@@ -26,7 +26,7 @@ bool Vibrator::set(bool status) {
     return this->active = status;
 }
 
-void writePin(){
+void Vibrator::writePin(){
     if(this->active){
         digitalWrite(this->pin, LOW);
     } else {

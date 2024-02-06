@@ -5,15 +5,15 @@
 #include <Arduino.h>
 
 class Vibrator {
-	private:
-		VibratorPins pin;
-		bool active;
 	public:
-		Vibrator(VibratorPins pin);
-		bool isActive();
-		bool toggle();
+		Vibrator(VIBRATOR_PINS pin);
+		bool isActive(void);
+		bool toggle(void);
 		bool set(bool status);
-		void writePin();
+		void writePin(void);
+	private:
+		VIBRATOR_PINS pin;
+		bool active;
 };
 
 #endif

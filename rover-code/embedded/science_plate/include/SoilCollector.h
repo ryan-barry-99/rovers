@@ -4,7 +4,7 @@
 #include "StepperMotor.h"
 #include "BrushlessMotor.h"
 #include "CAN.h"
-#include "Enums.h"
+#include "EnumList.h"
 
 // Attributes
 // - stepper: StepperMotor
@@ -17,10 +17,10 @@
 class SoilCollector
 {
 private:
-    StepperMotor stepper = new StepperMotor();
-    BrushlessMotor brushless = new BrushlessMotor();
+    StepperMotor<double> stepper = StepperMotor<double>(STEPPER_PINS::SOILCOLLECTOR);
+    //BrushlessMotor brushless = new BrushlessMotor();
 
-    TurnDirection turnDirection;
+    TURN_DIRECTION turnDirection;
 
     bool extended;
     bool turning;
@@ -29,10 +29,10 @@ private:
 public:
     SoilCollector(CAN *can);
 
-    isExtended(): bool
-    bool isTurning()
-    getTurnDirection(): int
-    setTurnDirection(direction: TurnDirection)
+    bool isExtended();
+    bool isTurning();
+    TURN_DIRECTION getTurnDirection();
+    void setTurnDirection(TURN_DIRECTION direction);
 };
 
 #endif

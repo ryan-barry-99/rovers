@@ -6,10 +6,10 @@ CAN::CAN(CAN_MB mailBox)
   m_CAN.enableMBInterrupt((FLEXCAN_MAILBOX) mailBox);
 
   
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON,        TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::JETSON,        TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
 
   m_CAN.setMB( (FLEXCAN_MAILBOX)mailBox, RX, STD); // Set the mailbox to receive
 

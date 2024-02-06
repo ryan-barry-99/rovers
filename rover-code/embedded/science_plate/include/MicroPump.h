@@ -1,8 +1,11 @@
 #ifndef MICROPUMP_H
 #define MICROPUMP_H
 
-#include "EnumList.h"
+#define PPSTONORMAL(pulsesPerSecond) pulsesPerSecond * 1000
+#define NORMALTOPPS(normalizedSpeed) normalizedSpeed / 1000
 
+#include "EnumList.h"
+#include "CAN.h"
 /*
 Attributes
 - pumping: bool
@@ -15,11 +18,11 @@ class MicroPump
 {
 private:
     bool pumping;
-    MICROPUMP_MODE mode;
     int pulsesPerSecond;
     float normalizedSpeed;
-    CAN *can;
 
+    CAN *can;
+    MICROPUMP_MODE mode;
 public:
     MicroPump(CAN *can);
 
@@ -29,8 +32,8 @@ public:
     int setNormal(float normalVal);
     int setPps(int pulses);
 
-    int getPps();
-    float getNormal();
+    int getPps(void);
+    float getNormal(void);
 };
 
 #endif

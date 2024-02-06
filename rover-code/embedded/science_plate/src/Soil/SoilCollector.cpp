@@ -1,19 +1,19 @@
-#include "../../include/SoilCollector.h"
+#include "../include/SoilCollector.h"
 
 SoilCollector::SoilCollector(CAN *can) 
 {
     this->can = can;
   // Set the default values for the soil collector
-    TurnDirection turnDirection = TurnDirection::CLOCKWISE;
+    this->turnDirection = TURN_DIRECTION::CLOCKWISE;
     
-    bool extended = false;
-    bool turning = false;
+    this->extended = false;
+    this->turning = false;
 }
 
-bool isExtended(){return extended;}
+bool SoilCollector::isExtended(){return extended;}
 
-bool isTurning(){return turning;}
+bool SoilCollector::isTurning(){return turning;}
 
-TurnDirection getTurnDirection(){return turnDirection;}
+TURN_DIRECTION SoilCollector::getTurnDirection(){return turnDirection;}
 
-void setTurnDirection(TurnDirection direction){turnDirection = direction;}
+void SoilCollector::setTurnDirection(TURN_DIRECTION direction){turnDirection = direction;}
