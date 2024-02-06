@@ -3,26 +3,33 @@
 
 #include "CAN.h"
 #include "MicroPump.h"
-#include "FluroPos.h"
 #include "StepperMotor.h"
-#include "Enums.h"
+#include "EnumList.h"
 
 class Flurometer
 {
-private:
-    CAN* can;
-    MicroPump pump;
-    FluroPos position;
-    NEMA17Stepper stepper = new Motor(); 
+  public:
+    Flurometer(CAN *can);
+    ~Flurometer();
+
+    bool toggleLED(); 
+    bool togglePumping(); 
+    bool foundLife(); 
+    bool isPumping(); 
+    FLURO_POS currPos(); 
+    
+  private:
+    CAN *can;
+    MicroPump *pump;
+    FLURO_POS position;
+    StepperMotor<double> stepper = StepperMotor<double>(STEPPER_PINS::FLUROMETER); 
 
     float photoDiode;
     int diodeLEDPin;     
     bool pumping;
     
     
-public:
-    Flurometer(CAN* can);
-    ~Flurometer();
+
 };
 
 

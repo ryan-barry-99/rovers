@@ -1,22 +1,24 @@
 #ifndef ENUM_LIST_H
 #define ENUM_LIST_H
 
+#include <FlexCAN_T4.h>
+
 enum FLURO_POS{
-    POS0 = 0,
-    POS1 = 1,
-    POS2 = 2,
-    POS3 = 3,
-    POS4 = 4,
-    POS5 = 5,
+    FLURO_POS0 = 0,
+    FLURO_POS1 = 1,
+    FLURO_POS2 = 2,
+    FLURO_POS3 = 3,
+    FLURO_POS4 = 4,
+    FLURO_POS5 = 5,
 };
 
-enum POS_SOIL_TRANSFER{
-    POS0 = 0,
-    POS1 = 1,
-    POS2 = 2,
-    POS3 = 3,
-    POS4 = 4,
-    POS5 = 5,
+enum SOIL_TRANSFER_POS{
+    SOIL_TRANSFER_POS0 = 0,
+    SOIL_TRANSFER_POS1 = 1,
+    SOIL_TRANSFER_POS2 = 2,
+    SOIL_TRANSFER_POS3 = 3,
+    SOIL_TRANSFER_POS4 = 4,
+    SOIL_TRANSFER_POS5 = 5,
 };
 
 enum TURN_DIRECTION{
@@ -25,10 +27,10 @@ enum TURN_DIRECTION{
 };
 
 enum CAN_MB{
-    JETSON = FLEXCAN_MAILBOX::MB0, 
-    MAIN_BODY = FLEXCAN_MAILBOX::MB1, 
+    JETSON        = FLEXCAN_MAILBOX::MB0, 
+    MAIN_BODY     = FLEXCAN_MAILBOX::MB1, 
     SCIENCE_BOARD = FLEXCAN_MAILBOX::MB2,
-    ARM_BOARD = FLEXCAN_MAILBOX::MB3
+    ARM_BOARD     = FLEXCAN_MAILBOX::MB3
 };
 
 enum MICROPUMP_MODE{

@@ -3,8 +3,9 @@
 #include <Arduino.h>
 #include "SoilCollector.h"
 #include "SoilTransferer.h"
-#include "Fluorometer.h"
+#include "Flurometer.h"
 #include "CAN.h"
+#include "EnumList.h"
 
 // Attributes
 // - soilCollector: SoilCollector
@@ -15,12 +16,13 @@
 class ScienceBoard
 {
     private:
-        CAN can( CAN::CAN_ID::SCIENCE_BOARD );
-        SoilCollector soilCollector = new SoilCollector(&can);
-        SoilTransferer soilTransferer = new SoilTransferer(&can);
-        Fluorometer fluorometer = new Fluorometer(&can);
+        CAN can = CAN( CAN_MB::SCIENCE_BOARD );
+        SoilCollector soilCollector = SoilCollector( &can);
+        SoilTransferer soilTransferer = SoilTransferer( &can);;
+        Flurometer fluromete = Flurometer( &can);
         
 public:
     ScienceBoard();
+    ~ScienceBoard();
 };
 #endif
