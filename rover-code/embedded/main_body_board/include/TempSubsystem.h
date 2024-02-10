@@ -13,6 +13,7 @@ This class is responsible for reading the temperature of the thermistors.
 
 #include "Thermistor.h"
 #include "Pinout.h"
+#include "CAN.h"
 
 class TempSubsystem {
     public:
@@ -20,7 +21,7 @@ class TempSubsystem {
         * Constructor for the temp subsystem class.
         * Initializes the thermistors.
         */
-        TempSubsystem(CAN::CAN *can);
+        TempSubsystem(CAN *can);
 
         /*
         * @return The temperature measured by the thermistor

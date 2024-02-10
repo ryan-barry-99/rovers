@@ -26,18 +26,12 @@ class SoilTransferer
 
         int getPos();
         int getTargetPos();
-        std::array<bool, 6> activeVibrators(); 
+        std::array<bool, 6> activeVibrators();  
+        
+        void setVibrator(VIBRATOR_PINS pin, bool active);
 
     private:
-        // enum PosSoilTransfer 
-        // {
-        //     POS1 = 0,
-        //     POS2 = 1,
-        //     POS3 = 2,
-        //     POS4 = 3,
-        //     POS5 = 4,
-        //     POS6 = 5
-        // };
+ 
         StepperMotor<double> caroMotor = StepperMotor<double>(STEPPER_PINS::SOILTRANSFER);
         CAN *can;
         Vibrator *vibrators[6];
