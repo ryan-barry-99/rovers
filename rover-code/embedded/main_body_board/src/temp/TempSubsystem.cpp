@@ -1,7 +1,7 @@
 #include "../../include/TempSubsystem.h"
 #include "../../include/Pinout.h"
 
-TempSubsystem::TempSubsystem() :
+TempSubsystem::TempSubsystem(CAN *can) :
     thermistors
     {
         Thermistor(thermistor_pins::THERMISTOR_PIN_0), 

@@ -26,9 +26,9 @@ class MainBodyBoard {
         MainBodyBoard();
         ~MainBodyBoard();
     private:
-        CAN can( CAN::CAN_ID::MAIN_BODY );
-        DriveBase drive_base = new DriveBase(&can);
-        TempSubsystem temp_subsystem = new TempSubsystem(&can);
+        CAN can = CAN( CAN::CAN_MB::MAIN_BODY );
+        DriveBase drive_base = DriveBase(&can);
+        TempSubsystem temp_subsystem = TempSubsystem(&can);
 };
 
 #endif

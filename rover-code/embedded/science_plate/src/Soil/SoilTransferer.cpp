@@ -34,3 +34,9 @@ std::array<bool, 6> SoilTransferer::activeVibrators()
     }
     return activeVibrators;
 }
+
+void SoilTransferer::setVibrator(VIBRATOR_PINS pin, bool active)
+{
+    // Sets the vibrator to active or inactive
+    vibrators[pin]->set(active);
+}
