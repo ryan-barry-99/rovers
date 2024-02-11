@@ -11,12 +11,12 @@ MicroPump::MicroPump(CAN *can)
 
 float MicroPump::ppsToNormal(int pulses)
 {
-    return (float)pulses / 1000;
+    return PPSTONORMAL(pulses);
 }
 
 int MicroPump::normalToPps(float normalVal)
 {
-    return (int)(normalVal * 1000);
+    return NORMALTOPPS(normalVal);
 }
 
 int MicroPump::setNormal(float normalVal)

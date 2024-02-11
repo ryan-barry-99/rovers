@@ -16,6 +16,7 @@ the target velocity transmitted over CAN.
 #include "Wheel.h"
 #include "Pinout.h"
 #include "Constants.h"
+#include "CAN.h"
 
 class DriveBase {
     public:
@@ -23,7 +24,7 @@ class DriveBase {
         * Constructor for the drive base class.
         * Initializes the wheels of the rover.
         */
-        DriveBase(CAN::CAN *can);
+        DriveBase(CAN *can);
 
         /*
         * Updates the velocity of the wheels to match the target velocity

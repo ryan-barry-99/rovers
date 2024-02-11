@@ -1,6 +1,6 @@
 #include "../../include/DriveBase.h"
 
-DriveBase::DriveBase()
+DriveBase::DriveBase(CAN *can)
     : wheels{
         Wheel(PWM_PIN_0, ENC_A_PIN_0, ENC_B_PIN_0, PIDConstants::KP0, PIDConstants::KI0, PIDConstants::KD0),
         Wheel(PWM_PIN_1, ENC_A_PIN_1, ENC_B_PIN_1, PIDConstants::KP1, PIDConstants::KI1, PIDConstants::KD1),

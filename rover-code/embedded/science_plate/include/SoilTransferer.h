@@ -5,7 +5,7 @@
 #include "StepperMotor.h"
 #include "Vibrator.h"
 #include "CAN.h"
-#include "EnumsList.h"
+#include "EnumList.h"
 
 /*
 Attributes
@@ -17,32 +17,27 @@ Attributes
 - can: *CAN
 */
 
-class SoilTransferer {
-    private:
-        enum PosSoilTransfer 
-        {
-            POS1 = 0,
-            POS2 = 1,
-            POS3 = 2,
-            POS4 = 3,
-            POS5 = 4,
-            POS6 = 5
-        };
-        StepperMotor caroMotor = new Motor(StepperPins::SOILTRANSFER, null);
-        CAN::CAN *can;
-
-        float currPos;
-        float targetPos;
-        Vibrator vibrators[6];
-        
+class SoilTransferer 
+{
     public:
-        SoilTransferer(CAN::CAN *can);
+        SoilTransferer(CAN *can);
 
         void transferSoil();
 
         int getPos();
         int getTargetPos();
-        bool[] activeVibrators(); 
+        std::array<bool, 6> activeVibrators();  
+        
+        void setVibrator(VIBRATOR_PINS pin, bool active);
+
+    private:
+ 
+        StepperMotor<double> caroMotor = StepperMotor<double>(STEPPER_PINS::SOILTRANSFER);
+        CAN *can;
+        Vibrator *vibrators[6];
+
+        float currPos;
+        float targetPos;
 };
 
 #endif

@@ -2,29 +2,31 @@
 #define STEPPER_MOTOR_H
 
 #include "Motor.h"
+#include "Pinout.h"
+#include "EnumList.h"
+#include <Stepper.h>
 
 template<typename T>
-class StepperMotor<T> : public Motor<T>
+class StepperMotor : public Motor<T>
 {
     private:
     T currPos;
     T targetPos;
-    int pin;
-    Encoder encoder;
+    Stepper stepper;
 
     public:
 
     // Constructor
-    Motor();
-    ~Motor(); // Virtual destructor to ensure proper cleanup
+    StepperMotor(STEPPER_PINS type);
+    ~StepperMotor(); // Virtual destructor to ensure proper cleanup
 
 
-    setPower(float power);
-    setPosition(T target);
+    void setPower(float power) override;
+    void setPosition(T target) override;
 
-    T getPosition(void);
-    float getPower(void);
+    T getPosition(void) override; 
+    float getPower(void) override;
 
-    stop(void);
-}
+    void stop(void);
+};
 #endif
