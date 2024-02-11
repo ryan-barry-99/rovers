@@ -4,7 +4,7 @@ This repository contains the source code for RIT's University Rover Challenge ro
 
 The software and firmware architecture is broken down into the following components:
 
-- Python high level ROS application
+- Python high level ROS application\
     Responsible For:
     - Arm kinematics
     - Base station communication
@@ -13,7 +13,7 @@ The software and firmware architecture is broken down into the following compone
     - Perception
 
 - Embedded Firmware
-    - Main Body Board
+    - Main Body Board\
         Responsible For:
         - Drive base control
         - Temperature control
