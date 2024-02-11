@@ -19,7 +19,7 @@ class ScienceBoard
         CAN can = CAN( CAN_MB::SCIENCE_BOARD );
         SoilCollector soilCollector = SoilCollector( &can);
         SoilTransferer soilTransferer = SoilTransferer( &can);;
-        Flurometer fluromete = Flurometer( &can);
+        Flurometer flurometer = Flurometer( &can);
         
 public:
     ScienceBoard();
