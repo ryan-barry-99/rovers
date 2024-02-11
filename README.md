@@ -4,10 +4,10 @@ This repository contains the source code for RIT's University Rover Challenge ro
 
 The software architectureis broken down into the following components:
 
-* Python high level ROS application responsible for
-- Arm kinematics
-- Base station communication
-- Camera control
-- Drive base kinematics
-- Perception
+- Python high level ROS application responsible for
+    - Arm kinematics
+    - Base station communication
+    - Camera control
+    - Drive base kinematics
+    - Perception
 
