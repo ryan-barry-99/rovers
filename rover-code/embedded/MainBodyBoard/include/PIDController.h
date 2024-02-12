@@ -1,6 +1,10 @@
 #ifndef PID_CONTROLLER_H
 #define PID_CONTROLLER_H
 
+
+#define OUTPUT_MIN 0
+#define OUTPUT_MAX 500
+
 class PIDController {
 public:
     // Constructor
