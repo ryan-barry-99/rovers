@@ -6,10 +6,10 @@ CAN::CAN(CAN_MB mailBox)
   m_CAN.enableMBInterrupt((FLEXCAN_MAILBOX) mailBox);
 
   
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::JETSON,        TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
-  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN_MB::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON,        TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
 
   m_CAN.setMB( (FLEXCAN_MAILBOX)mailBox, RX, STD); // Set the mailbox to receive
 
@@ -24,13 +24,16 @@ CAN::CAN(CAN_MB mailBox)
   
 }
 
+// Create an object dictionary to store the messages
+CAN::ObjectDictionary CAN::m_objectDict;
+
 void CAN::CANSniff(const CAN_message_t &msg)
 {
-  m_objectDict[msg.id] = msg;
+  m_objectDict[static_cast<Message_ID>(msg.id)] = msg;
 }
 
 // Send a message to the CAN bus
-void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
+void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 {
   // Create a message
   CAN_message_t msg;
@@ -48,7 +51,7 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
   }
 
   // Add the message to the object dictionary
-  m_objectDict[msg.id] = msg;
+  m_objectDict[static_cast<Message_ID>(msg.id)] = msg;
 
   // Send the message
   m_CAN.write( (FLEXCAN_MAILBOX)mailBox, msg);
@@ -56,7 +59,7 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
 }
 
 // Retrieve a message from the object dictionary
-auto CAN::GetMessage(uint32_t id)
+CAN_message_t CAN::GetMessage(Message_ID id)
 {
   return m_objectDict[id];
 }

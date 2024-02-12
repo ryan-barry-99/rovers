@@ -24,13 +24,16 @@ CAN::CAN(CAN_MB mailBox)
   
 }
 
+// Create an object dictionary to store the messages
+CAN::ObjectDictionary CAN::m_objectDict;
+
 void CAN::CANSniff(const CAN_message_t &msg)
 {
-  m_objectDict[msg.id] = msg;
+  m_objectDict[static_cast<Message_ID>(msg.id)] = msg;
 }
 
 // Send a message to the CAN bus
-void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
+void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 {
   // Create a message
   CAN_message_t msg;
@@ -48,7 +51,7 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
   }
 
   // Add the message to the object dictionary
-  m_objectDict[msg.id] = msg;
+  m_objectDict[static_cast<Message_ID>(msg.id)] = msg;
 
   // Send the message
   m_CAN.write( (FLEXCAN_MAILBOX)mailBox, msg);
@@ -56,7 +59,7 @@ void CAN::SendMessage( CAN_MB mailBox, uint32_t id, uint8_t message[8])
 }
 
 // Retrieve a message from the object dictionary
-auto CAN::GetMessage(uint32_t id)
+CAN_message_t CAN::GetMessage(Message_ID id)
 {
   return m_objectDict[id];
 }
