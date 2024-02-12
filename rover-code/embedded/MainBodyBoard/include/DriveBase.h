@@ -20,26 +20,14 @@ the target velocity transmitted over CAN.
 
 class DriveBase {
     public:
-        /*
-        * Constructor for the drive base class.
-        * Initializes the wheels of the rover.
-        */
         DriveBase(CAN *can);
-
-        /*
-        * Updates the velocity of the wheels to match the target velocity
-        */
         void updateVelocity();
     private:
-        /*
-        * An array of the rover's wheels
-        */
+        // An array of the rover's wheels
         Wheel wheels[6];
-
-        /*
-        * An array of the target velocities corresponding to each wheel
-        */
+        // An array of the target velocities corresponding to each wheel
         float targetVelocity[6];
-
+        CAN *m_can;
+        void getTargetVelocity();
 };
 #endif

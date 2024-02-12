@@ -1,5 +1,9 @@
 #include "../../include/DriveBase.h"
 
+/*
+* Constructor for the drive base class.
+* Initializes the wheels of the rover.
+*/
 DriveBase::DriveBase(CAN *can)
     : wheels{
         Wheel(PWM_PIN_0, ENC_A_PIN_0, ENC_B_PIN_0, PIDConstants::KP0, PIDConstants::KI0, PIDConstants::KD0),
@@ -9,9 +13,23 @@ DriveBase::DriveBase(CAN *can)
         Wheel(PWM_PIN_4, ENC_A_PIN_4, ENC_B_PIN_4, PIDConstants::KP4, PIDConstants::KI4, PIDConstants::KD4),
         Wheel(PWM_PIN_5, ENC_A_PIN_5, ENC_B_PIN_5, PIDConstants::KP5, PIDConstants::KI5, PIDConstants::KD5)
     }
-{}
+{
+    m_can = can;
+}
 
-void DriveBase::updateVelocity() {
+// Retrieves the target velocity from the CAN bus
+void DriveBase::getTargetVelocity()
+{
+    CAN_message_t msg = m_can->GetMessage(CAN::Message_ID::TARGET_VELOCITY);
+    for (int i = 0; i < 6; i++) {
+        targetVelocity[i] = (float)msg.buf[i]; // This line will change based on message packing
+    }
+}
+
+// Updates the velocity of the wheels to match the target velocity
+void DriveBase::updateVelocity()
+{
+    getTargetVelocity();
     for (int i = 0; i < 6; i++) {
         wheels[i].setSpeed(targetVelocity[i]);
     }

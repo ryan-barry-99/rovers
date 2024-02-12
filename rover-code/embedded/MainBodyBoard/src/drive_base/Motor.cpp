@@ -1,6 +1,6 @@
 #include "../../include/Motor.h"
 
-Motor::Motor(pwm_pins pwm_pin, double kp, double ki, double kd) : pid(kp, ki, kd){
+Motor::Motor(pwm_pins pwm_pin){
     this->pwm_pin = pwm_pin;
     pinMode(this->pwm_pin, OUTPUT);
     motor.attach(this->pwm_pin);  // Assuming 'motor' is a member variable of the Motor class

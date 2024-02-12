@@ -1,7 +1,8 @@
 #include "../../include/Wheel.h"
 
+
 Wheel::Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin, double kp, double ki, double kd) 
-    : motor(pwm_pin, kp, ki, kd), encoder(enc_A_pin, enc_B_pin) {
+    : motor(pwm_pin), encoder(enc_A_pin, enc_B_pin), pid(kp, ki, kd){
 
     this->targetSpeed = 0;
     this->currentSpeed = 0;
@@ -22,5 +23,20 @@ void Wheel::setSpeed(float targetSpeed) {
     Maximum pulse range 500 to 2500 us
     Valid frequency 50 to 200 Hz
     */
-   motor.setSpeed(targetSpeed);
+    if(this->targetSpeed == 0){
+        this->pwm_duty_cycle = NEUTRAL;
+    }
+    else{
+        double pid_output = this->pid.update(abs(this->targetSpeed), abs(this->currentSpeed));
+
+        if (this->targetSpeed < 0) {
+            this->pwm_duty_cycle = (pid_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN) * (FULL_REVERSE - MIN_REVERSE);
+        }
+
+        else if (this->targetSpeed > 0) {
+            this->pwm_duty_cycle = (pid_output - OUTPUT_MIN) / (OUTPUT_MAX - OUTPUT_MIN) * (FULL_FORWARD - MIN_FORWARD);
+        }
+    }
+    
+    motor.setSpeed(this->pwm_duty_cycle);
 }

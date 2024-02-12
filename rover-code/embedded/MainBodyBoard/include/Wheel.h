@@ -18,6 +18,14 @@ based on its target speed.
 #include "Wheel.h"
 #include "Motor.h"
 #include "QuadDecoder.h"
+#include "PIDController.h"
+
+
+#define FULL_FORWARD 2000
+#define MIN_FORWARD 1525
+#define NEUTRAL 1500
+#define MIN_REVERSE 1475
+#define FULL_REVERSE 1000
 
 class Wheel {
     public:
@@ -45,7 +53,8 @@ class Wheel {
         float targetSpeed;
         Motor motor;
         QuadratureDecoder encoder;
-        float pwm_duty_cycle;
+        PIDController pid;
+        int pwm_duty_cycle;
 };
 
 #endif
