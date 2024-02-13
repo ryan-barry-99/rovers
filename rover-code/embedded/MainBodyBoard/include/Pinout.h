@@ -28,14 +28,24 @@ enum enc_B_pins {
     ENC_B_PIN_5 = 19
 };
 
-enum thermistor_pins {
-    THERMISTOR_PIN_0 = 20,
-    THERMISTOR_PIN_1 = 21
-};
-
 enum CAN_pins {
     CAN_RX_PIN = 0,
     CAN_TX_PIN = 1
+};
+
+
+enum thermistor_pins {
+    THERMISTOR_PIN_0 = 20,
+    THERMISTOR_PIN_1 = 21,
+    THERMISTOR_PIN_2 = 22,
+    THERMISTOR_PIN_3 = 23
+};
+
+enum fan_pins {
+    FAN_PIN_0 = 22,
+    FAN_PIN_1 = 23,
+    FAN_PIN_2 = 24,
+    FAN_PIN_3 = 25
 };
 
 #endif
