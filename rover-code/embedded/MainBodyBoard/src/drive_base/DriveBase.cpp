@@ -12,16 +12,16 @@ DriveBase::DriveBase(CAN *can)
         Wheel(PWM_PIN_3, ENC_A_PIN_3, ENC_B_PIN_3, PIDConstants::KP3, PIDConstants::KI3, PIDConstants::KD3),
         Wheel(PWM_PIN_4, ENC_A_PIN_4, ENC_B_PIN_4, PIDConstants::KP4, PIDConstants::KI4, PIDConstants::KD4),
         Wheel(PWM_PIN_5, ENC_A_PIN_5, ENC_B_PIN_5, PIDConstants::KP5, PIDConstants::KI5, PIDConstants::KD5)
-    }
-{
-    m_can = can;
-}
+    }, 
+    targetVelocity{0},
+    m_can(can)
+{}
 
 // Retrieves the target velocity from the CAN bus
 void DriveBase::getTargetVelocity()
 {
     CAN_message_t msg = m_can->GetMessage(CAN::Message_ID::TARGET_VELOCITY);
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < NUM_WHEELS; i++) {
         targetVelocity[i] = (float)msg.buf[i]; // This line will change based on message packing
     }
 }
@@ -30,7 +30,7 @@ void DriveBase::getTargetVelocity()
 void DriveBase::updateVelocity()
 {
     getTargetVelocity();
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < NUM_WHEELS; i++) {
         wheels[i].setSpeed(targetVelocity[i]);
     }
 }
