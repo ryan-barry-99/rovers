@@ -18,15 +18,17 @@ the target velocity transmitted over CAN.
 #include "Constants.h"
 #include "CAN.h"
 
+#define NUM_WHEELS 6
+
 class DriveBase {
     public:
         DriveBase(CAN *can);
         void updateVelocity();
     private:
         // An array of the rover's wheels
-        Wheel wheels[6];
+        Wheel wheels[NUM_WHEELS];
         // An array of the target velocities corresponding to each wheel
-        float targetVelocity[6];
+        float targetVelocity[NUM_WHEELS];
         CAN *m_can;
         void getTargetVelocity();
 };
