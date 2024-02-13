@@ -6,6 +6,7 @@ Thermistor::Thermistor(thermistor_pins thermistor_pin) {
 }
 
 float Thermistor::getTemperature() {
+    
     float voltage = analogRead(thermistor_pin) * 3.3 / 1023.0;
     float resistance = 10000.0 * voltage / (3.3 - voltage);
     // Steinhart-Hart equation
