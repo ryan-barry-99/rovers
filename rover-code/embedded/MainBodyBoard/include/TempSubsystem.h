@@ -14,11 +14,13 @@ This class is responsible for reading the temperature of the thermistors.
 #define NUM_THERMISTORS 4
 #define NUM_FANS 4
 
-#define MAX_TEMP 110
-#define MIN_TEMP 60
+// this is in celsius
+#define MAX_TEMP 44 //110 ferinheight
+#define MIN_TEMP 15 // 60 ferinheight
 
+//this is duty cycle pwm Signal
 #define MAX_FAN_SPEED 255
-#define MIN_FAN_SPEED 511
+#define MIN_FAN_SPEED 51
 
 #include "Fan.h"
 #include "Thermistor.h"
@@ -44,7 +46,7 @@ class TempSubsystem {
         /*
          * Update the temperature and fan power
         */
-        void update(void);
+        void updateFans(void);
     private:
         /*
         * The thermistors

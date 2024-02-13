@@ -44,7 +44,26 @@ void TempSubsystem::setFansPower(int power)
     }
 }
 
-void TempSubsystem::update()
+void TempSubsystem::updateFans()
 {
     getTemperature();
+    float avgTemp = 0;
+    for (int i = 0; i < NUM_THERMISTORS; i++)
+    {
+        avgTemp += temperature[i];
+    }
+    avgTemp /= NUM_THERMISTORS;
+    if(avgTemp > MAX_TEMP)
+    {
+        setFansPower(MAX_FAN_SPEED);
+    }
+    else if(avgTemp < MIN_TEMP)
+    {
+        setFansPower(MIN_FAN_SPEED);
+    }
+    else
+    {
+
+        setFansPower(0); // change later
+    }
 }
