@@ -25,36 +25,27 @@ This class is responsible for reading the temperature of the thermistors.
 #include "Pinout.h"
 #include "CAN.h"
 
+using namespace std;
+
 class TempSubsystem {
     public:
-        /*
-        * Constructor for the temp subsystem class.
-        * Initializes the thermistors.
-        */
         TempSubsystem(CAN *can);
 
-        /*
-        * @return The temperature measured by the thermistor
-        */
         float* getTemperature();
-        /*
-         * Set the power of the fans
-        */
         void setFansPower(int power);
-        /*
-         * Update the temperature and fan power
-        */
         void update(void);
     private:
-        /*
-        * The thermistors
-        */
+        // Array of Thermistor objects
         Thermistor thermistors[NUM_THERMISTORS];
-        /*
-        * The fans
-        */
+
+        // Array of Fan objects
         Fan fans[NUM_FANS];
+
+        // Array of temperature readings
         float temperature[NUM_THERMISTORS];
+
+        // Pointer to the CAN object
+        CAN *m_can;
 };
 
 #endif
