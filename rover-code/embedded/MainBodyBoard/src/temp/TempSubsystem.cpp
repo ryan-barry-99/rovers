@@ -1,6 +1,10 @@
 #include "../../include/TempSubsystem.h"
-#include "../../include/Pinout.h"
 
+
+/*
+* Constructor for the temp subsystem class.
+* Initializes the thermistors.
+*/
 TempSubsystem::TempSubsystem(CAN *can) :
     thermistors
     {
@@ -16,34 +20,33 @@ TempSubsystem::TempSubsystem(CAN *can) :
         Fan(fan_pins::FAN_PIN_2),
         Fan(fan_pins::FAN_PIN_3)
     }
-{}
+{
+    m_can = can;
+}
 
 
-float* TempSubsystem::getTemperature() {
-    this->temperature[0] = thermistors[0].getTemperature();
-    this->temperature[1] = thermistors[1].getTemperature();
-    this->temperature[2] = thermistors[2].getTemperature();
-    this->temperature[3] = thermistors[3].getTemperature();
+// @return An array of temperatures measured by each thermistor
+float* TempSubsystem::getTemperature() 
+{
+    for(int i=0; i<NUM_THERMISTORS; i++)
+    {
+        this->temperature[i] = this->thermistors[i].getTemperature();
+    }
     return this->temperature;
 }
 
+// Set the power of the fans
 void TempSubsystem::setFansPower(int power)
 {
-    if(power > MAX_FAN_SPEED)
-    {
-        power = MAX_FAN_SPEED;
-    }
-    else if(power < MIN_FAN_SPEED)
-    {
-        power = MIN_FAN_SPEED;
-    }
+    power = min(max(power, MIN_FAN_SPEED), MAX_FAN_SPEED); // clamp the power to the range (MIN_FAN_SPEED, MAX_FAN_SPEED)
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < NUM_FANS; i++)
     {
-        fans[i].setPower(power);
+        this->fans[i].setPower(power);
     }
 }
 
+// Update the temperature and fan power
 void TempSubsystem::update()
 {
     getTemperature();
