@@ -20,10 +20,14 @@ DriveBase::DriveBase(CAN *can)
 // Retrieves the target velocity from the CAN bus
 void DriveBase::getTargetVelocity()
 {
-    CAN_message_t msg = m_can->GetMessage(CAN::Message_ID::TARGET_VELOCITY);
-    for (int i = 0; i < NUM_WHEELS; i++) {
-        targetVelocity[i] = (float)msg.buf[i]; // This line will change based on message packing
+    if(m_can->NewMessage(CAN::Message_ID::TARGET_VELOCITY))
+    {
+        CANFD_message_t msg = m_can->GetMessage(CAN::Message_ID::TARGET_VELOCITY);
+        for (int i = 0; i < NUM_WHEELS; i++) {
+            targetVelocity[i] = (float)msg.buf[i]; // This line will change based on message packing
+        }
     }
+    
 }
 
 // Updates the velocity of the wheels to match the target velocity
