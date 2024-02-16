@@ -12,6 +12,7 @@ class CAN
         } Message_ID;
 
         typedef std::unordered_map<Message_ID, CANFD_message_t> ObjectDictionary;   
+        typedef std::unordered_map<Message_ID, bool> MessageFlag;
 
         enum CAN_MB{
             JETSON = FLEXCAN_MAILBOX::MB0, 
@@ -26,10 +27,12 @@ class CAN
 
         void SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8]);
         CANFD_message_t GetMessage(Message_ID id);
+        bool NewMessage(Message_ID id);
 
     private:
         FlexCAN_T4FD<CAN2, RX_SIZE_256, TX_SIZE_16> m_CAN;
         static ObjectDictionary m_objectDict;
+        static MessageFlag m_messageFlag;
         static void CANSniff(const CANFD_message_t &msg);
 };
 #endif
