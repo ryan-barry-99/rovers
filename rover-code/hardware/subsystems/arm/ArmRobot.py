@@ -16,6 +16,11 @@ from hardware.subsystems.arm.Gripper import Gripper
 from hardware.subsystems.cameras.ArmCamera import ArmCamera
 from math import pi
 
+BASE_TO_LINK1 = 0.1 # Distance from the base to the first link in meters
+LINK1_TO_LINK2 = 0.8 # Distance from the first link to the second link in meters
+LINK2_TO_LINK3 = 0.8 # Distance from the second link to the third link in meters
+LINK3_TO_HAND = 0.1 # Distance from the third link to the hand in meters
+
 class ArmRobot(ArmRobotKinematics):
     def __init__(self):
         super().__init__()
@@ -37,5 +42,9 @@ class ArmRobot(ArmRobotKinematics):
             self.link4 = self.addFrame(joint_type=PRISMATIC, d=LINK4_LENGTH)
         '''
         self.camera = ArmCamera()
-
+        self.base = self.addFrame(joint_type=REVOLUTE, alpha_fix=-pi/2)
+        self.link1 = self.addFrame(joint_type=REVOLUTE, a=BASE_TO_LINK1)
+        self.link2 = self.addFrame(joint_type=REVOLUTE, a=LINK1_TO_LINK2)
+        self.link3 = self.addFrame(joint_type=REVOLUTE, a=LINK2_TO_LINK3)
+        self.hand_frame = self.addFrame(joint_type=FIXED_REVOLUTE, theta_fix=pi/2, a=LINK3_TO_HAND, alpha_fix=pi/2)
         self.gripper = Gripper()

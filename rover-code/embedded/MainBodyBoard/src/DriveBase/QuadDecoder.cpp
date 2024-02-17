@@ -3,7 +3,7 @@
 
 QuadratureDecoder* QuadratureDecoder::instance = nullptr;
 
-QuadratureDecoder::QuadratureDecoder(enc_A_pins enc_A_pin, enc_B_pins enc_B_pin) : m_encoder(enc_A_pin, enc_B_pin), m_count(0), enc_A_pin(enc_A_pin), enc_B_pin(enc_B_pin) {
+QuadratureDecoder::QuadratureDecoder(ENC_A_PINS enc_A_pin, ENC_B_PINS enc_B_pin) : m_encoder(enc_A_pin, enc_B_pin), m_count(0), enc_A_pin(enc_A_pin), enc_B_pin(enc_B_pin) {
   instance = this;
 }
 

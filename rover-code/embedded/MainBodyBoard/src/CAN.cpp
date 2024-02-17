@@ -36,14 +36,41 @@ CAN::CAN(CAN_MB mailBox)
 
 // Create an object dictionary to store the messages
 CAN::ObjectDictionary CAN::m_objectDict;
+// Create a message flag map to track new messages
+CAN::MessageFlag CAN::m_messageFlag;
 
+// Function to be called when a message is recieved
 void CAN::CANSniff(const CANFD_message_t &msg)
 {
-  m_objectDict[static_cast<Message_ID>(msg.id)] = msg;
+  Message_ID id = static_cast<Message_ID>(msg.id);
+
+  // Check if the ID exists in the m_objectDict map
+  if (m_objectDict.find(id) == m_objectDict.end()) {
+    // This is the first time the message with this ID is being received
+    m_messageFlag[id] = true;
+  }
+  // Check if the message has changed and update message flags
+  else
+  {
+    bool newMessage = false;
+    const auto &existingMessage = m_objectDict[id];
+
+    for(unsigned int i=0; i<sizeof(msg.buf); i++)
+    {
+      if(msg.buf[i] != existingMessage.buf[i])
+      {
+        newMessage = true;
+        break;
+      }
+    }
+    m_messageFlag[id] = newMessage;
+  }
+
+  m_objectDict[id] = msg;
 }
 
 // Send a message to the CAN bus
-void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
+void CAN::sendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 {
   // Create a message
   CANFD_message_t msg;
@@ -69,7 +96,18 @@ void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 }
 
 // Retrieve a message from the object dictionary
-CANFD_message_t CAN::GetMessage(Message_ID id)
+CANFD_message_t CAN::getMessage(Message_ID id)
 {
   return m_objectDict[id];
+}
+
+bool CAN::newMessage(Message_ID id)
+{
+    auto it = m_messageFlag.find(id);
+    if (it != m_messageFlag.end()) {
+        return it->second;
+    } else {
+        // No message has been received yet at this ID
+        return false;
+    }
 }
