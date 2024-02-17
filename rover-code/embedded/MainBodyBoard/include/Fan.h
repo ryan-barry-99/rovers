@@ -7,12 +7,12 @@
 class Fan
 {
     public:
-    Fan(fan_pins pin);
-    void setPower(int power);
+    Fan(FAN_PINS pin);
+    void setPower(int pwm_signal);
     //pwm pin to control fan speed
     // four fans
     private:
-    fan_pins pin;
+    FAN_PINS m_pin;
 };
 
 #endif

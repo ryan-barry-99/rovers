@@ -6,23 +6,22 @@
 * Initializes the thermistors.
 */
 TempSubsystem::TempSubsystem(CAN *can) :
-    thermistors
+    m_thermistors
     {
-        Thermistor(thermistor_pins::THERMISTOR_PIN_0), 
-        Thermistor(thermistor_pins::THERMISTOR_PIN_1),
-        Thermistor(thermistor_pins::THERMISTOR_PIN_2),
-        Thermistor(thermistor_pins::THERMISTOR_PIN_3)
+        Thermistor(THERMISTOR_PINS::THERMISTOR_PIN_0), 
+        Thermistor(THERMISTOR_PINS::THERMISTOR_PIN_1),
+        Thermistor(THERMISTOR_PINS::THERMISTOR_PIN_2),
+        Thermistor(THERMISTOR_PINS::THERMISTOR_PIN_3)
     },
-    fans
+    m_fans
     {
-        Fan(fan_pins::FAN_PIN_0),
-        Fan(fan_pins::FAN_PIN_1),
-        Fan(fan_pins::FAN_PIN_2),
-        Fan(fan_pins::FAN_PIN_3)
-    }
-{
-    m_can = can;
-}
+        Fan(FAN_PINS::FAN_PIN_0),
+        Fan(FAN_PINS::FAN_PIN_1),
+        Fan(FAN_PINS::FAN_PIN_2),
+        Fan(FAN_PINS::FAN_PIN_3)
+    },
+    m_can(can)
+{}
 
 
 // @return An array of temperatures measured by each thermistor
@@ -30,9 +29,9 @@ float* TempSubsystem::getTemperature()
 {
     for(int i=0; i<NUM_THERMISTORS; i++)
     {
-        this->temperature[i] = this->thermistors[i].getTemperature();
+        m_temperature[i] = m_thermistors[i].getTemperature();
     }
-    return this->temperature;
+    return m_temperature;
 }
 
 // Set the power of the fans
@@ -42,7 +41,7 @@ void TempSubsystem::setFansPower(int power)
 
     for (int i = 0; i < NUM_FANS; i++)
     {
-        this->fans[i].setPower(power);
+        m_fans[i].setPower(power);
     }
 }
 
@@ -52,7 +51,7 @@ void TempSubsystem::updateFans()
     float avgTemp = 0;
     for (int i = 0; i < NUM_THERMISTORS; i++)
     {
-        avgTemp += temperature[i];
+        avgTemp += m_temperature[i];
     }
     avgTemp /= NUM_THERMISTORS;
     if(avgTemp > MAX_TEMP)

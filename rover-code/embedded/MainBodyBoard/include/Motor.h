@@ -9,10 +9,10 @@
 class Motor {
     public:
         Motor();
-        Motor(pwm_pins pwm_pin);
+        Motor(PWM_PINS pwm_pin);
         void setSpeed(float duty_cycle_us);
     private:
-        pwm_pins pwm_pin;
+        PWM_PINS pwm_pin;
         Servo motor;
 };
 #endif

@@ -1,4 +1,4 @@
-- Embedded Firmware
+- Embedded Firmware (C++)
     - Main Body Board (Teensy 4.1)
         - Drive base control
         - Temperature control

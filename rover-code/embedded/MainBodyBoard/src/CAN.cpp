@@ -70,7 +70,7 @@ void CAN::CANSniff(const CANFD_message_t &msg)
 }
 
 // Send a message to the CAN bus
-void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
+void CAN::sendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 {
   // Create a message
   CANFD_message_t msg;
@@ -96,12 +96,12 @@ void CAN::SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8])
 }
 
 // Retrieve a message from the object dictionary
-CANFD_message_t CAN::GetMessage(Message_ID id)
+CANFD_message_t CAN::getMessage(Message_ID id)
 {
   return m_objectDict[id];
 }
 
-bool CAN::NewMessage(Message_ID id)
+bool CAN::newMessage(Message_ID id)
 {
     auto it = m_messageFlag.find(id);
     if (it != m_messageFlag.end()) {

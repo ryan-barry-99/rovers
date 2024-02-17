@@ -1,7 +1,7 @@
 #include "../../include/Wheel.h"
 
 
-Wheel::Wheel(pwm_pins pwm_pin, enc_A_pins enc_A_pin, enc_B_pins enc_B_pin, double kp, double ki, double kd) 
+Wheel::Wheel(PWM_PINS pwm_pin, ENC_A_PINS enc_A_pin, ENC_B_PINS enc_B_pin, double kp, double ki, double kd) 
     : motor(pwm_pin), encoder(enc_A_pin, enc_B_pin), pid(kp, ki, kd){
 
     this->targetSpeed = 0;
