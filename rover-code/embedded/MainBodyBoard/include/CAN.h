@@ -25,9 +25,9 @@ class CAN
 
         CAN(CAN_MB mailBox);
 
-        void SendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8]);
-        CANFD_message_t GetMessage(Message_ID id);
-        bool NewMessage(Message_ID id);
+        void sendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8]);
+        CANFD_message_t getMessage(Message_ID id);
+        bool newMessage(Message_ID id);
 
     private:
         FlexCAN_T4FD<CAN2, RX_SIZE_256, TX_SIZE_16> m_CAN;

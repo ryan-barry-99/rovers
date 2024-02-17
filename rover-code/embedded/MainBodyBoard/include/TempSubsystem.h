@@ -41,13 +41,13 @@ class TempSubsystem {
         void updateFans(void);
     private:
         // Array of Thermistor objects
-        Thermistor thermistors[NUM_THERMISTORS];
+        Thermistor m_thermistors[NUM_THERMISTORS];
 
         // Array of Fan objects
-        Fan fans[NUM_FANS];
+        Fan m_fans[NUM_FANS];
 
         // Array of temperature readings
-        float temperature[NUM_THERMISTORS];
+        float m_temperature[NUM_THERMISTORS];
 
         // Pointer to the CAN object
         CAN *m_can;

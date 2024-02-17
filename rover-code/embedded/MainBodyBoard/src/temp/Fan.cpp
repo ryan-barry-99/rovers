@@ -1,14 +1,12 @@
-#include "../include/Fan.h"
+#include "../../include/Fan.h"
 
-Fan::Fan(fan_pins pin)
+Fan::Fan(FAN_PINS pin) : m_pin(pin)
 {
-    this->pin = pin;
     pinMode(pin, OUTPUT);
-    //pwm pin to control fan speed
 }
 
-void Fan::setPower(int power)
+void Fan::setPower(int pwm_signal)
 {
-    analogWrite(pin, power);
+    analogWrite(m_pin, pwm_signal);
     // four fans
 }

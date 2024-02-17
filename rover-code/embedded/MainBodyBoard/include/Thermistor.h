@@ -19,7 +19,7 @@ class Thermistor {
         * Constructor for the thermistor class.
         * Initializes the thermistor.
         */
-        Thermistor(thermistor_pins thermistor_pin);
+        Thermistor(THERMISTOR_PINS thermistor_pin);
 
         /*
         * @return The temperature measured by the thermistor
@@ -29,8 +29,8 @@ class Thermistor {
         /*
         * The pin that the thermistor is connected to
         */
-        thermistor_pins thermistor_pin;
-        float temperature;
+        THERMISTOR_PINS m_thermistorPin;
+        float m_temperature;
 };
 
 #endif
