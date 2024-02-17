@@ -25,6 +25,8 @@ class MainBodyBoard {
         */
         MainBodyBoard();
         ~MainBodyBoard();
+
+        void updateSubsystems(void);
     private:
         CAN can = CAN( CAN::CAN_MB::MAIN_BODY );
         DriveBase drive_base = DriveBase(&can);
