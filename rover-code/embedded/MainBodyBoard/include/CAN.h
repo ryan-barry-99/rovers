@@ -7,8 +7,10 @@ class CAN
 {
     public: 
         typedef enum {
+            E_STOP = (uint32_t) 0,
             TARGET_VELOCITY = (uint32_t) 1,
             CURRENT_VELOCITY = (uint32_t) 2,
+            
         } Message_ID;
 
         typedef std::unordered_map<Message_ID, CANFD_message_t> ObjectDictionary;   
@@ -34,5 +36,6 @@ class CAN
         static ObjectDictionary m_objectDict;
         static MessageFlag m_messageFlag;
         static void CANSniff(const CANFD_message_t &msg);
+        static bool IsEStop(const CANFD_message_t &msg);
 };
 #endif
