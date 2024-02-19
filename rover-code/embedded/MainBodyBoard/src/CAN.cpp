@@ -5,7 +5,9 @@ CAN::CAN(CAN_MB mailBox)
 {
   m_CAN.enableMBInterrupt((FLEXCAN_MAILBOX) mailBox);
 
-  
+  // Set stop message to 0
+  m_objectDict.at(CAN::E_STOP) = CANFD_message_t();
+
   m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
   m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON,        TX, STD); // Set the mailbox to transmit
   m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
@@ -43,6 +45,9 @@ CAN::MessageFlag CAN::m_messageFlag;
 void CAN::CANSniff(const CANFD_message_t &msg)
 {
   Message_ID id = static_cast<Message_ID>(msg.id);
+
+  // Check if the message will need to be filtered due to an E-Stop
+  if(IsEStop(msg)){return;}
 
   // Check if the ID exists in the m_objectDict map
   if (m_objectDict.find(id) == m_objectDict.end()) {
@@ -110,4 +115,45 @@ bool CAN::newMessage(Message_ID id)
         // No message has been received yet at this ID
         return false;
     }
+}
+
+bool CAN::IsEStop(const CANFD_message_t &msg)
+{
+  //if the message E_STOP is off in object dictionary 
+  if(m_objectDict.at(CAN::E_STOP).id == 0)
+  {
+    // if the message is an E-Stop message and the E-Stop is non active turn on the E-Stop
+    if(msg.id == CAN::E_STOP && msg.buf[0] == 1)
+    {
+      // for each message in the object dictionary, set the message flag to true and clear the message buffer
+      for(const auto &message : m_objectDict)
+      {
+        if(message.first != CAN::E_STOP)
+        {
+          m_messageFlag[message.first] = true;
+          for(int i = 0; i < 8; i++)
+          {
+            m_objectDict[message.first].buf[i] = 0;
+          }
+        }
+      }
+
+      // filter out the message from canSniff
+      return true;
+    }
+
+    // normal state, do not filter the message
+    return false;
+  }
+  else
+  {
+    // if the message is an E-Stop message that is and the E-Stop is active turn off the E-Stop
+    if(msg.id == CAN::E_STOP && msg.buf[0] == 0)
+    {
+      // do not filter the message. E-Stop will turn off naturally with canSniff
+      return false;
+    }
+    // E_STOP is active, filter all messages
+    return true;
+  }
 }

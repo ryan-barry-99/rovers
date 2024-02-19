@@ -11,3 +11,10 @@ MainBodyBoard::~MainBodyBoard()
 {
     
 }
+
+void MainBodyBoard::updateSubsystems(void)
+{
+    drive_base.updateVelocity();
+    temp_subsystem.updateFans();
+}
+

@@ -54,6 +54,7 @@ void TempSubsystem::updateFans()
         avgTemp += m_temperature[i];
     }
     avgTemp /= NUM_THERMISTORS;
+
     if(avgTemp > MAX_TEMP)
     {
         setFansPower(MAX_FAN_SPEED);
@@ -64,7 +65,10 @@ void TempSubsystem::updateFans()
     }
     else
     {
-
+        float deltaTemp = MAX_TEMP - MIN_TEMP;
+        float deltaPower = MAX_FAN_SPEED - MIN_FAN_SPEED;
+        
+        int power = (avgTemp - MIN_TEMP) / deltaTemp * deltaPower + MIN_FAN_SPEED;
         setFansPower(0); // change later
     }
 }
