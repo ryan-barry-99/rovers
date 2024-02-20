@@ -33,6 +33,7 @@ public:
     bool isTurning();
     TURN_DIRECTION getTurnDirection();
     void setTurnDirection(TURN_DIRECTION direction);
+    void update();
 };
 
 #endif

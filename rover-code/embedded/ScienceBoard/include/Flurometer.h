@@ -18,6 +18,8 @@ class Flurometer
     bool isPumping(); 
     FLURO_POS currPos(); 
     
+    void update(void);
+
   private:
     CAN *can;
     MicroPump *pump;

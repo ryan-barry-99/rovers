@@ -16,7 +16,7 @@
 class ScienceBoard
 {
     private:
-        CAN can = CAN( CAN_MB::SCIENCE_BOARD );
+        CAN can = CAN( CAN::CAN_MB::SCIENCE_BOARD );
         SoilCollector soilCollector = SoilCollector( &can);
         SoilTransferer soilTransferer = SoilTransferer( &can);;
         Flurometer flurometer = Flurometer( &can);
@@ -24,5 +24,6 @@ class ScienceBoard
 public:
     ScienceBoard();
     ~ScienceBoard();
+    void UpdateSubsystems(void);
 };
 #endif
