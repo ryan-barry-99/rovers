@@ -29,7 +29,8 @@ class SoilTransferer
         std::array<bool, 6> activeVibrators();  
         
         void setVibrator(VIBRATOR_PINS pin, bool active);
-
+        void update(void);
+        
     private:
  
         StepperMotor<double> caroMotor = StepperMotor<double>(STEPPER_PINS::SOILTRANSFER);
