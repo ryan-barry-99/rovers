@@ -31,6 +31,10 @@ CANopen communication:
         7: with brake motor, brake multi-turn absolute value funtion, power on multi-turn position update in the absolute position register
 
     Format:
+        Node-ID —— That is, the servo station number, the node-id range is 1 ~ 127;
+
+
+
         SOF: 1 bit -> interframe space
         Identifier: 11 bit -> 0 to 255 
         RTR: 1 bit -> 0: data frame(must be used for EasyCan), 1: remote frame
@@ -58,28 +62,34 @@ SDO communication:
     
     
 """
-"""
-import openCAN;
+import can;
+import canopen;
 
 class ArmMotor:
-    def __init__(self, can_interface: openCAN.CANInterface, motor_id: int):
-        self.can_interface = can_interface
+    def __init__(self, network: canopen.Network , motor_id: int, ):
+        # self.can_interface = can_interface
         self.motor_id = motor_id
+        self.newwork = network
 
-    def send_position(self, position: int):
-        # Construct a CAN message with the motor ID and position
-        message = openCAN.CANMessage(self.motor_id, position)
-        # Send the message using the CAN interface
-        self.can_interface.send_message(message)
-
-    def get_position(self) -> int:
-        # Request the current position from the motor
-        self.can_interface.send_message(openCAN.CANMessage(self.motor_id, 'GET_POSITION'))
-        # Wait for a response
-        response = self.can_interface.receive_message()
-        # Return the position from the response
-        return response.data
+        self.newwork.add_node(motor_id, None) # last parameter is the object dictionary, I don't know what that is
 
 
-"""
+        # motor_network = canopen.Network()
+        # motor_network.connect(bustype='socketcan', channel=can_interface)
+        
+
+
+    # def send_position(self, position: int):
+    #     # Construct a CAN message with the motor ID and position
+    #     message = openCAN.CANMessage(self.motor_id, position)
+    #     # Send the message using the CAN interface
+    #     self.can_interface.send_message(message)
+
+    # def get_position(self) -> int:
+    #     # Request the current position from the motor
+    #     self.can_interface.send_message(openCAN.CANMessage(self.motor_id, 'GET_POSITION'))
+    #     # Wait for a response
+    #     response = self.can_interface.receive_message()
+    #     # Return the position from the response
+    #     return response.data
     
