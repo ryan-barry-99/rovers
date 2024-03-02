@@ -35,3 +35,9 @@ bool Flurometer::foundLife()
 bool Flurometer::isPumping() {return this->pumping;}
 
 FLURO_POS Flurometer::currPos() {return this->position;}
+
+void Flurometer::update(void)
+{
+    //this->pump->update();
+    //this->stepper->update();
+}
