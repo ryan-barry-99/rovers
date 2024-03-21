@@ -3,10 +3,14 @@
 
 MainBodyBoard mbb;
 
-void setup() {
-  
+void setup() 
+{
+  mbb = MainBodyBoard();
 }
 
-void loop() {
+void loop() 
+{
+    mbb.updateSubsystems();
+    delay(1);
 }
 

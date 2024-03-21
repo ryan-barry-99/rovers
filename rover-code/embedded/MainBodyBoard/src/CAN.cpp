@@ -33,13 +33,13 @@ CAN::CAN(CAN_MB mailBox)
 
   // Set the interrupt to call the canSniff function
   m_CAN.onReceive((FLEXCAN_MAILBOX)mailBox, &CAN::CANSniff);
-  
+  m_isEStop = false;
 }
 
-// Create an object dictionary to store the messages
-CAN::ObjectDictionary CAN::m_objectDict;
-// Create a message flag map to track new messages
-CAN::MessageFlag CAN::m_messageFlag;
+// // Create an object dictionary to store the messages
+// CAN::ObjectDictionary CAN::m_objectDict;
+// // Create a message flag map to track new messages
+// CAN::MessageFlag CAN::m_messageFlag;
 
 // Function to be called when a message is recieved
 void CAN::CANSniff(const CANFD_message_t &msg)
@@ -137,7 +137,7 @@ bool CAN::IsEStop(const CANFD_message_t &msg)
           }
         }
       }
-
+      m_isEStop = true;
       // filter out the message from canSniff
       return true;
     }
@@ -151,9 +151,15 @@ bool CAN::IsEStop(const CANFD_message_t &msg)
     if(msg.id == CAN::E_STOP && msg.buf[0] == 0)
     {
       // do not filter the message. E-Stop will turn off naturally with canSniff
+      m_isEStop = false;
       return false;
     }
     // E_STOP is active, filter all messages
     return true;
   }
+}
+
+bool CAN::IsEStop()
+{
+  return m_isEStop;
 }
