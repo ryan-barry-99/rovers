@@ -33,7 +33,6 @@ enum CAN_PINS {
     CAN_TX_PIN = 1
 };
 
-
 enum THERMISTOR_PINS {
     THERMISTOR_PIN_0 = 20,
     THERMISTOR_PIN_1 = 21,
@@ -47,5 +46,7 @@ enum FAN_PINS {
     FAN_PIN_2 = 24,
     FAN_PIN_3 = 25
 };
+
+#define STATUS_LIGHT_PIN 26
 
 #endif

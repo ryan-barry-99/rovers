@@ -30,6 +30,7 @@ class CAN
         void sendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8]);
         CANFD_message_t getMessage(Message_ID id);
         bool newMessage(Message_ID id);
+        static bool IsEStop();
 
     private:
         FlexCAN_T4FD<CAN2, RX_SIZE_256, TX_SIZE_16> m_CAN;
@@ -37,5 +38,7 @@ class CAN
         static MessageFlag m_messageFlag;
         static void CANSniff(const CANFD_message_t &msg);
         static bool IsEStop(const CANFD_message_t &msg);
+        static bool m_isEStop;
+        
 };
 #endif
