@@ -2,7 +2,7 @@
 
 MainBodyBoard::MainBodyBoard()
 {
-    #ifndef DEBUG_STATUS_LIGHT
+    #ifndef DISABLE_STATUS_LIGHT
     pinMode(STATUS_LIGHT_PIN, OUTPUT);
     #endif
 }
@@ -14,7 +14,7 @@ MainBodyBoard::~MainBodyBoard()
 
 void MainBodyBoard::updateSubsystems(void)
 {
-    #ifndef DEBUG_STATUS_LIGHT
+    #ifndef DISABLE_STATUS_LIGHT
     if(statusLightWait == 0)
     {
         if(statusLightOn)
@@ -33,9 +33,14 @@ void MainBodyBoard::updateSubsystems(void)
     {
         statusLightWait--;
     }
+
+    #ifdef DEBUG_STATUS_LIGHT
+    Serial.println("Status Light: " + String(statusLightOn));
     #endif
 
-    #ifndef DEBUG_CAN || DEBUG_STATUS_LIGHT
+    #endif
+
+    #ifndef DISABLE_CAN || DISABLE_STATUS_LIGHT
     if(can.isEStop())
     {
         statusLightWait = -1;
@@ -47,11 +52,11 @@ void MainBodyBoard::updateSubsystems(void)
     }
     #endif
 
-    #ifndef DEBUG_CAN || DEBUG_DRIVEBASE
+    #ifndef DISABLE_CAN || DISABLE_DRIVEBASE
     drive_base.updateVelocity();
     #endif
 
-    #ifndef DEBUG_CAN || DEBUG_TEMP
+    #ifndef DISABLE_CAN || DISABLE_TEMP
     temp_subsystem.updateFans();
     #endif
 }

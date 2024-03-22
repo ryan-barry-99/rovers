@@ -6,6 +6,7 @@ MainBodyBoard mbb;
 void setup() 
 {
   mbb = MainBodyBoard();
+  Serial.begin(9600);
 }
 
 void loop() 
