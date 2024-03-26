@@ -65,13 +65,20 @@ SDO communication:
 import can;
 import canopen;
 
+
 class ArmMotor:
     def __init__(self, network: canopen.Network , motor_id: int, ):
         # self.can_interface = can_interface
         self.motor_id = motor_id
-        self.newwork = network
+        self.network = network
+        
+        Dictionary = canopen.ObjectDictionary()
+        node = canopen.RemoteNode(motor_id, Dictionary)
+        self.network.add_node(node)
 
-        self.newwork.add_node(motor_id, None) # last parameter is the object dictionary, I don't know what that is
+        node.load_configuration()
+        node.tpdo.read()
+        node.rpdo.read()
 
 
         # motor_network = canopen.Network()

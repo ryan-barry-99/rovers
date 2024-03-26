@@ -13,7 +13,7 @@ class CAN
             
         } Message_ID;
 
-        typedef std::unordered_map<Message_ID, CANFD_message_t> ObjectDictionary;   
+        typedef std::unordered_map<Message_ID, CAN_message_t> ObjectDictionary;   
         typedef std::unordered_map<Message_ID, bool> MessageFlag;
 
         enum CAN_MB{
@@ -28,17 +28,18 @@ class CAN
         CAN(CAN_MB mailBox);
 
         void sendMessage( CAN_MB mailBox, Message_ID id, uint8_t message[8]);
-        CANFD_message_t getMessage(Message_ID id);
+        CAN_message_t getMessage(Message_ID id);
         bool newMessage(Message_ID id);
-        static bool IsEStop();
-
+        // static bool IsEStop();
+        static bool IsEStop(const CAN_message_t &msg);
+        void TEST();
     private:
-        FlexCAN_T4FD<CAN2, RX_SIZE_256, TX_SIZE_16> m_CAN;
+        FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> m_CAN;
         static ObjectDictionary m_objectDict;
         static MessageFlag m_messageFlag;
-        static void CANSniff(const CANFD_message_t &msg);
-        static bool IsEStop(const CANFD_message_t &msg);
-        static bool m_isEStop;
+        static void CANSniff(const CAN_message_t &msg);
+        
+        // static bool m_isEStop;
         
 };
 #endif
