@@ -18,6 +18,7 @@ The main body board is responsible for:
 #include "TempSubsystem.h"
 #include "DEBUG.h"
 #include "Pinout.h"
+#include <Arduino.h>
 
 class MainBodyBoard {
     public:
@@ -34,16 +35,15 @@ class MainBodyBoard {
         bool statusLightOn = false;
         int statusLightWait = 0;
         #endif
-
         #ifndef DISABLE_CAN
         CAN can = CAN( CAN::CAN_MB::MAIN_BODY );
         #endif
 
-        #ifndef DISABLE_DRIVEBASE || DISABLE_CAN
+        #ifndef DISABLE_DRIVEBASE
         DriveBase drive_base = DriveBase(&can);
         #endif
 
-        #ifndef DISABLE_TEMP || DISABLE_CAN
+        #ifndef DISABLE_TEMP
         TempSubsystem temp_subsystem = TempSubsystem(&can);
         #endif
 };

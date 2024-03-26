@@ -39,24 +39,28 @@ void MainBodyBoard::updateSubsystems(void)
     #endif
 
     #endif
+    
+    //can.sendMessage(CAN::CAN_MB::JETSON,CAN::Message_ID::E_STOP, (uint8_t*)"Hello");
 
-    #ifndef DISABLE_CAN || DISABLE_STATUS_LIGHT
-    if(can.isEStop())
-    {
-        statusLightWait = -1;
-        digitalWrite(STATUS_LIGHT_PIN, HIGH);
-    }
-    else if(statusLightWait < 0)
-    {
-        statusLightWait = 0;
-    }
-    #endif
+    digitalWrite(STATUS_LIGHT_PIN, HIGH);
 
-    #ifndef DISABLE_CAN || DISABLE_DRIVEBASE
+    // #ifndef DISABLE_CAN || DISABLE_STATUS_LIGHT
+    // if(can.IsEStop(can.getMessage(CAN::Message_ID::E_STOP)))
+    // {
+    //     statusLightWait = -1;
+    //     digitalWrite(STATUS_LIGHT_PIN, HIGH);
+    // }
+    // else if(statusLightWait < 0)
+    // {
+    //     statusLightWait = 0;
+    // }
+    // #endif
+
+    #ifndef DISABLE_DRIVEBASE
     drive_base.updateVelocity();
     #endif
 
-    #ifndef DISABLE_CAN || DISABLE_TEMP
+    #ifndef DISABLE_TEMP
     temp_subsystem.updateFans();
     #endif
 }
