@@ -40,8 +40,9 @@ void MainBodyBoard::updateSubsystems(void)
 
     #endif
     
-    //can.sendMessage(CAN::CAN_MB::JETSON,CAN::Message_ID::E_STOP, (uint8_t*)"Hello");
-
+    can.sendMessage(CAN::CAN_MB::JETSON,CAN::Message_ID::E_STOP, (uint8_t*)1);
+    can.TEST();
+    
     digitalWrite(STATUS_LIGHT_PIN, HIGH);
 
     // #ifndef DISABLE_CAN || DISABLE_STATUS_LIGHT

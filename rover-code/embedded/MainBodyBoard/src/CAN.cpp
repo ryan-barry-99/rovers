@@ -5,7 +5,6 @@
 CAN::CAN(CAN_MB mailBox)
 {
   
-  pinMode(STATUS_LIGHT_PIN, OUTPUT);
   m_CAN.enableMBInterrupt((FLEXCAN_MAILBOX) mailBox);
   
   // // Set stop message to 0
@@ -20,17 +19,17 @@ CAN::CAN(CAN_MB mailBox)
   m_objectDict[CAN::E_STOP] = stopMessage;
   
   
-  // m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
-  // m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON,        TX, STD); // Set the mailbox to transmit
-  // m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
-  // m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::MAIN_BODY,     TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::JETSON,        TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::SCIENCE_BOARD, TX, STD); // Set the mailbox to transmit
+  m_CAN.setMB( (FLEXCAN_MAILBOX)CAN::ARM_BOARD,     TX, STD); // Set the mailbox to transmit
 
             // FLEXCAN_MAILBOX::MB0, 
             // MAIN_BODY = FLEXCAN_MAILBOX::MB1, 
             // SCIENCE_BOARD = FLEXCAN_MAILBOX::MB2,
             // ARM_BOARD = FLEXCAN_MAILBOX::MB3
 
-  // m_CAN.setMB( FLEXCAN_MAILBOX::MB1, RX,FLEXCAN_IDE::STD); // Set the mailbox to receive
+  m_CAN.setMB( FLEXCAN_MAILBOX::MB1, RX,FLEXCAN_IDE::STD); // Set the mailbox to receive
 
   // Start the CAN bus
   m_CAN.begin(); // <- This is needed
@@ -182,3 +181,8 @@ bool CAN::IsEStop(const CAN_message_t &msg)
 // {
 //   return m_isEStop;
 // }
+
+void CAN::TEST()
+{
+  Serial.println(m_CAN.events());
+}

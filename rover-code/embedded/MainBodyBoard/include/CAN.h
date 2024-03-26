@@ -32,8 +32,9 @@ class CAN
         bool newMessage(Message_ID id);
         // static bool IsEStop();
         static bool IsEStop(const CAN_message_t &msg);
+        void TEST();
     private:
-        FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> m_CAN;
+        FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> m_CAN;
         static ObjectDictionary m_objectDict;
         static MessageFlag m_messageFlag;
         static void CANSniff(const CAN_message_t &msg);
