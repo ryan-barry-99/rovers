@@ -14,6 +14,7 @@ The software and firmware architecture is broken down into the following compone
 - Embedded Firmware
     - Main Body Board (Teensy 4.1)
         - Drive base control
+        - C++ version of drive base kinematics
         - Temperature control
 
     - Science Board (Teensy 4.1)
