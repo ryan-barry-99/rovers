@@ -1,7 +1,10 @@
 """
 File: ArmRobotKinematics.py
 
-This module contains thekineamt
+This module defines the ArmRobotKinematics class, which performs forward and inverse kinematic
+calculations of a robot based on its geometry defined in ArmRobot.py. It uses a Jacobian pseudoinverse
+method to perform inverse kinematics iteratively, and contains an empty function to implement an algebraic
+solution specific to a robot's geometry.
 
 Author: Ryan Barry
 Date created: June, 26 2023
