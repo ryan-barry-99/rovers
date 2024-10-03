@@ -1,0 +1,25 @@
+<launch>
+    <!-- Set camera indices -->
+    <!-- <node name="set_camera_indices" pkg="your_package_name" type="set_camera_indices.py" output="screen" /> -->
+
+    <!-- Launch node for the arm camera -->
+    <arg name="camera1_name" default="arm_camera"/>
+    <arg name="camera1_index" default="0"/>
+
+    <node pkg="cameras" type="Camera.py" name="arm_camera" output="screen">
+        <param name="name" value="$(arg camera1_name)"/>
+        <param name="camera_index" value="$(arg camera1_index)"/>
+    </node>
+
+    <!-- Launch node for the front camera -->
+    <node pkg="cameras" type="Camera.py" name="front_camera" output="screen">
+        <param name="name" value="front_camera"/>
+        <param name="camera_index" value="1"/>
+    </node>
+
+    <!-- Launch node for the science camera -->
+    <node pkg="cameras" type="Camera.py" name="science_camera" output="screen">
+        <param name="name" value="science_camera"/>
+        <param name="camera_index" value="2"/>
+    </node>
+</launch>

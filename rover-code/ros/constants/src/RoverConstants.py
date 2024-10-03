@@ -1,0 +1,64 @@
+from math import radians as rad
+
+# CONNECTION STATUS CONSTANTS
+CONNECTED = True
+NOT_CONNECTED = False
+
+# WAYPOINT STATUS CONSTANTS
+WAYPOINT_INACTIVE = 100
+WAYPOINT_ACTIVE = 101
+WAYPOINT_COMPLETE = 102
+
+# MISSION CONSTANTS
+EXTREME_RETRIEVAL_DELIVERY = 200
+SCIENCE = 201
+AUTONOMOUS = 202
+EQUIPMENT_SERVICING = 203
+missions = [EXTREME_RETRIEVAL_DELIVERY, SCIENCE, AUTONOMOUS, EQUIPMENT_SERVICING]
+
+# OPERATING MODE CONSTANTS
+AUTONOMOUS_MODE = 300
+DRIVER_CONTROL_MODE = 301
+TEST_MODE = 302
+
+# SCIENCE CONSTANTS
+LIPID_DETECTED = 400
+LIPID_NOT_DETECTED = 401
+DNA_DETECTED = 402
+DNA_NOT_DETECTED = 403
+
+# LED STATUS CONSTANTS
+OFF = 500
+ON = 501
+BLUE = 502
+RED = 503
+GREEN = 504
+
+# ERROR CONSTANTS
+MISSION_FAILURE = 600
+
+# DRIVE BASE ATTRIBUTES
+WHEEL_RADIUS = 0.0762  # (m)
+BASE_WIDTH = [0.42,0.31,0.40,0.44,0.31,0.40]  # (m)
+GAMMA = [0, 0, 0, 0, 0, 0]
+ALPHA = [rad(44), rad(83), rad(126.5), rad(230), rad(265), rad(304)]
+BETA = [
+    rad(90) - ALPHA[0], 
+    rad(90) - ALPHA[1],
+    rad(90) - ALPHA[2], 
+    rad(270) - ALPHA[3], 
+    rad(270) - ALPHA[4], 
+    rad(270) - ALPHA[5]
+    ]
+
+WHEEL_NAMES = [
+    "front_left_wheel",
+    "middle_left_wheel",
+    "back_left_wheel",
+    "front_right_wheel",
+    "middle_right_wheel",
+    "back_right_wheel",
+]
+KP = [1.0, 1.0, 1.0, 1.0, 1.0]
+KI = [0.1, 0.1, 0.1, 0.1, 0.1]
+KD = [0.1, 0.1, 0.1, 0.1, 0.1]

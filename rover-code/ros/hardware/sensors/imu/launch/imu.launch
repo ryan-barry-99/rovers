@@ -1,0 +1,10 @@
+<launch>
+    <!-- Launch the DriveBase node -->
+    <node name="IMU_node"
+          pkg="imu"
+          type="IMU.py"
+          output="screen"
+          respawn="false">
+        <!-- Add any necessary parameters here -->
+    </node>
+</launch>

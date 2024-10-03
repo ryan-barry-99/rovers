@@ -1,0 +1,14 @@
+<launch>
+
+    <!-- Launch communications nodes -->
+    <include file="$(find communications)/launch/can.launch"/>
+
+    <!-- Launch sensor nodes -->
+    <!-- <include file="$(find cameras)/launch/Cameras.launch"/> -->
+    <include file="$(find imu)/launch/imu.launch"/>
+
+    <!-- Launch subsystem nodes -->
+    <include file="$(find drive_base)/launch/drivebase.launch"/>
+    <include file="$(find arm)/launch/arm.launch"/>
+
+</launch>
